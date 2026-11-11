@@ -1,0 +1,14 @@
+{
+  "name": "all-websites-3d",
+  "version": "1.0.0",
+  "description": "3D Interactive Websites Hub",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "serve": "node server.js"
+  },
+  "keywords": ["3d", "threejs", "webgl"],
+  "author": "",
+  "license": "ISC"
+}
