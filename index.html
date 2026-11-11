@@ -344,45 +344,227 @@
       box-shadow: 0 20px 44px -20px rgba(0, 0, 0, 0.8);
     }
 
-    /* Clean architectural visual header inside card */
-    .card-preview {
+    /* Visual Showcase Stage inside Project Cards */
+    .card-stage {
       position: relative;
-      padding: 1.15rem 1.35rem;
+      height: 210px;
       border-bottom: 1px solid var(--border);
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.005));
+      overflow: hidden;
+      background: #0c0d12;
+    }
+    .card-stage-inner {
+      width: 100%;
+      height: 100%;
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .project-card:hover .card-stage-inner { transform: scale(1.03); }
+    .stage-overlay {
+      position: absolute;
+      inset: 0;
+      padding: 0.9rem 1.05rem;
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      gap: 0.75rem;
+      align-items: flex-start;
+      pointer-events: none;
+      background: linear-gradient(180deg, rgba(9, 9, 11, 0.45) 0%, transparent 45%, rgba(9, 9, 11, 0.7) 100%);
     }
-    .card-preview-left {
-      display: flex;
+    .stage-label {
+      display: inline-flex;
       align-items: center;
-      gap: 0.75rem;
-    }
-    .card-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
-      display: grid;
-      place-items: center;
-      font-size: 1.05rem;
-      border: 1px solid var(--border);
-    }
-    .card-type {
+      gap: 0.45rem;
+      padding: 0.28rem 0.65rem;
+      border-radius: 8px;
+      background: rgba(9, 9, 11, 0.78);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(8px);
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.74rem;
-      color: var(--text-muted);
+      font-size: 0.72rem;
+      color: var(--text);
     }
     .status-pill {
       display: inline-flex;
       align-items: center;
       gap: 0.35rem;
-      padding: 0.26rem 0.65rem;
+      padding: 0.28rem 0.7rem;
       border-radius: 999px;
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.72rem;
       font-weight: 600;
+    }
+
+    /* Bespoke Product Mockup Stages */
+    .stage-metshield {
+      height: 100%;
+      padding: 3.1rem 1.2rem 1rem;
+      background: radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.22), transparent 55%),
+                  linear-gradient(135deg, #071411 0%, #0b111d 100%);
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 1rem;
+      align-items: center;
+    }
+    .stage-seal {
+      width: 78px;
+      height: 78px;
+      border-radius: 999px;
+      object-fit: cover;
+      border: 2px solid rgba(16, 185, 129, 0.55);
+      box-shadow: 0 8px 24px rgba(16, 185, 129, 0.22);
+    }
+    .tele-mini {
+      background: rgba(9, 14, 24, 0.85);
+      border: 1px solid rgba(16, 185, 129, 0.24);
+      border-radius: 10px;
+      padding: 0.65rem 0.85rem;
+    }
+    .tele-mini-metrics {
+      display: flex;
+      gap: 0.85rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.73rem;
+      color: #a7f3d0;
+      margin-bottom: 0.35rem;
+    }
+
+    .stage-browser {
+      height: 100%;
+      padding: 3.1rem 1.1rem 0;
+      background: radial-gradient(circle at 20% 20%, rgba(56, 189, 248, 0.22), transparent 55%),
+                  linear-gradient(135deg, #081222 0%, #0d0f17 100%);
+      display: flex;
+      align-items: flex-end;
+    }
+    .browser-mockup {
+      width: 100%;
+      height: 100%;
+      background: #131620;
+      border: 1px solid rgba(56, 189, 248, 0.28);
+      border-bottom: none;
+      border-radius: 12px 12px 0 0;
+      padding: 0.65rem 0.85rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+    }
+    .browser-chrome {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .dots { display: flex; gap: 5px; }
+    .dots span { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.22); }
+    .browser-url {
+      flex: 1;
+      padding: 0.25rem 0.6rem;
+      border-radius: 6px;
+      background: rgba(0, 0, 0, 0.45);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: #7dd3fc;
+    }
+    .browser-center {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      padding: 0.35rem 0.25rem;
+    }
+    .app-emblem {
+      width: 54px;
+      height: 54px;
+      border-radius: 12px;
+      object-fit: contain;
+      background: rgba(255, 255, 255, 0.04);
+      padding: 4px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .stage-player {
+      height: 100%;
+      padding: 3.1rem 1.1rem 0;
+      background: radial-gradient(circle at 80% 15%, rgba(248, 113, 113, 0.22), transparent 55%),
+                  linear-gradient(135deg, #1b0a0d 0%, #0b0b10 100%);
+      display: flex;
+      align-items: flex-end;
+    }
+    .player-mockup {
+      width: 100%;
+      height: 100%;
+      background: #120e12;
+      border: 1px solid rgba(248, 113, 113, 0.28);
+      border-bottom: none;
+      border-radius: 12px 12px 0 0;
+      padding: 0.7rem 0.9rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .player-screen {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+    }
+    .player-bar {
+      height: 5px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.12);
+      overflow: hidden;
+    }
+    .player-bar-fill {
+      width: 68%;
+      height: 100%;
+      background: linear-gradient(90deg, #ef4444, #fb7185);
+    }
+
+    .stage-screenshot {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+      filter: brightness(0.92) contrast(1.04);
+    }
+
+    .card-title-group {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .card-mini-icon {
+      width: 26px;
+      height: 26px;
+      border-radius: 6px;
+      object-fit: cover;
+      border: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .tech-badges-visual {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+    }
+    .tech-visual-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.35rem 0.7rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.03);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.76rem;
+      color: var(--text-secondary);
+    }
+    .tech-visual-pill img { width: 15px; height: 15px; }
+    .cta-avatar {
+      width: 58px;
+      height: 58px;
+      border-radius: 999px;
+      object-fit: cover;
+      border: 2px solid rgba(16, 185, 129, 0.5);
     }
 
     .card-body {
@@ -783,6 +965,18 @@
             <p>Next.js, TypeScript, Recharts, Three.js WebGL, Python, Streamlit, ed25519 custody &amp; STIX 2.1.</p>
           </div>
         </div>
+
+        <div class="tech-badges-visual" aria-label="Technology icons">
+          <span class="tech-visual-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg" alt="" /> C# / .NET 4.8</span>
+          <span class="tech-visual-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" alt="" /> C / C++</span>
+          <span class="tech-visual-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kotlin/kotlin-original.svg" alt="" /> Kotlin</span>
+          <span class="tech-visual-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg" alt="" /> Flutter</span>
+          <span class="tech-visual-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/android/android-original.svg" alt="" /> Android</span>
+          <span class="tech-visual-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt="" /> TypeScript</span>
+          <span class="tech-visual-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" alt="" style="filter: invert(1);" /> Next.js</span>
+          <span class="tech-visual-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="" /> Python</span>
+          <span class="tech-visual-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/threejs/threejs-original.svg" alt="" style="filter: invert(1);" /> Three.js</span>
+        </div>
       </div>
     </section>
 
@@ -790,9 +984,12 @@
     <section id="connect" style="padding-top: 1rem;">
       <div class="container">
         <div class="cta-band">
-          <div>
-            <h2>Let's build something reliable.</h2>
-            <p>Open to Embedded Systems, IoT, Android/Flutter, and Systems Engineering roles &amp; hackathon collaborations.</p>
+          <div style="display: flex; align-items: center; gap: 1.15rem;">
+            <img src="https://avatars.githubusercontent.com/u/251188287?v=4" alt="Shivam Kumar Mehta" class="cta-avatar" />
+            <div>
+              <h2>Let's build something reliable.</h2>
+              <p>Open to Embedded Systems, IoT, Android/Flutter, and Systems Engineering roles &amp; hackathon collaborations.</p>
+            </div>
           </div>
           <div style="display: flex; flex-wrap: wrap; gap: 0.65rem;">
             <a href="https://www.linkedin.com/in/shivam-kumar-mehta" target="_blank" rel="noopener noreferrer" class="btn btn-primary">

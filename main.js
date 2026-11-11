@@ -30,6 +30,8 @@ const PROJECTS = [
     defaultVersion: 'SIH26073',
     website: 'https://aws2026-nu.vercel.app',
     github: `https://github.com/${GITHUB_USER}/MetShield-AI`,
+    iconImg: 'assets/jatayu-seal.jpg',
+    detailImg: 'assets/metshield-architecture.png',
     architecture:
       'Streams 20 simulated AWS telemetry nodes with a sliding ring-buffer persistence layer, Web Generic Sensor API barometric ingestion, and a 3-tier WMO-No. 8 thermodynamic storm-vs-spike classifier.'
   },
@@ -59,6 +61,8 @@ const PROJECTS = [
     defaultVersion: 'v0.1.1-portable',
     website: null,
     github: `https://github.com/${GITHUB_USER}/Black-Firefox`,
+    iconImg: 'assets/black-firefox-icon.png',
+    detailImg: null,
     architecture:
       'Single-executable WinForms shell embedding evergreen WebView2 runtime with custom Proton tab chrome, declarative request blocking hooks, and local JSON state.'
   },
@@ -88,6 +92,8 @@ const PROJECTS = [
     defaultVersion: 'v1.0 Source',
     website: null,
     github: `https://github.com/${GITHUB_USER}/BlackTube`,
+    iconImg: 'assets/blacktube-icon.ico',
+    detailImg: null,
     architecture:
       'Native Windows WebView2 container stripping ad scripts and telemetry endpoints while preserving hardware-accelerated video playback.'
   },
@@ -118,6 +124,8 @@ const PROJECTS = [
     defaultVersion: 'Hackathon PS-02',
     website: null,
     github: `https://github.com/${GITHUB_USER}/aerotech`,
+    iconImg: null,
+    detailImg: 'assets/aerotech-dashboard.png',
     architecture:
       'Python triage pipeline decompiling suspicious APKs, scoring behavioral permissions, sealing hash manifests via ed25519 keys, and exporting STIX 2.1 IOC bundles.'
   }
@@ -276,6 +284,7 @@ function openDetailsModal(project) {
 
   modalBody.style.padding = '1.35rem';
   modalBody.innerHTML = `
+    ${project.detailImg ? `<img src="${escapeHtml(project.detailImg)}" alt="${escapeHtml(project.name)} visual overview" style="width: 100%; max-height: 360px; object-fit: cover; object-position: top; border-radius: 12px; border: 1px solid var(--border); margin-bottom: 1.15rem;" />` : ''}
     <p style="color: var(--text-secondary); margin-bottom: 1rem;">${escapeHtml(project.summary)}</p>
     <div style="padding: 1rem; border-radius: 10px; border: 1px solid var(--border); background: rgba(255,255,255,0.02); margin-bottom: 1rem;">
       <div class="mono" style="color: var(--emerald); margin-bottom: 0.35rem;">ARCHITECTURE &amp; PIPELINE</div>
@@ -303,6 +312,64 @@ window.addEventListener('keydown', e => {
   if (e.key === 'Escape') closeModal();
 });
 
+function buildCardStageHtml(p) {
+  if (p.id === 'metshield-ai') {
+    return `
+      <div class="card-stage-inner stage-metshield">
+        <img src="assets/jatayu-seal.jpg" alt="Project JATAYU Crest" class="stage-seal" />
+        <div class="tele-mini">
+          <div class="tele-mini-metrics">
+            <span>28.4°C</span>
+            <span>998.4 hPa</span>
+            <span>74% RH</span>
+          </div>
+          <svg viewBox="0 0 240 46" width="100%" height="44" aria-hidden="true">
+            <path d="M0 32 C 30 30, 50 14, 80 18 C 110 22, 130 8, 160 14 C 190 20, 210 10, 240 12" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M0 38 C 40 36, 70 28, 110 31 C 150 34, 180 24, 240 26" fill="none" stroke="#38bdf8" stroke-width="1.8" stroke-dasharray="4 4"/>
+          </svg>
+          <div class="mono" style="font-size: 0.68rem; color: #6ee7b7;">WMO-NO. 8 TIER 1-3 · 20 AWS NODES</div>
+        </div>
+      </div>`;
+  }
+  if (p.id === 'black-firefox') {
+    return `
+      <div class="card-stage-inner stage-browser">
+        <div class="browser-mockup">
+          <div class="browser-chrome">
+            <div class="dots"><span></span><span></span><span></span></div>
+            <div class="browser-url">🔒 black://proton-home</div>
+          </div>
+          <div class="browser-center">
+            <img src="assets/black-firefox-icon.png" alt="Black-Firefox Icon" class="app-emblem" />
+            <div>
+              <div style="font-weight: 700; font-size: 0.92rem; color: #f8fafc;">Black-Firefox Proton</div>
+              <div class="mono" style="font-size: 0.7rem; color: #7dd3fc;">~86 KB Binary · 3-Layer AdBlock · MV2</div>
+            </div>
+          </div>
+        </div>
+      </div>`;
+  }
+  if (p.id === 'blacktube') {
+    return `
+      <div class="card-stage-inner stage-player">
+        <div class="player-mockup">
+          <div class="player-screen">
+            <img src="assets/blacktube-icon.ico" alt="BlackTube Icon" class="app-emblem" />
+            <div style="flex: 1;">
+              <div style="font-weight: 700; font-size: 0.92rem; color: #f8fafc;">BlackTube Desktop</div>
+              <div class="mono" style="font-size: 0.7rem; color: #fda4af;">WebView2 Playback · 0 Telemetry · Low RAM</div>
+            </div>
+            <span style="width: 34px; height: 34px; border-radius: 999px; background: rgba(239,68,68,0.2); border: 1px solid rgba(248,113,113,0.45); display: grid; place-items: center; color: #f87171;">
+              <i class="fa-solid fa-play" style="font-size: 0.75rem;"></i>
+            </span>
+          </div>
+          <div class="player-bar"><div class="player-bar-fill"></div></div>
+        </div>
+      </div>`;
+  }
+  return `<img src="assets/aerotech-dashboard.png" alt="aerotech Forensic Triage Dashboard" class="card-stage-inner stage-screenshot" />`;
+}
+
 // ---------------------------------------------------------------------------
 // Render Project Cards & Distribution Matrix
 // ---------------------------------------------------------------------------
@@ -327,24 +394,25 @@ function renderProjects() {
 
       return `
       <article class="project-card" id="card-${escapeHtml(p.id)}">
-        <div class="card-preview">
-          <div class="card-preview-left">
-            <div class="card-icon" style="background: ${escapeHtml(p.statusBg)}; color: ${escapeHtml(p.statusColor)};">
-              <i class="${escapeHtml(p.iconClass)}"></i>
-            </div>
-            <div>
-              <div style="font-weight: 600; font-size: 0.9rem;">${escapeHtml(p.domainLabel)}</div>
-              <div class="card-type">${escapeHtml(p.runtime)} · ${escapeHtml(p.footprint)}</div>
-            </div>
+        <div class="card-stage">
+          ${buildCardStageHtml(p)}
+          <div class="stage-overlay">
+            <span class="stage-label">
+              <i class="${escapeHtml(p.iconClass)}" style="color: ${escapeHtml(p.statusColor)};"></i>
+              <span>${escapeHtml(p.domainLabel)}</span>
+            </span>
+            <span class="status-pill" style="background: ${escapeHtml(p.statusBg)}; color: ${escapeHtml(p.statusColor)};">
+              ${escapeHtml(p.statusText)}
+            </span>
           </div>
-          <span class="status-pill" style="background: ${escapeHtml(p.statusBg)}; color: ${escapeHtml(p.statusColor)};">
-            ${escapeHtml(p.statusText)}
-          </span>
         </div>
 
         <div class="card-body">
           <div class="card-title-row">
-            <h3 class="card-title">${escapeHtml(p.name)}</h3>
+            <div class="card-title-group">
+              ${p.iconImg ? `<img src="${escapeHtml(p.iconImg)}" alt="" class="card-mini-icon" />` : `<span class="card-mini-icon" style="display: grid; place-items: center; background: ${escapeHtml(p.statusBg)}; color: ${escapeHtml(p.statusColor)};"><i class="${escapeHtml(p.iconClass)}" style="font-size: 0.75rem;"></i></span>`}
+              <h3 class="card-title">${escapeHtml(p.name)}</h3>
+            </div>
             <div class="card-stats">
               ${p.isPrivate ? '<span><i class="fa-solid fa-lock"></i> Private</span>' : `<span><i class="fa-regular fa-star"></i> ${meta.stars}</span><span><i class="fa-solid fa-code-fork"></i> ${meta.forks}</span>`}
             </div>
@@ -416,7 +484,12 @@ function renderDistributionTable() {
 
     return `
       <tr>
-        <td><strong>${escapeHtml(p.name)}</strong></td>
+        <td>
+          <div class="card-title-group">
+            ${p.iconImg ? `<img src="${escapeHtml(p.iconImg)}" alt="" class="card-mini-icon" />` : `<span class="card-mini-icon" style="display: grid; place-items: center; background: ${escapeHtml(p.statusBg)}; color: ${escapeHtml(p.statusColor)};"><i class="${escapeHtml(p.iconClass)}" style="font-size: 0.72rem;"></i></span>`}
+            <strong>${escapeHtml(p.name)}</strong>
+          </div>
+        </td>
         <td class="mono">${escapeHtml(p.runtime)} · ${escapeHtml(p.footprint)}</td>
         <td>${escapeHtml(p.platform)}</td>
         <td class="mono" style="color: var(--emerald);">${escapeHtml(meta.version || p.defaultVersion)}</td>
