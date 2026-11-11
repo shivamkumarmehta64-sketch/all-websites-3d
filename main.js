@@ -36,35 +36,35 @@ const PROJECTS = [
       'Streams 20 simulated AWS telemetry nodes with a sliding ring-buffer persistence layer, Web Generic Sensor API barometric ingestion, and a 3-tier WMO-No. 8 thermodynamic storm-vs-spike classifier.'
   },
   {
-    id: 'black-firefox',
-    name: 'Black-Firefox',
+    id: 'black-browser',
+    name: 'Black Browser',
     repo: 'Black-Firefox',
     filter: 'desktop',
-    domainLabel: 'Native Proton Browser',
-    statusText: 'PORTABLE .EXE',
+    domainLabel: 'Privacy-First Windows Browser',
+    statusText: 'v9.1.0 SETUP',
     statusColor: '#38bdf8',
     statusBg: 'rgba(56, 189, 248, 0.12)',
-    iconClass: 'fa-brands fa-firefox-browser',
+    iconClass: 'fa-solid fa-globe',
     summary:
-      'Ultra-compact native Windows browser (~86 KB core binary) built in C# (.NET 4.8) pairing Firefox Proton styling with Microsoft WebView2 speed and 3-layer ad blocking.',
+      'Fast, privacy-first native Windows 10/11 browser (~460 KB executable, <60 MB RAM) engineered in C# (.NET 4.8) + Microsoft WebView2 with zero cloud telemetry.',
     highlights: [
-      'Micro-binary footprint with zero Electron bloat and instant cold startup',
-      '3-layer ad & tracker filtering plus one-click uBlock Origin MV2 support',
-      'Local bookmarks, tab pinning, Firefox View, and hardened privacy defaults'
+      '3-Layer AdShield (domain blocking, YouTube payload stripping & auto-skip)',
+      'Windows DPAPI local password vault, bookmarks, QR share & MV2 extensions',
+      'Signed-hash v9.1.0 Setup.exe & Portable ZIP + black://home Speed Dial'
     ],
-    tech: ['C#', '.NET 4.8', 'WebView2', 'WinForms', 'AdBlock', 'MIT'],
+    tech: ['C#', '.NET 4.8', 'WebView2', 'WinForms', 'AdShield', 'MIT'],
     runtime: 'C# / .NET 4.8',
-    footprint: '~86 KB Binary',
-    platform: 'Windows x64',
+    footprint: '~460 KB · <60 MB RAM',
+    platform: 'Windows 10 / 11',
     defaultStars: 1,
     defaultForks: 0,
-    defaultVersion: 'v0.1.1-portable',
-    website: null,
+    defaultVersion: 'v9.1.0',
+    website: 'https://shivamkumarmehta64-sketch.github.io/Black-Firefox/',
     github: `https://github.com/${GITHUB_USER}/Black-Firefox`,
     iconImg: 'assets/black-firefox-icon.png',
     detailImg: null,
     architecture:
-      'Single-executable WinForms shell embedding evergreen WebView2 runtime with custom Proton tab chrome, declarative request blocking hooks, and local JSON state.'
+      'Native WinForms shell hosting evergreen WebView2 runtime with custom ChromePainter dark glass chrome, 3-layer AdShield interceptor, DPAPI-encrypted local vault, and SHA-256 verified CI releases.'
   },
   {
     id: 'blacktube',
@@ -80,7 +80,7 @@ const PROJECTS = [
       'Lightweight, distraction-free YouTube desktop client engineered in C# (.NET 4.8) and Microsoft WebView2 with zero telemetry and minimal RAM consumption.',
     highlights: [
       'Pure desktop playback without heavy Chromium/Electron memory overhead',
-      'Built as companion media app to the Black-Firefox Windows ecosystem',
+      'Built as companion media app to the Black Browser Windows ecosystem',
       'Clean native window chrome focused on low latency and privacy'
     ],
     tech: ['C#', '.NET 4.8', 'WebView2', 'WinForms', 'Zero Telemetry'],
@@ -173,7 +173,7 @@ async function fetchRepoTelemetry(project) {
     return data;
   }
 
-  const cacheKey = `portfolio_v2_${project.repo}`;
+  const cacheKey = `portfolio_v3_${project.repo}`;
   try {
     const cachedRaw = localStorage.getItem(cacheKey);
     if (cachedRaw) {
@@ -212,9 +212,18 @@ async function fetchRepoTelemetry(project) {
       const relJson = await relRes.value.json();
       if (relJson.tag_name) data.version = relJson.tag_name;
       if (Array.isArray(relJson.assets) && relJson.assets.length > 0) {
-        data.downloadUrl = sanitizeHttpUrl(relJson.assets[0].browser_download_url);
-        data.assetName = relJson.assets[0].name || 'Release';
-        data.assetSize = formatBytes(relJson.assets[0].size);
+        const primary =
+          relJson.assets.find(a => /-setup\.exe$/i.test(a.name)) ||
+          relJson.assets.find(a => /\.exe$/i.test(a.name)) ||
+          relJson.assets.find(a => /\.zip$/i.test(a.name)) ||
+          relJson.assets[0];
+        const zipAsset = relJson.assets.find(a => /\.zip$/i.test(a.name));
+        const shaAsset = relJson.assets.find(a => /sha256/i.test(a.name));
+        data.downloadUrl = sanitizeHttpUrl(primary.browser_download_url);
+        data.assetName = primary.name || 'Release';
+        data.assetSize = formatBytes(primary.size);
+        data.zipUrl = zipAsset ? sanitizeHttpUrl(zipAsset.browser_download_url) : null;
+        data.shaUrl = shaAsset ? sanitizeHttpUrl(shaAsset.browser_download_url) : null;
       }
     }
 
@@ -295,6 +304,8 @@ function openDetailsModal(project) {
     </ul>
     <div style="display: flex; flex-wrap: wrap; gap: 0.6rem;">
       ${safeDl ? `<a href="${safeDl}" target="_blank" rel="noopener noreferrer" class="btn btn-emerald btn-sm"><i class="fa-solid fa-download"></i> Download ${escapeHtml(meta.assetName)}</a>` : ''}
+      ${sanitizeHttpUrl(meta.zipUrl) && meta.zipUrl !== safeDl ? `<a href="${sanitizeHttpUrl(meta.zipUrl)}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm"><i class="fa-solid fa-file-zipper"></i> Portable .zip</a>` : ''}
+      ${sanitizeHttpUrl(meta.shaUrl) ? `<a href="${sanitizeHttpUrl(meta.shaUrl)}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm"><i class="fa-solid fa-shield-halved"></i> SHA256SUMS</a>` : ''}
       ${safeWeb ? `<a href="${safeWeb}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm"><i class="fa-solid fa-arrow-up-right-from-square"></i> Launch Live App</a>` : ''}
       ${!project.isPrivate && safeGh ? `<a href="${safeGh}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm"><i class="fa-brands fa-github"></i> View Repository</a>` : '<span class="mono" style="color: var(--text-muted); align-self: center;">Private hackathon repository — architecture overview shown above.</span>'}
     </div>
@@ -331,19 +342,19 @@ function buildCardStageHtml(p) {
         </div>
       </div>`;
   }
-  if (p.id === 'black-firefox') {
+  if (p.id === 'black-browser') {
     return `
       <div class="card-stage-inner stage-browser">
         <div class="browser-mockup">
           <div class="browser-chrome">
             <div class="dots"><span></span><span></span><span></span></div>
-            <div class="browser-url">🔒 black://proton-home</div>
+            <div class="browser-url">🔒 black://home · Speed Dial</div>
           </div>
           <div class="browser-center">
-            <img src="assets/black-firefox-icon.png" alt="Black-Firefox Icon" class="app-emblem" />
+            <img src="assets/black-firefox-icon.png" alt="Black Browser Icon" class="app-emblem" />
             <div>
-              <div style="font-weight: 700; font-size: 0.92rem; color: #f8fafc;">Black-Firefox Proton</div>
-              <div class="mono" style="font-size: 0.7rem; color: #7dd3fc;">~86 KB Binary · 3-Layer AdBlock · MV2</div>
+              <div style="font-weight: 700; font-size: 0.92rem; color: #f8fafc;">Black Browser v9.1.0</div>
+              <div class="mono" style="font-size: 0.7rem; color: #7dd3fc;">~460 KB · 3-Layer AdShield · DPAPI Vault</div>
             </div>
           </div>
         </div>

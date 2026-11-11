@@ -5,6 +5,7 @@ Clean 2D developer showcase & software distribution hub with an interactive Thre
 ## Live Site
 
 - **Portfolio & Downloads:** **[shivamkumarmehta64-sketch.github.io/all-websites-3d](https://shivamkumarmehta64-sketch.github.io/all-websites-3d/)**
+- **Black Browser (v9.1.0):** [Release Installer & Portable ZIP](https://github.com/shivamkumarmehta64-sketch/Black-Firefox/releases/latest)
 - **LinkedIn:** [linkedin.com/in/shivam-kumar-mehta](https://www.linkedin.com/in/shivam-kumar-mehta)
 - **GitHub:** [github.com/shivamkumarmehta64-sketch](https://github.com/shivamkumarmehta64-sketch)
 
