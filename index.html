@@ -184,6 +184,21 @@
       flex-shrink: 0;
     }
 
+    /* Apple Keynote Scroll-Reveal Motion */
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px) scale(0.985);
+      transition: opacity 0.65s var(--spring), transform 0.65s var(--spring);
+      will-change: opacity, transform;
+    }
+    .reveal.in-view {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+    }
+
     /* Live GitHub Telemetry Strip */
     .gh-strip {
       display: grid;
@@ -1376,18 +1391,18 @@
           <h2 class="chapter-title">Six precision tools. One vision.</h2>
         </div>
 
-        <div id="gh-telemetry-strip" class="gh-strip" aria-label="GitHub Portfolio Summary">
+        <div id="gh-telemetry-strip" class="gh-strip reveal" aria-label="GitHub Portfolio Summary">
           <div class="gh-metric">
-            <span class="gh-metric-val" id="gh-total-repos">16</span>
-            <span class="gh-metric-lbl">GitHub Repositories</span>
+            <span class="gh-metric-val" id="gh-total-repos">13</span>
+            <span class="gh-metric-lbl">Public Repositories</span>
           </div>
           <div class="gh-metric">
-            <span class="gh-metric-val" id="gh-active-releases">4+</span>
-            <span class="gh-metric-lbl">Verified Binary Releases</span>
+            <span class="gh-metric-val" id="gh-live-apps">4</span>
+            <span class="gh-metric-lbl">Live Web Portals</span>
           </div>
           <div class="gh-metric">
-            <span class="gh-metric-val" id="gh-total-stars">3+</span>
-            <span class="gh-metric-lbl">Repository Stars</span>
+            <span class="gh-metric-val" id="gh-active-releases">2</span>
+            <span class="gh-metric-lbl">Desktop Releases</span>
           </div>
           <div class="gh-metric">
             <span class="gh-metric-val">MIT</span>

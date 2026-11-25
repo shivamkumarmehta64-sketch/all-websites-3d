@@ -474,7 +474,7 @@ function renderProjects() {
       const safeGh = sanitizeHttpUrl(p.github);
 
       return `
-      <article class="project-card" id="card-${escapeHtml(p.id)}">
+      <article class="project-card reveal" style="transition-delay: ${Math.min(visible.indexOf(p) * 45, 220)}ms;" id="card-${escapeHtml(p.id)}">
         <div class="card-stage">
           ${buildCardStageHtml(p)}
           <div class="stage-overlay">
@@ -540,6 +540,8 @@ function renderProjects() {
       }
     });
   });
+
+  observeReveals();
 }
 
 function renderDistributionTable() {
@@ -728,10 +730,37 @@ function initHero3D() {
 }
 
 // ---------------------------------------------------------------------------
+// Apple Keynote Scroll-Reveal Observer
+// ---------------------------------------------------------------------------
+function observeReveals() {
+  const targets = document.querySelectorAll('.reveal, .spotlight-card, .pillar-card, .creator-band');
+  if (!('IntersectionObserver' in window)) {
+    targets.forEach(el => el.classList.add('in-view'));
+    return;
+  }
+  const obs = new IntersectionObserver(
+    entries => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          obs.unobserve(entry.target);
+        }
+      }
+    },
+    { threshold: 0.08, rootMargin: '0px 0px -30px 0px' }
+  );
+  targets.forEach(el => {
+    if (!el.classList.contains('reveal')) el.classList.add('reveal');
+    obs.observe(el);
+  });
+}
+
+// ---------------------------------------------------------------------------
 // Bootstrap
 // ---------------------------------------------------------------------------
 renderProjects();
 renderDistributionTable();
+observeReveals();
 initHero3D();
 
 async function updateGitHubStrip() {
@@ -747,16 +776,16 @@ async function updateGitHubStrip() {
   } catch {
     // Keep fallback count
   }
-  let totalStars = 0;
+  let liveApps = 0;
   let releaseCount = 0;
   for (const p of PROJECTS) {
     const meta = liveCache.get(p.id);
-    totalStars += meta?.stars ?? p.defaultStars ?? 0;
+    if (p.website) liveApps += 1;
     if (meta?.downloadUrl) releaseCount += 1;
   }
-  const starsEl = document.getElementById('gh-total-stars');
+  const liveEl = document.getElementById('gh-live-apps');
   const relEl = document.getElementById('gh-active-releases');
-  if (starsEl) starsEl.textContent = String(totalStars);
+  if (liveEl) liveEl.textContent = String(liveApps);
   if (relEl && releaseCount > 0) relEl.textContent = String(releaseCount);
 }
 
