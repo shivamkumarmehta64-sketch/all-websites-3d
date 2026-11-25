@@ -8,6 +8,7 @@ const PROJECTS = [
     id: 'metshield-ai',
     name: 'MetShield-AI',
     repo: 'MetShield-AI',
+    hasReleases: false,
     filter: 'web',
     domainLabel: 'MoES / IMD Real-Time QC',
     statusText: 'SIH 2026 · LIVE',
@@ -70,9 +71,10 @@ const PROJECTS = [
     id: 'blacktube',
     name: 'BlackTube',
     repo: 'BlackTube',
+    hasReleases: true,
     filter: 'desktop',
     domainLabel: 'Ad-Free Desktop Client',
-    statusText: 'WINDOWS CLIENT',
+    statusText: 'v1.0.0 RELEASE',
     statusColor: '#f87171',
     statusBg: 'rgba(248, 113, 113, 0.12)',
     iconClass: 'fa-brands fa-youtube',
@@ -89,7 +91,7 @@ const PROJECTS = [
     platform: 'Windows x64',
     defaultStars: 0,
     defaultForks: 0,
-    defaultVersion: 'v1.0 Source',
+    defaultVersion: 'v1.0.0',
     website: null,
     github: `https://github.com/${GITHUB_USER}/BlackTube`,
     iconImg: 'assets/blacktube-icon.ico',
@@ -173,7 +175,7 @@ async function fetchRepoTelemetry(project) {
     return data;
   }
 
-  const cacheKey = `portfolio_v3_${project.repo}`;
+  const cacheKey = `portfolio_v4_${project.repo}`;
   try {
     const cachedRaw = localStorage.getItem(cacheKey);
     if (cachedRaw) {
@@ -197,18 +199,19 @@ async function fetchRepoTelemetry(project) {
   };
 
   try {
-    const [repoRes, relRes] = await Promise.allSettled([
-      fetch(`https://api.github.com/repos/${GITHUB_USER}/${project.repo}`),
-      fetch(`https://api.github.com/repos/${GITHUB_USER}/${project.repo}/releases/latest`)
-    ]);
+    const requests = [fetch(`https://api.github.com/repos/${GITHUB_USER}/${project.repo}`)];
+    if (project.hasReleases !== false) {
+      requests.push(fetch(`https://api.github.com/repos/${GITHUB_USER}/${project.repo}/releases/latest`));
+    }
+    const [repoRes, relRes] = await Promise.allSettled(requests);
 
     const data = { ...fallback };
-    if (repoRes.status === 'fulfilled' && repoRes.value.ok) {
+    if (repoRes && repoRes.status === 'fulfilled' && repoRes.value.ok) {
       const repoJson = await repoRes.value.json();
       data.stars = repoJson.stargazers_count ?? data.stars;
       data.forks = repoJson.forks_count ?? data.forks;
     }
-    if (relRes.status === 'fulfilled' && relRes.value.ok) {
+    if (relRes && relRes.status === 'fulfilled' && relRes.value.ok) {
       const relJson = await relRes.value.json();
       if (relJson.tag_name) data.version = relJson.tag_name;
       if (Array.isArray(relJson.assets) && relJson.assets.length > 0) {
@@ -664,9 +667,36 @@ renderProjects();
 renderDistributionTable();
 initHero3D();
 
+async function updateGitHubStrip() {
+  try {
+    const res = await fetch(`https://api.github.com/users/${GITHUB_USER}`);
+    if (res.ok) {
+      const userJson = await res.json();
+      const el = document.getElementById('gh-total-repos');
+      if (el && typeof userJson.public_repos === 'number') {
+        el.textContent = String(userJson.public_repos);
+      }
+    }
+  } catch {
+    // Keep fallback count
+  }
+  let totalStars = 0;
+  let releaseCount = 0;
+  for (const p of PROJECTS) {
+    const meta = liveCache.get(p.id);
+    totalStars += meta?.stars ?? p.defaultStars ?? 0;
+    if (meta?.downloadUrl) releaseCount += 1;
+  }
+  const starsEl = document.getElementById('gh-total-stars');
+  const relEl = document.getElementById('gh-active-releases');
+  if (starsEl) starsEl.textContent = String(totalStars);
+  if (relEl && releaseCount > 0) relEl.textContent = String(releaseCount);
+}
+
 Promise.all(PROJECTS.map(fetchRepoTelemetry)).then(() => {
   renderProjects();
   renderDistributionTable();
+  updateGitHubStrip();
 });
 
 const initialHash = window.location.hash.replace('#', '');

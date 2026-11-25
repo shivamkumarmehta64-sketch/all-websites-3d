@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#000000" />
   <title>Shivam Kumar Mehta — Native Software, AI & Systems Engineering</title>
   <meta name="description" content="Official software distribution & engineering showcase by Shivam Kumar Mehta. Featuring MetShield-AI (MoES WMO-No. 8 QC), Black Browser (460 KB native Windows browser), Blue Browser (Tauri/Rust), BlackTube, Quantum Drone & aerotech Forensics." />
 
@@ -167,7 +168,45 @@
     .container {
       max-width: var(--max-w);
       margin: 0 auto;
-      padding: 0 1.5rem;
+      padding: 0 max(1.5rem, env(safe-area-inset-right)) 0 max(1.5rem, env(safe-area-inset-left));
+    }
+
+    /* Optical Icon Alignment (Apple HIG Icons) */
+    .btn i, .nav-pill i, .spotlight-badge i, .hero-eyebrow i {
+      font-size: 0.95em;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    /* Live GitHub Telemetry Strip */
+    .gh-strip {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.85rem;
+      margin: 0 auto 2rem;
+      padding: 1rem 1.25rem;
+      border-radius: var(--radius-md);
+      background: var(--glass);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid var(--border-specular);
+    }
+    .gh-metric {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+    .gh-metric-val {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+    .gh-metric-lbl {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
 
     /* Apple Pill & Buttons */
@@ -831,6 +870,7 @@
     @media (pointer: coarse) {
       .btn-sm { min-height: 44px; }
       .filter-btn { min-height: 44px; }
+      .nav-pill { min-height: 44px; min-width: 44px; justify-content: center; }
       .modal-close { width: 44px; height: 44px; }
     }
 
@@ -841,18 +881,24 @@
       .visual-browser { border-right: none; border-bottom: 1px solid var(--border); }
       .bento-grid { grid-template-columns: 1fr; }
       .pillars-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .gh-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .nav-links { display: none; }
     }
     @media (max-width: 560px) {
-      .hero { padding: 3.5rem 0 3rem; }
-      section { padding: 3.5rem 0; }
-      .spotlight-copy { padding: 1.75rem; }
+      .hero { padding: 3.25rem 0 2.75rem; }
+      section { padding: 3.25rem 0; }
+      .spotlight-copy { padding: 1.5rem; }
       .stat-trio { grid-template-columns: 1fr; gap: 0.75rem; }
       .pillars-grid { grid-template-columns: 1fr; }
-      .creator-band { padding: 1.75rem; }
+      .bento-card { padding: 1.45rem; }
+      .bento-top { flex-wrap: wrap; gap: 0.65rem; }
+      .bento-icon { width: 42px; height: 42px; border-radius: 10.5px; }
+      .bento-title { font-size: 1.25rem; }
+      .creator-band { padding: 1.5rem; }
       .hero-stage { height: 280px; }
       .nav-pill-ghost span { display: none; }
-      .nav-inner { padding: 0.7rem 1rem; }
+      .nav-inner { padding: 0.65rem max(1rem, env(safe-area-inset-right)) 0.65rem max(1rem, env(safe-area-inset-left)); }
+      footer { padding-bottom: max(2.5rem, env(safe-area-inset-bottom)); }
     }
   </style>
 </head>
@@ -1059,6 +1105,25 @@
         <div class="chapter-header" style="margin-bottom: 2rem;">
           <span class="chapter-kicker" style="color: var(--apple-blue);">The Ecosystem</span>
           <h2 class="chapter-title">Six precision tools. One vision.</h2>
+        </div>
+
+        <div id="gh-telemetry-strip" class="gh-strip" aria-label="GitHub Portfolio Summary">
+          <div class="gh-metric">
+            <span class="gh-metric-val" id="gh-total-repos">16</span>
+            <span class="gh-metric-lbl">GitHub Repositories</span>
+          </div>
+          <div class="gh-metric">
+            <span class="gh-metric-val" id="gh-active-releases">4+</span>
+            <span class="gh-metric-lbl">Verified Binary Releases</span>
+          </div>
+          <div class="gh-metric">
+            <span class="gh-metric-val" id="gh-total-stars">3+</span>
+            <span class="gh-metric-lbl">Repository Stars</span>
+          </div>
+          <div class="gh-metric">
+            <span class="gh-metric-val">MIT</span>
+            <span class="gh-metric-lbl">Open Source License</span>
+          </div>
         </div>
 
         <div class="filter-bar" role="tablist" aria-label="Filter software">
