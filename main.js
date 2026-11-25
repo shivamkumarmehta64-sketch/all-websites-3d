@@ -865,8 +865,10 @@ async function updateGitHubStrip() {
   }
   const liveEl = document.getElementById('gh-live-apps');
   const relEl = document.getElementById('gh-active-releases');
+  const stripEl = document.getElementById('gh-telemetry-strip');
   if (liveEl) liveEl.textContent = String(liveApps);
   if (relEl && releaseCount > 0) relEl.textContent = String(releaseCount);
+  if (stripEl) stripEl.setAttribute('aria-busy', 'false');
 }
 
 Promise.all(PROJECTS.map(fetchRepoTelemetry)).then(() => {

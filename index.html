@@ -40,8 +40,8 @@
   <style>
     :root {
       /* Apple Dark Appearance & Liquid Glass Tokens */
-      --bg: #000000;
-      --bg-elevated: #0a0a0c;
+      --bg: #050507;
+      --bg-elevated: #0c0c10;
       --bg-surface: #141418;
       --glass: rgba(24, 24, 28, 0.72);
       --glass-hover: rgba(32, 32, 38, 0.85);
@@ -300,7 +300,7 @@
     }
     .btn-primary {
       background: var(--text);
-      color: #000;
+      color: #0a0a0c;
     }
     .btn-primary:hover {
       background: #ffffff;
@@ -462,8 +462,8 @@
       border: 1px solid var(--border-specular);
       border-radius: var(--radius-lg);
       box-shadow:
-        0 30px 70px -15px rgba(0, 0, 0, 0.75),
-        inset 0 1px 0 0 rgba(255, 255, 255, 0.14);
+        0 14px 36px -12px rgba(0, 0, 0, 0.32),
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.10);
       overflow: hidden;
       margin-bottom: 2.5rem;
       display: grid;
@@ -659,8 +659,8 @@
       transform: translateY(-4px);
       border-color: var(--border-hover);
       box-shadow:
-        0 28px 60px -15px rgba(0, 0, 0, 0.7),
-        inset 0 1px 0 0 rgba(255, 255, 255, 0.22);
+        0 14px 34px -12px rgba(0, 0, 0, 0.30),
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.16);
     }
     .bento-top {
       display: flex;
@@ -764,7 +764,7 @@
     .project-card:hover {
       transform: translateY(-4px);
       border-color: var(--border-hover);
-      box-shadow: 0 28px 60px -15px rgba(0, 0, 0, 0.7), inset 0 1px 0 0 rgba(255, 255, 255, 0.22);
+      box-shadow: 0 14px 34px -12px rgba(0, 0, 0, 0.30), inset 0 1px 0 0 rgba(255, 255, 255, 0.16);
     }
     .card-stage {
       position: relative;
@@ -1446,7 +1446,7 @@
           <h2 class="chapter-title">Six precision tools. One vision.</h2>
         </div>
 
-        <div id="gh-telemetry-strip" class="gh-strip reveal" aria-label="GitHub Portfolio Summary">
+        <div id="gh-telemetry-strip" class="gh-strip reveal" aria-label="GitHub Portfolio Summary" aria-busy="true">
           <div class="gh-metric">
             <span class="gh-metric-val" id="gh-total-repos">13</span>
             <span class="gh-metric-lbl">Public Repositories</span>
