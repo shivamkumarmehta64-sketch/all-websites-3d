@@ -130,6 +130,70 @@ const PROJECTS = [
     detailImg: 'assets/aerotech-dashboard.png',
     architecture:
       'Python triage pipeline decompiling suspicious APKs, scoring behavioral permissions, sealing hash manifests via ed25519 keys, and exporting STIX 2.1 IOC bundles.'
+  },
+  {
+    id: 'quantum-drone-gcs',
+    name: 'Quantum Drone GCS',
+    repo: 'quantum-drone-sih',
+    hasReleases: false,
+    filter: 'security',
+    domainLabel: 'Post-Quantum UAV C2',
+    statusText: 'CLOUDFLARE · LIVE',
+    statusColor: '#64d2ff',
+    statusBg: 'rgba(100, 210, 255, 0.12)',
+    iconClass: 'fa-solid fa-satellite-dish',
+    summary:
+      'Hybrid Quantum-Resilient Drone Surveillance & Ground Control Station combining NIST FIPS 203 ML-KEM-768 post-quantum cryptography with AES-256-GCM air-gapped telemetry.',
+    highlights: [
+      'AES-256-GCM authenticated telemetry links with BB84 QKD & ML-KEM-768 fallback',
+      'Monotonic anti-replay sequence validation and 6-DoF multi-UAV swarm control',
+      'Zero-internet air-gapped tactical GCS deployed live on Cloudflare Pages'
+    ],
+    tech: ['ML-KEM-768', 'AES-256-GCM', 'Python', 'WebGL / HTML5', 'Cloudflare'],
+    runtime: 'Edge / Python GCS',
+    footprint: 'Air-Gapped C2',
+    platform: 'Web / Field Node',
+    defaultStars: 0,
+    defaultForks: 0,
+    defaultVersion: 'SIH PQC',
+    website: 'https://quantum-drone-gcs.pages.dev',
+    github: `https://github.com/${GITHUB_USER}/quantum-drone-sih`,
+    iconImg: null,
+    detailImg: 'assets/quantum-drone-gcs.png',
+    architecture:
+      'Zero-internet enclave pairing an edge cryptographic engine (AES-256-GCM + ML-KEM-768) with a browser-based tactical Ground Control Station and mobile field client.'
+  },
+  {
+    id: 'cinematic-birthday',
+    name: 'Cinematic Birthday',
+    repo: 'cinematic-birthday',
+    hasReleases: false,
+    filter: 'web',
+    domainLabel: 'Client-Side Experience',
+    statusText: 'PAGES · LIVE',
+    statusColor: '#bf5af2',
+    statusBg: 'rgba(191, 90, 242, 0.12)',
+    iconClass: 'fa-solid fa-wand-magic-sparkles',
+    summary:
+      '100% client-side interactive web experience turning photos and custom messages into a shareable, animated celebration link with zero server uploads.',
+    highlights: [
+      'Zero-upload client-side photo & message encoding for instant private sharing',
+      'Fluid typography, responsive mobile staging, and choreographed animations',
+      'Deployed globally on Cloudflare Pages and Vercel Edge with instant cold starts'
+    ],
+    tech: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Client-Side', 'Cloudflare'],
+    runtime: 'Next.js / Edge',
+    footprint: 'Zero Backend',
+    platform: 'Web / Mobile',
+    defaultStars: 0,
+    defaultForks: 0,
+    defaultVersion: 'Live Web',
+    website: 'https://cinematic-birthday-3ou.pages.dev',
+    github: `https://github.com/${GITHUB_USER}/cinematic-birthday`,
+    iconImg: null,
+    detailImg: 'assets/cinematic-birthday.png',
+    architecture:
+      'Static Next.js application encoding celebration payloads client-side with zero database dependency, deployed on Cloudflare Pages.'
   }
 ];
 
@@ -381,7 +445,10 @@ function buildCardStageHtml(p) {
         </div>
       </div>`;
   }
-  return `<img src="assets/aerotech-dashboard.png" alt="aerotech Forensic Triage Dashboard" class="card-stage-inner stage-screenshot" />`;
+  if (p.detailImg) {
+    return `<img src="${escapeHtml(p.detailImg)}" alt="${escapeHtml(p.name)} Preview" class="card-stage-inner stage-screenshot" />`;
+  }
+  return `<img src="assets/aerotech-dashboard.png" alt="${escapeHtml(p.name)} Preview" class="card-stage-inner stage-screenshot" />`;
 }
 
 // ---------------------------------------------------------------------------
