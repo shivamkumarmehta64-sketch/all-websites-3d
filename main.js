@@ -9,13 +9,13 @@ const PROJECTS = [
     name: 'MetShield-AI',
     repo: 'MetShield-AI',
     filter: 'web',
-    domainLabel: 'MoES / IMD Real-Time QC',
-    statusText: 'SIH 2026 · LIVE',
-    statusColor: '#10b981',
-    statusBg: 'rgba(16, 185, 129, 0.12)',
+    domainLabel: 'MoES / IMD · SIH 2026',
+    statusColor: '#30d158',
+    statusBg: 'rgba(48, 209, 88, 0.14)',
     iconClass: 'fa-solid fa-shield-halved',
+    hook: 'Precision in the storm.',
     summary:
-      'Real-time 3-tier quality control and Explainable AI anomaly detection for Automatic Weather Stations, compliant with WMO-No. 8 meteorological limits.',
+      'Autonomous 3-tier quality control and Explainable AI protecting national Automatic Weather Stations. Differentiates genuine convective storms from thermistor faults in real time.',
     highlights: [
       'Tier 1–3 QC checks separating convective storms (ΔP + ΔRH) from thermistor faults',
       'Live Web Sensors API barometer fallback & moving-average packet imputation',
@@ -23,8 +23,8 @@ const PROJECTS = [
     ],
     tech: ['Next.js', 'TypeScript', 'Recharts', 'WMO-No. 8', 'Vercel'],
     runtime: 'Next.js / Edge',
-    footprint: 'Web App (Live)',
-    platform: 'Web / Mobile',
+    footprint: 'Zero-Cost Web App',
+    platform: 'Web / Mobile Sensors',
     defaultStars: 1,
     defaultForks: 0,
     defaultVersion: 'SIH26073',
@@ -40,19 +40,19 @@ const PROJECTS = [
     name: 'Black Browser',
     repo: 'Black-Firefox',
     filter: 'desktop',
-    domainLabel: 'Privacy-First Windows Browser',
-    statusText: 'v9.1.0 SETUP',
-    statusColor: '#38bdf8',
-    statusBg: 'rgba(56, 189, 248, 0.12)',
+    domainLabel: 'Native Windows Browser',
+    statusColor: '#0a84ff',
+    statusBg: 'rgba(10, 132, 255, 0.14)',
     iconClass: 'fa-solid fa-globe',
+    hook: 'Impossibly light. Relentlessly private.',
     summary:
-      'Fast, privacy-first native Windows 10/11 browser (~460 KB executable, <60 MB RAM) engineered in C# (.NET 4.8) + Microsoft WebView2 with zero cloud telemetry.',
+      'Native Windows 10/11 browser engineered in C# (.NET 4.8) and Microsoft WebView2. Delivers 3-layer AdShield and DPAPI local encryption in ~460 KB with under 60 MB RAM.',
     highlights: [
       '3-Layer AdShield (domain blocking, YouTube payload stripping & auto-skip)',
       'Windows DPAPI local password vault, bookmarks, QR share & MV2 extensions',
       'Signed-hash v9.1.0 Setup.exe & Portable ZIP + black://home Speed Dial'
     ],
-    tech: ['C#', '.NET 4.8', 'WebView2', 'WinForms', 'AdShield', 'MIT'],
+    tech: ['C#', '.NET 4.8', 'WebView2', 'DPAPI Vault', 'AdShield'],
     runtime: 'C# / .NET 4.8',
     footprint: '~460 KB · <60 MB RAM',
     platform: 'Windows 10 / 11',
@@ -64,26 +64,57 @@ const PROJECTS = [
     iconImg: 'assets/black-firefox-icon.png',
     detailImg: null,
     architecture:
-      'Native WinForms shell hosting evergreen WebView2 runtime with custom ChromePainter dark glass chrome, 3-layer AdShield interceptor, DPAPI-encrypted local vault, and SHA-256 verified CI releases.'
+      'Native WinForms shell hosting evergreen WebView2 runtime with custom dark glass chrome, 3-layer AdShield interceptor, DPAPI-encrypted local vault, and SHA-256 verified CI releases.'
+  },
+  {
+    id: 'blue-browser',
+    name: 'Blue Browser',
+    repo: 'Blue-Browser-Tauri',
+    filter: 'desktop',
+    domainLabel: 'Cross-Platform Tauri',
+    statusColor: '#64d2ff',
+    statusBg: 'rgba(100, 210, 255, 0.14)',
+    iconClass: 'fa-solid fa-compass',
+    hook: 'Rust performance. Everywhere.',
+    summary:
+      'Cross-platform companion to Black Browser built with Rust, Tauri, TypeScript, and React—bringing lightweight native rendering to Windows, macOS, and Linux.',
+    highlights: [
+      'Rust-backed Tauri core eliminating heavy Electron memory overhead',
+      'Modern React + TypeScript interface with system-native webview integration',
+      'Unified architecture targeting Windows, macOS, and Linux desktops'
+    ],
+    tech: ['Rust', 'Tauri', 'React', 'TypeScript', 'Cross-Platform'],
+    runtime: 'Rust / Tauri',
+    footprint: 'Native Binary',
+    platform: 'Win / macOS / Linux',
+    defaultStars: 0,
+    defaultForks: 0,
+    defaultVersion: 'v1.0',
+    website: null,
+    github: `https://github.com/${GITHUB_USER}/Blue-Browser-Tauri`,
+    iconImg: null,
+    detailImg: null,
+    architecture:
+      'Tauri desktop architecture pairing a memory-safe Rust backend with a reactive TypeScript/React frontend over native OS webviews.'
   },
   {
     id: 'blacktube',
     name: 'BlackTube',
     repo: 'BlackTube',
     filter: 'desktop',
-    domainLabel: 'Ad-Free Desktop Client',
-    statusText: 'WINDOWS CLIENT',
-    statusColor: '#f87171',
-    statusBg: 'rgba(248, 113, 113, 0.12)',
+    domainLabel: 'Distraction-Free Media',
+    statusColor: '#ff453a',
+    statusBg: 'rgba(255, 69, 58, 0.14)',
     iconClass: 'fa-brands fa-youtube',
+    hook: 'Pure cinema. Zero noise.',
     summary:
-      'Lightweight, distraction-free YouTube desktop client engineered in C# (.NET 4.8) and Microsoft WebView2 with zero telemetry and minimal RAM consumption.',
+      'Lightweight, ad-free YouTube desktop client engineered in C# (.NET 4.8) and WebView2. Built for hardware-accelerated playback without browser clutter or telemetry.',
     highlights: [
       'Pure desktop playback without heavy Chromium/Electron memory overhead',
       'Built as companion media app to the Black Browser Windows ecosystem',
       'Clean native window chrome focused on low latency and privacy'
     ],
-    tech: ['C#', '.NET 4.8', 'WebView2', 'WinForms', 'Zero Telemetry'],
+    tech: ['C#', '.NET 4.8', 'WebView2', 'Zero Telemetry'],
     runtime: 'C# / .NET 4.8',
     footprint: 'Minimal RAM',
     platform: 'Windows x64',
@@ -103,13 +134,13 @@ const PROJECTS = [
     repo: 'aerotech',
     isPrivate: true,
     filter: 'security',
-    domainLabel: 'Digital Forensics Platform',
-    statusText: 'BIHAR PS-02',
-    statusColor: '#a78bfa',
-    statusBg: 'rgba(167, 139, 250, 0.12)',
+    domainLabel: 'Digital Forensics',
+    statusColor: '#bf5af2',
+    statusBg: 'rgba(191, 90, 242, 0.14)',
     iconClass: 'fa-solid fa-user-secret',
+    hook: 'Forensic integrity. Cryptographically sealed.',
     summary:
-      'Autonomous Android APK Security & Digital Forensic Triage Platform built for Bihar Cybercrime Hackathon 2026 (PS-02), with ed25519 custody proofs and STIX 2.1 output.',
+      'Autonomous Android APK Security & Digital Forensic Triage Platform (Bihar Cybercrime Hackathon 2026 PS-02) with ed25519 custody proofs and STIX 2.1 intelligence export.',
     highlights: [
       'Automated APK manifest, permission abuse, and DEX indicator triage',
       'Ed25519 signed forensic evidence packages aligned with BSA-2023 compliance',
@@ -128,6 +159,37 @@ const PROJECTS = [
     detailImg: 'assets/aerotech-dashboard.png',
     architecture:
       'Python triage pipeline decompiling suspicious APKs, scoring behavioral permissions, sealing hash manifests via ed25519 keys, and exporting STIX 2.1 IOC bundles.'
+  },
+  {
+    id: 'quantum-drone',
+    name: 'Quantum Drone',
+    repo: 'quantum-drone-sih',
+    filter: 'security',
+    domainLabel: 'Air-Gapped Mesh Defense',
+    statusColor: '#30d158',
+    statusBg: 'rgba(48, 209, 88, 0.14)',
+    iconClass: 'fa-solid fa-satellite-dish',
+    hook: 'Quantum-resilient surveillance.',
+    summary:
+      'Hybrid quantum-resilient drone surveillance system featuring quantum-safe communications, real-time ground control station (GCS) telemetry, and air-gapped mesh operations.',
+    highlights: [
+      'Post-quantum / hybrid cryptographic key exchange for tactical telemetry links',
+      'Real-time Ground Control Station (GCS) monitoring and mission orchestration',
+      'Resilient air-gapped mesh networking for contested environments'
+    ],
+    tech: ['Quantum-Safe', 'Mesh Ops', 'Real-Time GCS', 'Defense'],
+    runtime: 'Systems / Mesh',
+    footprint: 'Air-Gapped GCS',
+    platform: 'Tactical / Edge',
+    defaultStars: 0,
+    defaultForks: 0,
+    defaultVersion: 'SIH Edition',
+    website: null,
+    github: `https://github.com/${GITHUB_USER}/quantum-drone-sih`,
+    iconImg: null,
+    detailImg: null,
+    architecture:
+      'Hybrid quantum-safe communication layer bridging unmanned aerial nodes and ground control stations over resilient air-gapped mesh topologies.'
   }
 ];
 
@@ -173,7 +235,7 @@ async function fetchRepoTelemetry(project) {
     return data;
   }
 
-  const cacheKey = `portfolio_v3_${project.repo}`;
+  const cacheKey = `apple_promo_v1_${project.repo}`;
   try {
     const cachedRaw = localStorage.getItem(cacheKey);
     if (cachedRaw) {
@@ -251,7 +313,7 @@ function showToast(message) {
 }
 
 // ---------------------------------------------------------------------------
-// Modal (Live Preview & Case Study)
+// Apple Sheet Modal (Live Preview & Architecture Specs)
 // ---------------------------------------------------------------------------
 const modal = document.getElementById('app-modal');
 const modalTitle = document.getElementById('modal-title-text');
@@ -291,23 +353,24 @@ function openDetailsModal(project) {
     modalExternal.style.display = 'none';
   }
 
-  modalBody.style.padding = '1.35rem';
+  modalBody.style.padding = '1.5rem';
   modalBody.innerHTML = `
-    ${project.detailImg ? `<img src="${escapeHtml(project.detailImg)}" alt="${escapeHtml(project.name)} visual overview" style="width: 100%; max-height: 360px; object-fit: cover; object-position: top; border-radius: 12px; border: 1px solid var(--border); margin-bottom: 1.15rem;" />` : ''}
-    <p style="color: var(--text-secondary); margin-bottom: 1rem;">${escapeHtml(project.summary)}</p>
-    <div style="padding: 1rem; border-radius: 10px; border: 1px solid var(--border); background: rgba(255,255,255,0.02); margin-bottom: 1rem;">
-      <div class="mono" style="color: var(--emerald); margin-bottom: 0.35rem;">ARCHITECTURE &amp; PIPELINE</div>
-      <p style="font-size: 0.9rem; color: var(--text-secondary);">${escapeHtml(project.architecture)}</p>
+    ${project.detailImg ? `<img src="${escapeHtml(project.detailImg)}" alt="${escapeHtml(project.name)} architecture" style="width: 100%; max-height: 360px; object-fit: cover; object-position: top; border-radius: 14px; border: 1px solid var(--border); margin-bottom: 1.25rem;" />` : ''}
+    <div style="font-size: 1.25rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.4rem;">${escapeHtml(project.hook)}</div>
+    <p style="color: var(--text-secondary); margin-bottom: 1.25rem; line-height: 1.55;">${escapeHtml(project.summary)}</p>
+    <div style="padding: 1.15rem; border-radius: 14px; border: 1px solid var(--border); background: rgba(255,255,255,0.03); margin-bottom: 1.25rem;">
+      <div class="mono" style="font-size: 0.74rem; color: ${escapeHtml(project.statusColor)}; margin-bottom: 0.4rem; text-transform: uppercase; letter-spacing: 0.05em;">System Architecture</div>
+      <p style="font-size: 0.92rem; color: var(--text-secondary); line-height: 1.55;">${escapeHtml(project.architecture)}</p>
     </div>
-    <ul class="card-highlights" style="margin-bottom: 1.25rem;">
-      ${project.highlights.map(h => `<li><i class="fa-solid fa-check"></i><span>${escapeHtml(h)}</span></li>`).join('')}
+    <ul style="list-style: none; display: grid; gap: 0.5rem; margin-bottom: 1.5rem; font-size: 0.9rem; color: var(--text-secondary);">
+      ${project.highlights.map(h => `<li style="display: flex; align-items: baseline; gap: 0.6rem;"><i class="fa-solid fa-check" style="color: ${escapeHtml(project.statusColor)}; font-size: 0.75rem;"></i><span>${escapeHtml(h)}</span></li>`).join('')}
     </ul>
-    <div style="display: flex; flex-wrap: wrap; gap: 0.6rem;">
-      ${safeDl ? `<a href="${safeDl}" target="_blank" rel="noopener noreferrer" class="btn btn-emerald btn-sm"><i class="fa-solid fa-download"></i> Download ${escapeHtml(meta.assetName)}</a>` : ''}
-      ${sanitizeHttpUrl(meta.zipUrl) && meta.zipUrl !== safeDl ? `<a href="${sanitizeHttpUrl(meta.zipUrl)}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm"><i class="fa-solid fa-file-zipper"></i> Portable .zip</a>` : ''}
-      ${sanitizeHttpUrl(meta.shaUrl) ? `<a href="${sanitizeHttpUrl(meta.shaUrl)}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm"><i class="fa-solid fa-shield-halved"></i> SHA256SUMS</a>` : ''}
-      ${safeWeb ? `<a href="${safeWeb}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm"><i class="fa-solid fa-arrow-up-right-from-square"></i> Launch Live App</a>` : ''}
-      ${!project.isPrivate && safeGh ? `<a href="${safeGh}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm"><i class="fa-brands fa-github"></i> View Repository</a>` : '<span class="mono" style="color: var(--text-muted); align-self: center;">Private hackathon repository — architecture overview shown above.</span>'}
+    <div style="display: flex; flex-wrap: wrap; gap: 0.65rem; align-items: center;">
+      ${safeDl ? `<a href="${safeDl}" target="_blank" rel="noopener noreferrer" class="btn btn-blue btn-sm"><i class="fa-solid fa-download"></i> Download ${escapeHtml(meta.assetName)}</a>` : ''}
+      ${sanitizeHttpUrl(meta.zipUrl) && meta.zipUrl !== safeDl ? `<a href="${sanitizeHttpUrl(meta.zipUrl)}" target="_blank" rel="noopener noreferrer" class="btn btn-glass btn-sm"><i class="fa-solid fa-file-zipper"></i> Portable .zip</a>` : ''}
+      ${sanitizeHttpUrl(meta.shaUrl) ? `<a href="${sanitizeHttpUrl(meta.shaUrl)}" target="_blank" rel="noopener noreferrer" class="btn btn-glass btn-sm"><i class="fa-solid fa-shield-halved"></i> SHA256SUMS</a>` : ''}
+      ${safeWeb ? `<a href="${safeWeb}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">Launch Live App</a>` : ''}
+      ${!project.isPrivate && safeGh ? `<a href="${safeGh}" target="_blank" rel="noopener noreferrer" class="btn btn-link btn-sm">View Source on GitHub ›</a>` : '<span class="mono" style="font-size: 0.78rem; color: var(--text-muted);">Private hackathon repository — architecture overview shown above.</span>'}
     </div>
   `;
   modal.classList.add('open');
@@ -323,66 +386,17 @@ window.addEventListener('keydown', e => {
   if (e.key === 'Escape') closeModal();
 });
 
-function buildCardStageHtml(p) {
-  if (p.id === 'metshield-ai') {
-    return `
-      <div class="card-stage-inner stage-metshield">
-        <img src="assets/jatayu-seal.jpg" alt="Project JATAYU Crest" class="stage-seal" />
-        <div class="tele-mini">
-          <div class="tele-mini-metrics">
-            <span>28.4°C</span>
-            <span>998.4 hPa</span>
-            <span>74% RH</span>
-          </div>
-          <svg viewBox="0 0 240 46" width="100%" height="44" aria-hidden="true">
-            <path d="M0 32 C 30 30, 50 14, 80 18 C 110 22, 130 8, 160 14 C 190 20, 210 10, 240 12" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round"/>
-            <path d="M0 38 C 40 36, 70 28, 110 31 C 150 34, 180 24, 240 26" fill="none" stroke="#38bdf8" stroke-width="1.8" stroke-dasharray="4 4"/>
-          </svg>
-          <div class="mono" style="font-size: 0.68rem; color: #6ee7b7;">WMO-NO. 8 TIER 1-3 · 20 AWS NODES</div>
-        </div>
-      </div>`;
-  }
-  if (p.id === 'black-browser') {
-    return `
-      <div class="card-stage-inner stage-browser">
-        <div class="browser-mockup">
-          <div class="browser-chrome">
-            <div class="dots"><span></span><span></span><span></span></div>
-            <div class="browser-url">🔒 black://home · Speed Dial</div>
-          </div>
-          <div class="browser-center">
-            <img src="assets/black-firefox-icon.png" alt="Black Browser Icon" class="app-emblem" />
-            <div>
-              <div style="font-weight: 700; font-size: 0.92rem; color: #f8fafc;">Black Browser v9.1.0</div>
-              <div class="mono" style="font-size: 0.7rem; color: #7dd3fc;">~460 KB · 3-Layer AdShield · DPAPI Vault</div>
-            </div>
-          </div>
-        </div>
-      </div>`;
-  }
-  if (p.id === 'blacktube') {
-    return `
-      <div class="card-stage-inner stage-player">
-        <div class="player-mockup">
-          <div class="player-screen">
-            <img src="assets/blacktube-icon.ico" alt="BlackTube Icon" class="app-emblem" />
-            <div style="flex: 1;">
-              <div style="font-weight: 700; font-size: 0.92rem; color: #f8fafc;">BlackTube Desktop</div>
-              <div class="mono" style="font-size: 0.7rem; color: #fda4af;">WebView2 Playback · 0 Telemetry · Low RAM</div>
-            </div>
-            <span style="width: 34px; height: 34px; border-radius: 999px; background: rgba(239,68,68,0.2); border: 1px solid rgba(248,113,113,0.45); display: grid; place-items: center; color: #f87171;">
-              <i class="fa-solid fa-play" style="font-size: 0.75rem;"></i>
-            </span>
-          </div>
-          <div class="player-bar"><div class="player-bar-fill"></div></div>
-        </div>
-      </div>`;
-  }
-  return `<img src="assets/aerotech-dashboard.png" alt="aerotech Forensic Triage Dashboard" class="card-stage-inner stage-screenshot" />`;
-}
+// Wire Flagship Spotlight Detail Buttons
+document.querySelectorAll('[data-open-details]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const id = btn.getAttribute('data-open-details');
+    const proj = PROJECTS.find(p => p.id === id);
+    if (proj) openDetailsModal(proj);
+  });
+});
 
 // ---------------------------------------------------------------------------
-// Render Project Cards & Distribution Matrix
+// Render Apple Bento Grid & Distribution Matrix
 // ---------------------------------------------------------------------------
 function renderProjects() {
   const grid = document.getElementById('projects-grid');
@@ -403,49 +417,56 @@ function renderProjects() {
       const safeDl = sanitizeHttpUrl(meta.downloadUrl);
       const safeGh = sanitizeHttpUrl(p.github);
 
+      let primaryAction = '';
+      if (safeDl) {
+        primaryAction = `<a href="${safeDl}" target="_blank" rel="noopener noreferrer" class="btn btn-blue btn-sm"><i class="fa-solid fa-download"></i> Download ${meta.assetSize ? `(${escapeHtml(meta.assetSize)})` : ''}</a>`;
+      } else if (safeWeb) {
+        primaryAction = `<button class="btn btn-primary btn-sm" data-action="preview" data-id="${escapeHtml(p.id)}">Live Preview</button>`;
+      } else if (!p.isPrivate && safeGh) {
+        primaryAction = `<a href="${safeGh}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">Explore Repo</a>`;
+      } else {
+        primaryAction = `<button class="btn btn-primary btn-sm" data-action="details" data-id="${escapeHtml(p.id)}">Read Case Study</button>`;
+      }
+
       return `
-      <article class="project-card" id="card-${escapeHtml(p.id)}">
-        <div class="card-stage">
-          ${buildCardStageHtml(p)}
-          <div class="stage-overlay">
-            <span class="stage-label">
-              <i class="${escapeHtml(p.iconClass)}" style="color: ${escapeHtml(p.statusColor)};"></i>
-              <span>${escapeHtml(p.domainLabel)}</span>
-            </span>
-            <span class="status-pill" style="background: ${escapeHtml(p.statusBg)}; color: ${escapeHtml(p.statusColor)};">
-              ${escapeHtml(p.statusText)}
-            </span>
+      <article class="bento-card" id="card-${escapeHtml(p.id)}">
+        <div class="bento-top">
+          <div class="bento-app-id">
+            ${
+              p.iconImg
+                ? `<img src="${escapeHtml(p.iconImg)}" alt="${escapeHtml(p.name)} icon" class="bento-icon" />`
+                : `<span class="bento-icon" style="background: ${escapeHtml(p.statusBg)}; color: ${escapeHtml(p.statusColor)};"><i class="${escapeHtml(p.iconClass)}" style="font-size: 1.15rem;"></i></span>`
+            }
+            <div>
+              <div class="bento-kicker" style="color: ${escapeHtml(p.statusColor)};">${escapeHtml(p.domainLabel)}</div>
+              <h3 class="bento-title">${escapeHtml(p.name)}</h3>
+            </div>
           </div>
+          <span class="mono" style="font-size: 0.76rem; color: var(--text-muted);">
+            ${p.isPrivate ? '<i class="fa-solid fa-lock"></i> Private' : `${escapeHtml(meta.version)}`}
+          </span>
         </div>
 
-        <div class="card-body">
-          <div class="card-title-row">
-            <div class="card-title-group">
-              ${p.iconImg ? `<img src="${escapeHtml(p.iconImg)}" alt="" class="card-mini-icon" />` : `<span class="card-mini-icon" style="display: grid; place-items: center; background: ${escapeHtml(p.statusBg)}; color: ${escapeHtml(p.statusColor)};"><i class="${escapeHtml(p.iconClass)}" style="font-size: 0.75rem;"></i></span>`}
-              <h3 class="card-title">${escapeHtml(p.name)}</h3>
-            </div>
-            <div class="card-stats">
-              ${p.isPrivate ? '<span><i class="fa-solid fa-lock"></i> Private</span>' : `<span><i class="fa-regular fa-star"></i> ${meta.stars}</span><span><i class="fa-solid fa-code-fork"></i> ${meta.forks}</span>`}
-            </div>
-          </div>
+        <div class="bento-hook">${escapeHtml(p.hook)}</div>
+        <p class="bento-desc">${escapeHtml(p.summary)}</p>
 
-          <p class="card-desc">${escapeHtml(p.summary)}</p>
+        ${
+          p.detailImg
+            ? `<div class="bento-preview"><img src="${escapeHtml(p.detailImg)}" alt="${escapeHtml(p.name)} preview" /></div>`
+            : ''
+        }
 
-          <ul class="card-highlights">
-            ${p.highlights.map(h => `<li><i class="fa-solid fa-check"></i><span>${escapeHtml(h)}</span></li>`).join('')}
-          </ul>
+        <div class="bento-tags">
+          ${p.tech.map(t => `<span class="bento-tag">${escapeHtml(t)}</span>`).join('')}
+        </div>
 
-          <div class="tech-row">
-            ${p.tech.map(t => `<span class="tech-tag">${escapeHtml(t)}</span>`).join('')}
-          </div>
-
-          <div class="card-footer">
-            ${safeDl ? `<a href="${safeDl}" target="_blank" rel="noopener noreferrer" class="btn btn-emerald btn-sm"><i class="fa-solid fa-download"></i> Download ${meta.assetSize ? `(${escapeHtml(meta.assetSize)})` : ''}</a>` : ''}
-            ${safeWeb ? `<button class="btn btn-primary btn-sm" data-action="preview" data-id="${escapeHtml(p.id)}"><i class="fa-solid fa-display"></i> Live Preview</button><a href="${safeWeb}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm"><i class="fa-solid fa-arrow-up-right-from-square"></i> Launch</a>` : ''}
-            ${!p.isPrivate && safeGh ? `<a href="${safeGh}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm"><i class="fa-brands fa-github"></i> Source</a>` : ''}
-            <button class="btn btn-secondary btn-sm" data-action="details" data-id="${escapeHtml(p.id)}"><i class="fa-solid fa-circle-info"></i> Details</button>
-            <button class="btn btn-secondary btn-sm spacer" data-action="share" data-id="${escapeHtml(p.id)}" title="Copy direct link"><i class="fa-solid fa-share-nodes"></i></button>
-          </div>
+        <div class="bento-footer">
+          ${primaryAction}
+          <button class="btn btn-glass btn-sm" data-action="details" data-id="${escapeHtml(p.id)}">Specs</button>
+          ${!p.isPrivate && safeGh ? `<a href="${safeGh}" target="_blank" rel="noopener noreferrer" class="btn btn-link btn-sm">GitHub ›</a>` : ''}
+          <button class="btn btn-glass btn-sm spacer" data-action="share" data-id="${escapeHtml(p.id)}" title="Copy link" aria-label="Copy link for ${escapeHtml(p.name)}">
+            <i class="fa-solid fa-arrow-up-from-bracket"></i>
+          </button>
         </div>
       </article>`;
     })
@@ -482,28 +503,41 @@ function renderDistributionTable() {
     const safeWeb = sanitizeHttpUrl(p.website);
     const safeGh = sanitizeHttpUrl(p.github);
 
+    // Update Black Browser hero download button when live asset arrives
+    if (p.id === 'black-browser' && safeDl) {
+      const heroDl = document.getElementById('black-browser-hero-dl');
+      if (heroDl) {
+        heroDl.href = safeDl;
+        heroDl.textContent = `Download ${meta.version} (${meta.assetSize || 'Setup'})`;
+      }
+    }
+
     let distCell = `<span class="mono" style="color: var(--text-muted);">Private Showcase</span>`;
     if (safeDl) {
-      distCell = `<a href="${safeDl}" target="_blank" rel="noopener noreferrer" class="btn btn-emerald btn-sm"><i class="fa-solid fa-download"></i> ${escapeHtml(meta.assetName)} ${meta.assetSize ? `(${escapeHtml(meta.assetSize)})` : ''}</a>`;
+      distCell = `<a href="${safeDl}" target="_blank" rel="noopener noreferrer" class="btn btn-blue btn-sm"><i class="fa-solid fa-download"></i> ${escapeHtml(meta.assetName)} ${meta.assetSize ? `(${escapeHtml(meta.assetSize)})` : ''}</a>`;
     } else if (safeWeb) {
-      distCell = `<a href="${safeWeb}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm"><i class="fa-solid fa-arrow-up-right-from-square"></i> Launch Web App</a>`;
+      distCell = `<a href="${safeWeb}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">Launch Web App</a>`;
     } else if (!p.isPrivate && safeGh) {
-      distCell = `<a href="${safeGh}/releases" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm"><i class="fa-brands fa-github"></i> Source / Releases</a>`;
+      distCell = `<a href="${safeGh}/releases" target="_blank" rel="noopener noreferrer" class="btn btn-glass btn-sm"><i class="fa-brands fa-github"></i> Source / Releases</a>`;
     } else {
-      distCell = `<button class="btn btn-secondary btn-sm" data-table-details="${escapeHtml(p.id)}"><i class="fa-solid fa-file-shield"></i> Case Study</button>`;
+      distCell = `<button class="btn btn-glass btn-sm" data-table-details="${escapeHtml(p.id)}">Case Study</button>`;
     }
 
     return `
       <tr>
         <td>
-          <div class="card-title-group">
-            ${p.iconImg ? `<img src="${escapeHtml(p.iconImg)}" alt="" class="card-mini-icon" />` : `<span class="card-mini-icon" style="display: grid; place-items: center; background: ${escapeHtml(p.statusBg)}; color: ${escapeHtml(p.statusColor)};"><i class="${escapeHtml(p.iconClass)}" style="font-size: 0.72rem;"></i></span>`}
+          <div style="display: flex; align-items: center; gap: 0.7rem;">
+            ${
+              p.iconImg
+                ? `<img src="${escapeHtml(p.iconImg)}" alt="" style="width: 28px; height: 28px; border-radius: 7px; object-fit: cover; border: 1px solid var(--border);" />`
+                : `<span style="width: 28px; height: 28px; border-radius: 7px; display: grid; place-items: center; background: ${escapeHtml(p.statusBg)}; color: ${escapeHtml(p.statusColor)};"><i class="${escapeHtml(p.iconClass)}" style="font-size: 0.72rem;"></i></span>`
+            }
             <strong>${escapeHtml(p.name)}</strong>
           </div>
         </td>
-        <td class="mono">${escapeHtml(p.runtime)} · ${escapeHtml(p.footprint)}</td>
+        <td class="mono" style="font-size: 0.8rem;">${escapeHtml(p.runtime)} · ${escapeHtml(p.footprint)}</td>
         <td>${escapeHtml(p.platform)}</td>
-        <td class="mono" style="color: var(--emerald);">${escapeHtml(meta.version || p.defaultVersion)}</td>
+        <td class="mono" style="color: var(--apple-green); font-size: 0.82rem;">${escapeHtml(meta.version || p.defaultVersion)}</td>
         <td>${distCell}</td>
       </tr>`;
   }).join('');
@@ -526,7 +560,7 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
 });
 
 // ---------------------------------------------------------------------------
-// Subtle Interactive 3D Geometric Hero (Three.js 0.160.0)
+// Apple Keynote Interactive 3D Systems Core (Three.js 0.160.0)
 // ---------------------------------------------------------------------------
 function initHero3D() {
   const canvas = document.getElementById('hero-3d-canvas');
@@ -536,13 +570,13 @@ function initHero3D() {
   try {
     renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
   } catch {
-    return; // Graceful 2D fallback if WebGL is unavailable
+    return;
   }
 
   const container = canvas.parentElement;
   const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(42, container.clientWidth / container.clientHeight, 0.1, 100);
-  camera.position.set(0, 0, 5.2);
+  const camera = new THREE.PerspectiveCamera(40, container.clientWidth / container.clientHeight, 0.1, 100);
+  camera.position.set(0, 0, 5.6);
 
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
   renderer.setSize(container.clientWidth, container.clientHeight, false);
@@ -550,62 +584,69 @@ function initHero3D() {
   const rootGroup = new THREE.Group();
   scene.add(rootGroup);
 
-  // Outer sleek wireframe icosahedron
-  const outerGeo = new THREE.IcosahedronGeometry(1.45, 1);
+  // Titanium Precision Outer Cage
+  const outerGeo = new THREE.IcosahedronGeometry(1.5, 1);
   const outerWire = new THREE.WireframeGeometry(outerGeo);
-  const outerMat = new THREE.LineBasicMaterial({ color: 0x38bdf8, transparent: true, opacity: 0.48 });
+  const outerMat = new THREE.LineBasicMaterial({ color: 0x0a84ff, transparent: true, opacity: 0.42 });
   const outerMesh = new THREE.LineSegments(outerWire, outerMat);
   rootGroup.add(outerMesh);
 
-  // Inner faceted solid core
-  const coreGeo = new THREE.OctahedronGeometry(0.82, 0);
+  // Metallic Silicon Core
+  const coreGeo = new THREE.OctahedronGeometry(0.86, 0);
   const coreMat = new THREE.MeshStandardMaterial({
-    color: 0x10b981,
+    color: 0x30d158,
     emissive: 0x064e3b,
-    emissiveIntensity: 0.6,
-    metalness: 0.75,
-    roughness: 0.25,
+    emissiveIntensity: 0.45,
+    metalness: 0.85,
+    roughness: 0.18,
     flatShading: true
   });
   const coreMesh = new THREE.Mesh(coreGeo, coreMat);
   rootGroup.add(coreMesh);
 
-  // Clean orbital halo ring
-  const ringGeo = new THREE.TorusGeometry(2.05, 0.012, 8, 96);
-  const ringMat = new THREE.MeshBasicMaterial({ color: 0xa78bfa, transparent: true, opacity: 0.35 });
-  const ringMesh = new THREE.Mesh(ringGeo, ringMat);
-  ringMesh.rotation.x = Math.PI * 0.36;
-  ringMesh.rotation.y = Math.PI * 0.12;
-  rootGroup.add(ringMesh);
+  // Dual Gyroscopic Orbital Rings
+  const ringGeo1 = new THREE.TorusGeometry(2.15, 0.012, 12, 110);
+  const ringMat1 = new THREE.MeshBasicMaterial({ color: 0x64d2ff, transparent: true, opacity: 0.4 });
+  const ring1 = new THREE.Mesh(ringGeo1, ringMat1);
+  ring1.rotation.x = Math.PI * 0.38;
+  ring1.rotation.y = Math.PI * 0.12;
+  rootGroup.add(ring1);
 
-  // Sparse ambient starfield
-  const count = 90;
+  const ringGeo2 = new THREE.TorusGeometry(1.88, 0.009, 10, 96);
+  const ringMat2 = new THREE.MeshBasicMaterial({ color: 0xbf5af2, transparent: true, opacity: 0.3 });
+  const ring2 = new THREE.Mesh(ringGeo2, ringMat2);
+  ring2.rotation.x = -Math.PI * 0.28;
+  ring2.rotation.y = Math.PI * 0.35;
+  rootGroup.add(ring2);
+
+  // Subtle Ambient Telemetry Nodes
+  const count = 80;
   const positions = new Float32Array(count * 3);
   for (let i = 0; i < count; i++) {
-    positions[i * 3] = (Math.random() - 0.5) * 9;
+    positions[i * 3] = (Math.random() - 0.5) * 10;
     positions[i * 3 + 1] = (Math.random() - 0.5) * 6;
     positions[i * 3 + 2] = (Math.random() - 0.5) * 4 - 1;
   }
   const starGeo = new THREE.BufferGeometry();
   starGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-  const starMat = new THREE.PointsMaterial({ color: 0xe4e4e7, size: 0.035, transparent: true, opacity: 0.55 });
+  const starMat = new THREE.PointsMaterial({ color: 0xf5f5f7, size: 0.032, transparent: true, opacity: 0.45 });
   scene.add(new THREE.Points(starGeo, starMat));
 
-  const keyLight = new THREE.DirectionalLight(0x38bdf8, 2.2);
+  const keyLight = new THREE.DirectionalLight(0x0a84ff, 2.4);
   keyLight.position.set(3, 4, 5);
   scene.add(keyLight);
 
-  const rimLight = new THREE.DirectionalLight(0x10b981, 1.8);
+  const rimLight = new THREE.DirectionalLight(0x30d158, 2.0);
   rimLight.position.set(-4, -2, 3);
   scene.add(rimLight);
-  scene.add(new THREE.AmbientLight(0xffffff, 0.45));
+  scene.add(new THREE.AmbientLight(0xffffff, 0.5));
 
   let targetX = 0;
   let targetY = 0;
   container.addEventListener('pointermove', e => {
     const rect = container.getBoundingClientRect();
-    targetX = ((e.clientX - rect.left) / rect.width - 0.5) * 0.7;
-    targetY = ((e.clientY - rect.top) / rect.height - 0.5) * 0.7;
+    targetX = ((e.clientX - rect.left) / rect.width - 0.5) * 0.85;
+    targetY = ((e.clientY - rect.top) / rect.height - 0.5) * 0.85;
   });
   container.addEventListener('pointerleave', () => {
     targetX = 0;
@@ -644,10 +685,11 @@ function initHero3D() {
     const dt = Math.min((now - last) / 1000, 0.05);
     last = now;
 
-    outerMesh.rotation.y += dt * 0.28;
-    outerMesh.rotation.x += dt * 0.14;
-    coreMesh.rotation.y -= dt * 0.42;
-    ringMesh.rotation.z += dt * 0.2;
+    outerMesh.rotation.y += dt * 0.22;
+    outerMesh.rotation.x += dt * 0.11;
+    coreMesh.rotation.y -= dt * 0.36;
+    ring1.rotation.z += dt * 0.18;
+    ring2.rotation.z -= dt * 0.14;
 
     rootGroup.rotation.y += (targetX - rootGroup.rotation.y) * 0.06;
     rootGroup.rotation.x += (targetY - rootGroup.rotation.x) * 0.06;
