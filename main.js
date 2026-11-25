@@ -60,7 +60,7 @@ const PROJECTS = [
     defaultStars: 1,
     defaultForks: 0,
     defaultVersion: 'v9.1.0',
-    website: 'https://shivamkumarmehta64-sketch.github.io/Black-Firefox/',
+    website: 'https://blackbrowser.vercel.app/',
     github: `https://github.com/${GITHUB_USER}/Black-Firefox`,
     iconImg: 'assets/black-firefox-icon.png',
     detailImg: null,
@@ -194,6 +194,70 @@ const PROJECTS = [
     detailImg: 'assets/cinematic-birthday.png',
     architecture:
       'Static Next.js application encoding celebration payloads client-side with zero database dependency, deployed on Cloudflare Pages.'
+  },
+  {
+    id: 'blue-browser-tauri',
+    name: 'Blue Browser (Tauri)',
+    repo: 'Blue-Browser-Tauri',
+    hasReleases: false,
+    filter: 'desktop',
+    domainLabel: 'Cross-Platform Rust Browser',
+    statusText: 'TAURI · RUST',
+    statusColor: '#38bdf8',
+    statusBg: 'rgba(56, 189, 248, 0.12)',
+    iconClass: 'fa-solid fa-compass',
+    summary:
+      'Cross-platform companion to Black Browser engineered with TypeScript/React frontend and a Rust Tauri backend for Windows, macOS, and Linux.',
+    highlights: [
+      'Memory-safe Rust backend paired with a responsive React/TypeScript shell',
+      'Native OS webview integration without bundled Chromium overhead',
+      'Cross-platform workspace designed for Windows, macOS, and Linux'
+    ],
+    tech: ['Rust', 'Tauri', 'TypeScript', 'React', 'Cross-Platform'],
+    runtime: 'Rust / Tauri',
+    footprint: 'Cross-Platform',
+    platform: 'Win / macOS / Linux',
+    defaultStars: 0,
+    defaultForks: 0,
+    defaultVersion: 'v0.1.0',
+    website: null,
+    github: `https://github.com/${GITHUB_USER}/Blue-Browser-Tauri`,
+    iconImg: null,
+    detailImg: null,
+    architecture:
+      'Tauri v2 desktop architecture pairing a Rust native command/IPC layer with a TypeScript/React UI.'
+  },
+  {
+    id: 'mtube',
+    name: 'mTube',
+    repo: 'mtube',
+    hasReleases: false,
+    filter: 'desktop',
+    domainLabel: 'Ad-Free YT + Music',
+    statusText: 'ELECTRON · DESKTOP',
+    statusColor: '#fb7185',
+    statusBg: 'rgba(251, 113, 133, 0.12)',
+    iconClass: 'fa-solid fa-headphones',
+    summary:
+      'Lightweight, ad-free YouTube and YouTube Music desktop application with background playback, Picture-in-Picture, sleep timer, and SponsorBlock.',
+    highlights: [
+      'Unified YouTube + YouTube Music playback with SponsorBlock integration',
+      'Background audio mode, Picture-in-Picture, and built-in sleep timer',
+      'Distraction-free desktop media shell with integrated ad-blocking'
+    ],
+    tech: ['Electron', 'JavaScript', 'SponsorBlock', 'PiP', 'Ad-Block'],
+    runtime: 'Electron / JS',
+    footprint: 'Desktop Media App',
+    platform: 'Windows / macOS / Linux',
+    defaultStars: 0,
+    defaultForks: 0,
+    defaultVersion: 'Latest',
+    website: null,
+    github: `https://github.com/${GITHUB_USER}/mtube`,
+    iconImg: null,
+    detailImg: null,
+    architecture:
+      'Electron media shell injecting ad-block and SponsorBlock filters with native PiP and background playback controls.'
   }
 ];
 
@@ -445,6 +509,46 @@ function buildCardStageHtml(p) {
         </div>
       </div>`;
   }
+  if (p.id === 'blue-browser-tauri') {
+    return `
+      <div class="card-stage-inner stage-browser">
+        <div class="browser-mockup">
+          <div class="browser-chrome">
+            <div class="dots"><span></span><span></span><span></span></div>
+            <div class="browser-url">🦀 tauri://blue-browser · Cross-Platform</div>
+          </div>
+          <div class="browser-center">
+            <span class="app-emblem" style="display: grid; place-items: center; background: rgba(56,189,248,0.16); border: 1px solid rgba(56,189,248,0.4); color: #38bdf8;">
+              <i class="fa-solid fa-compass"></i>
+            </span>
+            <div>
+              <div style="font-weight: 700; font-size: 0.92rem; color: #f8fafc;">Blue Browser (Tauri)</div>
+              <div class="mono" style="font-size: 0.7rem; color: #7dd3fc;">Rust + React · Win / macOS / Linux</div>
+            </div>
+          </div>
+        </div>
+      </div>`;
+  }
+  if (p.id === 'mtube') {
+    return `
+      <div class="card-stage-inner stage-player">
+        <div class="player-mockup">
+          <div class="player-screen">
+            <span class="app-emblem" style="display: grid; place-items: center; background: rgba(251,113,133,0.18); border: 1px solid rgba(251,113,133,0.4); color: #fb7185;">
+              <i class="fa-solid fa-headphones"></i>
+            </span>
+            <div style="flex: 1;">
+              <div style="font-weight: 700; font-size: 0.92rem; color: #f8fafc;">mTube + Music</div>
+              <div class="mono" style="font-size: 0.7rem; color: #fda4af;">SponsorBlock · PiP · Sleep Timer</div>
+            </div>
+            <span style="width: 34px; height: 34px; border-radius: 999px; background: rgba(251,113,133,0.2); border: 1px solid rgba(251,113,133,0.45); display: grid; place-items: center; color: #fb7185;">
+              <i class="fa-solid fa-play" style="font-size: 0.75rem;"></i>
+            </span>
+          </div>
+          <div class="player-bar"><div class="player-bar-fill"></div></div>
+        </div>
+      </div>`;
+  }
   if (p.detailImg) {
     return `<img src="${escapeHtml(p.detailImg)}" alt="${escapeHtml(p.name)} Preview" class="card-stage-inner stage-screenshot" />`;
   }
@@ -510,11 +614,16 @@ function renderProjects() {
           </div>
 
           <div class="card-footer">
-            ${safeDl ? `<a href="${safeDl}" target="_blank" rel="noopener noreferrer" class="btn btn-emerald btn-sm"><i class="fa-solid fa-download"></i> Download ${meta.assetSize ? `(${escapeHtml(meta.assetSize)})` : ''}</a>` : ''}
-            ${safeWeb ? `<button class="btn btn-primary btn-sm" data-action="preview" data-id="${escapeHtml(p.id)}"><i class="fa-solid fa-display"></i> Live Preview</button><a href="${safeWeb}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm"><i class="fa-solid fa-arrow-up-right-from-square"></i> Launch</a>` : ''}
-            ${!p.isPrivate && safeGh ? `<a href="${safeGh}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm"><i class="fa-brands fa-github"></i> Source</a>` : ''}
-            <button class="btn btn-secondary btn-sm" data-action="details" data-id="${escapeHtml(p.id)}"><i class="fa-solid fa-circle-info"></i> Details</button>
-            <button class="btn btn-secondary btn-sm spacer" data-action="share" data-id="${escapeHtml(p.id)}" title="Copy direct link"><i class="fa-solid fa-share-nodes"></i></button>
+            <div class="card-actions-main">
+              ${safeDl ? `<a href="${safeDl}" target="_blank" rel="noopener noreferrer" class="btn btn-emerald btn-sm"><i class="fa-solid fa-download"></i> Download ${meta.assetSize ? `(${escapeHtml(meta.assetSize)})` : ''}</a>` : ''}
+              ${!safeDl && safeWeb ? `<button class="btn btn-primary btn-sm" data-action="preview" data-id="${escapeHtml(p.id)}"><i class="fa-solid fa-display"></i> Live Preview</button>` : ''}
+              ${safeWeb ? `<a href="${safeWeb}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm"><i class="fa-solid fa-arrow-up-right-from-square"></i> Launch</a>` : ''}
+              <button class="btn btn-secondary btn-sm" data-action="details" data-id="${escapeHtml(p.id)}"><i class="fa-solid fa-circle-info"></i> Details</button>
+            </div>
+            <div class="card-actions-util">
+              ${!p.isPrivate && safeGh ? `<a href="${safeGh}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm btn-icon" title="View GitHub Repository" aria-label="View GitHub Repository"><i class="fa-brands fa-github"></i></a>` : ''}
+              <button class="btn btn-secondary btn-sm btn-icon" data-action="share" data-id="${escapeHtml(p.id)}" title="Copy direct link" aria-label="Copy direct link"><i class="fa-solid fa-share-nodes"></i></button>
+            </div>
           </div>
         </div>
       </article>`;
@@ -756,10 +865,78 @@ function observeReveals() {
 }
 
 // ---------------------------------------------------------------------------
+// Complete GitHub Repository Directory
+// ---------------------------------------------------------------------------
+const FALLBACK_REPOS = [
+  { name: 'MetShield-AI', language: 'TypeScript', description: 'MoES / IMD Automatic Weather Station Real-Time QC System (SIH26073)', html_url: `https://github.com/${GITHUB_USER}/MetShield-AI`, homepage: 'https://aws2026-nu.vercel.app', stargazers_count: 1 },
+  { name: 'Black-Firefox', language: 'C#', description: 'Black Browser — Fast, privacy-first native Windows 10/11 browser in C# (.NET 4.8) + WebView2.', html_url: `https://github.com/${GITHUB_USER}/Black-Firefox`, homepage: 'https://blackbrowser.vercel.app/', stargazers_count: 1 },
+  { name: 'Blue-Browser-Tauri', language: 'Rust / TypeScript', description: 'Cross-platform browser in TypeScript/React + Rust (Tauri) for Windows, macOS, and Linux.', html_url: `https://github.com/${GITHUB_USER}/Blue-Browser-Tauri`, homepage: '', stargazers_count: 0 },
+  { name: 'quantum-drone-sih', language: 'Python / HTML', description: 'Hybrid Quantum-Resilient Drone Surveillance System — Quantum-safe communications & real-time GCS.', html_url: `https://github.com/${GITHUB_USER}/quantum-drone-sih`, homepage: 'https://quantum-drone-gcs.pages.dev', stargazers_count: 0 },
+  { name: 'black-browser-website', language: 'HTML / CSS', description: 'Official web landing page and storefront for Black Browser.', html_url: `https://github.com/${GITHUB_USER}/black-browser-website`, homepage: 'https://blackbrowser.vercel.app/', stargazers_count: 0 },
+  { name: 'BlackTube', language: 'C#', description: 'Ultra-lightweight, ad-free YouTube desktop client (C# .NET 4.8 + WebView2).', html_url: `https://github.com/${GITHUB_USER}/BlackTube`, homepage: '', stargazers_count: 0 },
+  { name: 'mtube', language: 'JavaScript', description: 'Lightweight, ad-free YouTube + YouTube Music desktop app (Electron) with PiP and SponsorBlock.', html_url: `https://github.com/${GITHUB_USER}/mtube`, homepage: '', stargazers_count: 0 },
+  { name: 'ytube', language: 'C#', description: 'Ad-free YouTube Desktop application for Windows (.NET 4.8 + WebView2 with RAM limits & SponsorBlock).', html_url: `https://github.com/${GITHUB_USER}/ytube`, homepage: '', stargazers_count: 0 },
+  { name: 'cinematic-birthday', language: 'TypeScript', description: 'Create an animated, shareable birthday surprise link — 100% client-side, zero uploads.', html_url: `https://github.com/${GITHUB_USER}/cinematic-birthday`, homepage: 'https://cinematic-birthday-3ou.pages.dev', stargazers_count: 0 },
+  { name: 'Electronics_Calculator', language: 'Kotlin / Java', description: 'Scientific calculator Android app with sin, cos, tan, log, factorial and expression parsing.', html_url: `https://github.com/${GITHUB_USER}/Electronics_Calculator`, homepage: '', stargazers_count: 0 },
+  { name: 'Black', language: 'JavaScript', description: 'Early Electron/JS prototype of Black Browser (superseded by Black Browser v9.1.0).', html_url: `https://github.com/${GITHUB_USER}/Black`, homepage: '', stargazers_count: 0 },
+  { name: 'all-websites-3d', language: 'JavaScript', description: 'Portfolio & Software Distribution Hub with interactive Three.js 3D hero.', html_url: `https://github.com/${GITHUB_USER}/all-websites-3d`, homepage: `https://${GITHUB_USER}.github.io/all-websites-3d/`, stargazers_count: 0 },
+  { name: 'shivamkumarmehta64-sketch', language: 'Markdown', description: 'GitHub profile repository for personal branding and live telemetry.', html_url: `https://github.com/${GITHUB_USER}/shivamkumarmehta64-sketch`, homepage: '', stargazers_count: 0 }
+];
+
+function renderAllRepos(repos) {
+  const grid = document.getElementById('all-repos-grid');
+  if (!grid) return;
+
+  grid.innerHTML = repos
+    .map(r => {
+      const safeRepo = sanitizeHttpUrl(r.html_url);
+      const safeHome = sanitizeHttpUrl(r.homepage);
+      const lang = r.language || 'Code';
+      const desc = r.description || 'Open-source engineering repository.';
+      const stars = typeof r.stargazers_count === 'number' ? r.stargazers_count : 0;
+
+      return `
+      <article class="repo-tile reveal">
+        <div class="repo-tile-head">
+          <span class="repo-tile-name" title="${escapeHtml(r.name)}"><i class="fa-brands fa-github" style="color: var(--text-muted); margin-right: 0.4rem;"></i>${escapeHtml(r.name)}</span>
+          <span class="repo-lang">${escapeHtml(lang)}</span>
+        </div>
+        <p class="repo-tile-desc">${escapeHtml(desc)}</p>
+        <div class="repo-tile-foot">
+          <span class="mono" style="font-size: 0.74rem; color: var(--text-muted);"><i class="fa-regular fa-star"></i> ${stars}</span>
+          <div style="display: flex; gap: 0.4rem; align-items: center;">
+            ${safeHome ? `<a href="${safeHome}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">Live</a>` : ''}
+            ${safeRepo ? `<a href="${safeRepo}" target="_blank" rel="noopener noreferrer" class="btn btn-glass btn-sm">Repo <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.7rem;"></i></a>` : ''}
+          </div>
+        </div>
+      </article>`;
+    })
+    .join('');
+
+  observeReveals();
+}
+
+async function fetchAllRepos() {
+  try {
+    const res = await fetch(`https://api.github.com/users/${GITHUB_USER}/repos?sort=updated&per_page=30`);
+    if (!res.ok) return;
+    const json = await res.json();
+    if (!Array.isArray(json) || json.length === 0) return;
+    const publicRepos = json.filter(r => !r.private);
+    if (publicRepos.length > 0) {
+      renderAllRepos(publicRepos);
+    }
+  } catch {
+    // Keep fallback repos
+  }
+}
+
+// ---------------------------------------------------------------------------
 // Bootstrap
 // ---------------------------------------------------------------------------
 renderProjects();
 renderDistributionTable();
+renderAllRepos(FALLBACK_REPOS);
 observeReveals();
 initHero3D();
 
@@ -794,6 +971,7 @@ Promise.all(PROJECTS.map(fetchRepoTelemetry)).then(() => {
   renderDistributionTable();
   updateGitHubStrip();
 });
+fetchAllRepos();
 
 const initialHash = window.location.hash.replace('#', '');
 if (initialHash) {

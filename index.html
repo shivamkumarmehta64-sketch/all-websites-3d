@@ -235,7 +235,7 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 0.5rem;
+      gap: 0.45rem;
       min-height: 44px;
       padding: 0.7rem 1.45rem;
       border-radius: var(--radius-pill);
@@ -243,7 +243,16 @@
       font-weight: 600;
       letter-spacing: -0.01em;
       border: 1px solid transparent;
-      transition: all 0.3s var(--spring);
+      cursor: pointer;
+      text-decoration: none;
+      white-space: nowrap;
+      user-select: none;
+      transition: transform 0.25s var(--spring), background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+    .btn:active { transform: scale(0.97); }
+    .btn:focus-visible, .filter-btn:focus-visible, .nav-pill:focus-visible, .modal-close:focus-visible {
+      outline: 2px solid var(--apple-blue);
+      outline-offset: 2px;
     }
     .btn-primary {
       background: var(--text);
@@ -251,8 +260,8 @@
     }
     .btn-primary:hover {
       background: #ffffff;
-      transform: scale(1.02);
-      box-shadow: 0 10px 28px rgba(255, 255, 255, 0.18);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(255, 255, 255, 0.16);
     }
     .btn-blue {
       background: var(--apple-blue);
@@ -260,18 +269,29 @@
     }
     .btn-blue:hover {
       background: #2894ff;
-      transform: scale(1.02);
-      box-shadow: 0 10px 28px rgba(10, 132, 255, 0.32);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(10, 132, 255, 0.3);
     }
-    .btn-glass {
-      background: rgba(255, 255, 255, 0.07);
+    .btn-glass, .btn-secondary {
+      background: rgba(255, 255, 255, 0.08);
       color: var(--text);
       border-color: var(--border-specular);
       backdrop-filter: blur(12px);
     }
-    .btn-glass:hover {
-      background: rgba(255, 255, 255, 0.13);
+    .btn-glass:hover, .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.15);
       border-color: var(--border-hover);
+      transform: translateY(-1px);
+    }
+    .btn-emerald {
+      background: var(--apple-green);
+      color: #000;
+      font-weight: 600;
+    }
+    .btn-emerald:hover {
+      background: #3fe067;
+      transform: translateY(-1px);
+      box-shadow: 0 8px 22px rgba(48, 209, 88, 0.28);
     }
     .btn-link {
       background: transparent;
@@ -283,8 +303,13 @@
     .btn-link:hover { text-decoration: underline; }
     .btn-sm {
       min-height: 36px;
-      padding: 0.42rem 1rem;
-      font-size: 0.82rem;
+      padding: 0.42rem 0.95rem;
+      font-size: 0.81rem;
+    }
+    .btn-icon {
+      width: 36px;
+      min-width: 36px;
+      padding: 0;
     }
 
     /* Keynote Hero */
@@ -942,22 +967,88 @@
       display: flex;
       flex-wrap: wrap;
       align-items: center;
+      justify-content: space-between;
       gap: 0.5rem;
     }
-    .card-footer .spacer { margin-left: auto; }
-    .btn-emerald {
-      background: var(--apple-green);
-      color: #000;
-      font-weight: 600;
+    .card-actions-main, .card-actions-util {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.45rem;
     }
-    .btn-emerald:hover { background: #3fe067; transform: translateY(-1px); }
-    .btn-secondary {
-      background: rgba(255, 255, 255, 0.07);
-      color: var(--text);
+    .card-actions-util { margin-left: auto; }
+
+    /* GitHub Repositories Directory */
+    .repos-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+    .repo-tile {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      padding: 1.2rem;
+      border-radius: var(--radius-md);
+      background: var(--glass);
       border: 1px solid var(--border-specular);
+      backdrop-filter: blur(20px);
+      transition: transform 0.25s var(--spring), border-color 0.25s ease, background 0.25s ease;
     }
-    .btn-secondary:hover { background: rgba(255, 255, 255, 0.14); border-color: var(--border-hover); }
-    .btn-sm { min-height: 36px; padding: 0.45rem 0.9rem; font-size: 0.8rem; }
+    .repo-tile:hover {
+      transform: translateY(-2px);
+      border-color: var(--border-hover);
+      background: rgba(255, 255, 255, 0.05);
+    }
+    .repo-tile-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+    .repo-tile-name {
+      font-size: 0.96rem;
+      font-weight: 650;
+      color: var(--text);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .repo-lang {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      padding: 0.18rem 0.55rem;
+      border-radius: var(--radius-pill);
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      white-space: nowrap;
+    }
+    .repo-tile-desc {
+      font-size: 0.82rem;
+      line-height: 1.5;
+      color: var(--text-secondary);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      min-height: 2.45em;
+    }
+    .repo-tile-foot {
+      margin-top: auto;
+      padding-top: 0.65rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+    @media (max-width: 1024px) {
+      .repos-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      .repos-grid { grid-template-columns: 1fr; }
+    }
 
     /* Distribution Matrix */
     .matrix-box {
@@ -1200,6 +1291,7 @@
         <a href="#flagships">Flagships</a>
         <a href="#ecosystem">Ecosystem</a>
         <a href="#distribution">Downloads</a>
+        <a href="#repositories">Repositories</a>
         <a href="#architecture">Engineering</a>
       </nav>
       <div class="nav-actions">
@@ -1388,7 +1480,7 @@
       <div class="container">
         <div class="chapter-header" style="margin-bottom: 2rem;">
           <span class="chapter-kicker" style="color: var(--apple-blue);">The Ecosystem</span>
-          <h2 class="chapter-title">Six precision tools. One vision.</h2>
+          <h2 class="chapter-title">Eight precision tools. One vision.</h2>
         </div>
 
         <div id="gh-telemetry-strip" class="gh-strip reveal" aria-label="GitHub Portfolio Summary">
@@ -1397,7 +1489,7 @@
             <span class="gh-metric-lbl">Public Repositories</span>
           </div>
           <div class="gh-metric">
-            <span class="gh-metric-val" id="gh-live-apps">4</span>
+            <span class="gh-metric-val" id="gh-live-apps">5</span>
             <span class="gh-metric-lbl">Live Web Portals</span>
           </div>
           <div class="gh-metric">
@@ -1411,8 +1503,8 @@
         </div>
 
         <div class="filter-bar" role="tablist" aria-label="Filter software">
-          <button class="filter-btn active" data-filter="all">All Releases (6)</button>
-          <button class="filter-btn" data-filter="desktop">Native Desktop (2)</button>
+          <button class="filter-btn active" data-filter="all">All Releases (8)</button>
+          <button class="filter-btn" data-filter="desktop">Native Desktop (4)</button>
           <button class="filter-btn" data-filter="web">AI &amp; Web (2)</button>
           <button class="filter-btn" data-filter="security">Security &amp; Defense (2)</button>
         </div>
@@ -1444,6 +1536,19 @@
             <tbody id="distribution-tbody"></tbody>
           </table>
         </div>
+      </div>
+    </section>
+
+    <!-- Complete GitHub Repository Index -->
+    <section id="repositories" style="padding-top: 1.5rem;">
+      <div class="container">
+        <div class="chapter-header" style="margin-bottom: 2rem;">
+          <span class="chapter-kicker" style="color: var(--apple-green);">Open Source Index</span>
+          <h2 class="chapter-title">All GitHub Repositories</h2>
+          <p class="chapter-desc">Live directory of public repositories under <code>@shivamkumarmehta64-sketch</code>, synced with GitHub.</p>
+        </div>
+
+        <div id="all-repos-grid" class="repos-grid"></div>
       </div>
     </section>
 
