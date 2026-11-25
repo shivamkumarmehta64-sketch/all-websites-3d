@@ -6,9 +6,10 @@
   "scripts": {
     "start": "node server.js",
     "dev": "node server.js",
-    "serve": "node server.js"
+    "serve": "node server.js",
+    "check": "node --check main.js && node --check server.js"
   },
-  "keywords": ["3d", "threejs", "webgl"],
-  "author": "",
-  "license": "ISC"
+  "keywords": ["3d", "threejs", "webgl", "portfolio"],
+  "author": "Shivam Kumar Mehta",
+  "license": "MIT"
 }

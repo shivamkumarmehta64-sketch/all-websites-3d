@@ -25,11 +25,13 @@ const MIME_TYPES = {
 };
 
 const server = http.createServer((req, res) => {
-    // Standard Security Headers
+    // Security Headers
     res.setHeader('X-Content-Type-Options', 'nosniff');
     res.setHeader('X-Frame-Options', 'SAMEORIGIN');
     res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
     res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
+    res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
+    res.setHeader('X-Permitted-Cross-Domain-Policies', 'none');
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, HEAD, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -64,8 +66,8 @@ const server = http.createServer((req, res) => {
 
     const filePath = path.resolve(PUBLIC_DIR, '.' + decodedPath);
 
-    // Enforce root boundary check
-    if (!filePath.startsWith(PUBLIC_DIR)) {
+    // Enforce strict directory boundary to block sibling-prefix traversal
+    if (filePath !== PUBLIC_DIR && !filePath.startsWith(PUBLIC_DIR + path.sep)) {
         res.writeHead(403, { 'Content-Type': 'text/plain' });
         res.end('403 Forbidden: Access Denied');
         return;

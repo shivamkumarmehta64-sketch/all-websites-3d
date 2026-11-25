@@ -60,7 +60,7 @@ const PROJECTS = [
     defaultStars: 1,
     defaultForks: 0,
     defaultVersion: 'v9.1.0',
-    website: 'https://blackbrowser.vercel.app/',
+    website: 'https://shivamkumarmehta64-sketch.github.io/Black-Firefox/',
     github: `https://github.com/${GITHUB_USER}/Black-Firefox`,
     iconImg: 'assets/black-firefox-icon.png',
     detailImg: null,
@@ -194,76 +194,13 @@ const PROJECTS = [
     detailImg: 'assets/cinematic-birthday.png',
     architecture:
       'Static Next.js application encoding celebration payloads client-side with zero database dependency, deployed on Cloudflare Pages.'
-  },
-  {
-    id: 'blue-browser-tauri',
-    name: 'Blue Browser (Tauri)',
-    repo: 'Blue-Browser-Tauri',
-    hasReleases: false,
-    filter: 'desktop',
-    domainLabel: 'Cross-Platform Rust Browser',
-    statusText: 'TAURI · RUST',
-    statusColor: '#38bdf8',
-    statusBg: 'rgba(56, 189, 248, 0.12)',
-    iconClass: 'fa-solid fa-compass',
-    summary:
-      'Cross-platform companion to Black Browser engineered with TypeScript/React frontend and a Rust Tauri backend for Windows, macOS, and Linux.',
-    highlights: [
-      'Memory-safe Rust backend paired with a responsive React/TypeScript shell',
-      'Native OS webview integration without bundled Chromium overhead',
-      'Cross-platform workspace designed for Windows, macOS, and Linux'
-    ],
-    tech: ['Rust', 'Tauri', 'TypeScript', 'React', 'Cross-Platform'],
-    runtime: 'Rust / Tauri',
-    footprint: 'Cross-Platform',
-    platform: 'Win / macOS / Linux',
-    defaultStars: 0,
-    defaultForks: 0,
-    defaultVersion: 'v0.1.0',
-    website: null,
-    github: `https://github.com/${GITHUB_USER}/Blue-Browser-Tauri`,
-    iconImg: null,
-    detailImg: null,
-    architecture:
-      'Tauri v2 desktop architecture pairing a Rust native command/IPC layer with a TypeScript/React UI.'
-  },
-  {
-    id: 'mtube',
-    name: 'mTube',
-    repo: 'mtube',
-    hasReleases: false,
-    filter: 'desktop',
-    domainLabel: 'Ad-Free YT + Music',
-    statusText: 'ELECTRON · DESKTOP',
-    statusColor: '#fb7185',
-    statusBg: 'rgba(251, 113, 133, 0.12)',
-    iconClass: 'fa-solid fa-headphones',
-    summary:
-      'Lightweight, ad-free YouTube and YouTube Music desktop application with background playback, Picture-in-Picture, sleep timer, and SponsorBlock.',
-    highlights: [
-      'Unified YouTube + YouTube Music playback with SponsorBlock integration',
-      'Background audio mode, Picture-in-Picture, and built-in sleep timer',
-      'Distraction-free desktop media shell with integrated ad-blocking'
-    ],
-    tech: ['Electron', 'JavaScript', 'SponsorBlock', 'PiP', 'Ad-Block'],
-    runtime: 'Electron / JS',
-    footprint: 'Desktop Media App',
-    platform: 'Windows / macOS / Linux',
-    defaultStars: 0,
-    defaultForks: 0,
-    defaultVersion: 'Latest',
-    website: null,
-    github: `https://github.com/${GITHUB_USER}/mtube`,
-    iconImg: null,
-    detailImg: null,
-    architecture:
-      'Electron media shell injecting ad-block and SponsorBlock filters with native PiP and background playback controls.'
   }
 ];
 
 const liveCache = new Map();
 let activeFilter = 'all';
 
+/** Escapes HTML special characters before interpolating untrusted strings into templates. */
 function escapeHtml(value) {
   return String(value ?? '')
     .replace(/&/g, '&amp;')
@@ -273,11 +210,16 @@ function escapeHtml(value) {
     .replace(/'/g, '&#39;');
 }
 
+/** Permits HTTPS URLs and local loopback HTTP URLs to prevent javascript: or mixed-content links. */
 function sanitizeHttpUrl(url) {
   if (!url || typeof url !== 'string') return null;
   try {
     const parsed = new URL(url);
-    return parsed.protocol === 'https:' || parsed.protocol === 'http:' ? parsed.href : null;
+    if (parsed.protocol === 'https:') return parsed.href;
+    if (parsed.protocol === 'http:' && (parsed.hostname === 'localhost' || parsed.hostname === '127.0.0.1')) {
+      return parsed.href;
+    }
+    return null;
   } catch {
     return null;
   }
@@ -389,11 +331,24 @@ const modalTitle = document.getElementById('modal-title-text');
 const modalBody = document.getElementById('modal-body');
 const modalExternal = document.getElementById('modal-external-link');
 const modalCloseBtn = document.getElementById('modal-close-btn');
+let lastFocusedElement = null;
+
+function openModalShell() {
+  lastFocusedElement = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+  document.body.style.overflow = 'hidden';
+  modal.classList.add('open');
+  if (modalCloseBtn) modalCloseBtn.focus();
+}
 
 function closeModal() {
   if (!modal) return;
   modal.classList.remove('open');
   modalBody.innerHTML = '';
+  document.body.style.overflow = '';
+  if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
+    lastFocusedElement.focus();
+    lastFocusedElement = null;
+  }
 }
 
 function openPreviewModal(project) {
@@ -403,8 +358,8 @@ function openPreviewModal(project) {
   modalExternal.href = safeUrl;
   modalExternal.style.display = 'inline-flex';
   modalBody.style.padding = '0';
-  modalBody.innerHTML = `<iframe class="preview-frame" src="${safeUrl}" title="${escapeHtml(project.name)} live preview" loading="lazy"></iframe>`;
-  modal.classList.add('open');
+  modalBody.innerHTML = `<iframe class="preview-frame" src="${safeUrl}" title="${escapeHtml(project.name)} live preview" loading="lazy" sandbox="allow-scripts allow-same-origin allow-forms allow-popups" referrerpolicy="no-referrer"></iframe>`;
+  openModalShell();
 }
 
 function openDetailsModal(project) {
@@ -441,7 +396,7 @@ function openDetailsModal(project) {
       ${!project.isPrivate && safeGh ? `<a href="${safeGh}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm"><i class="fa-brands fa-github"></i> View Repository</a>` : '<span class="mono" style="color: var(--text-muted); align-self: center;">Private hackathon repository — architecture overview shown above.</span>'}
     </div>
   `;
-  modal.classList.add('open');
+  openModalShell();
 }
 
 if (modalCloseBtn) modalCloseBtn.addEventListener('click', closeModal);
@@ -509,50 +464,10 @@ function buildCardStageHtml(p) {
         </div>
       </div>`;
   }
-  if (p.id === 'blue-browser-tauri') {
-    return `
-      <div class="card-stage-inner stage-browser">
-        <div class="browser-mockup">
-          <div class="browser-chrome">
-            <div class="dots"><span></span><span></span><span></span></div>
-            <div class="browser-url">🦀 tauri://blue-browser · Cross-Platform</div>
-          </div>
-          <div class="browser-center">
-            <span class="app-emblem" style="display: grid; place-items: center; background: rgba(56,189,248,0.16); border: 1px solid rgba(56,189,248,0.4); color: #38bdf8;">
-              <i class="fa-solid fa-compass"></i>
-            </span>
-            <div>
-              <div style="font-weight: 700; font-size: 0.92rem; color: #f8fafc;">Blue Browser (Tauri)</div>
-              <div class="mono" style="font-size: 0.7rem; color: #7dd3fc;">Rust + React · Win / macOS / Linux</div>
-            </div>
-          </div>
-        </div>
-      </div>`;
-  }
-  if (p.id === 'mtube') {
-    return `
-      <div class="card-stage-inner stage-player">
-        <div class="player-mockup">
-          <div class="player-screen">
-            <span class="app-emblem" style="display: grid; place-items: center; background: rgba(251,113,133,0.18); border: 1px solid rgba(251,113,133,0.4); color: #fb7185;">
-              <i class="fa-solid fa-headphones"></i>
-            </span>
-            <div style="flex: 1;">
-              <div style="font-weight: 700; font-size: 0.92rem; color: #f8fafc;">mTube + Music</div>
-              <div class="mono" style="font-size: 0.7rem; color: #fda4af;">SponsorBlock · PiP · Sleep Timer</div>
-            </div>
-            <span style="width: 34px; height: 34px; border-radius: 999px; background: rgba(251,113,133,0.2); border: 1px solid rgba(251,113,133,0.45); display: grid; place-items: center; color: #fb7185;">
-              <i class="fa-solid fa-play" style="font-size: 0.75rem;"></i>
-            </span>
-          </div>
-          <div class="player-bar"><div class="player-bar-fill"></div></div>
-        </div>
-      </div>`;
-  }
   if (p.detailImg) {
-    return `<img src="${escapeHtml(p.detailImg)}" alt="${escapeHtml(p.name)} Preview" class="card-stage-inner stage-screenshot" />`;
+    return `<img src="${escapeHtml(p.detailImg)}" alt="${escapeHtml(p.name)} Preview" class="card-stage-inner stage-screenshot" loading="lazy" decoding="async" />`;
   }
-  return `<img src="assets/aerotech-dashboard.png" alt="${escapeHtml(p.name)} Preview" class="card-stage-inner stage-screenshot" />`;
+  return `<img src="assets/aerotech-dashboard.png" alt="${escapeHtml(p.name)} Preview" class="card-stage-inner stage-screenshot" loading="lazy" decoding="async" />`;
 }
 
 // ---------------------------------------------------------------------------
@@ -614,16 +529,11 @@ function renderProjects() {
           </div>
 
           <div class="card-footer">
-            <div class="card-actions-main">
-              ${safeDl ? `<a href="${safeDl}" target="_blank" rel="noopener noreferrer" class="btn btn-emerald btn-sm"><i class="fa-solid fa-download"></i> Download ${meta.assetSize ? `(${escapeHtml(meta.assetSize)})` : ''}</a>` : ''}
-              ${!safeDl && safeWeb ? `<button class="btn btn-primary btn-sm" data-action="preview" data-id="${escapeHtml(p.id)}"><i class="fa-solid fa-display"></i> Live Preview</button>` : ''}
-              ${safeWeb ? `<a href="${safeWeb}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm"><i class="fa-solid fa-arrow-up-right-from-square"></i> Launch</a>` : ''}
-              <button class="btn btn-secondary btn-sm" data-action="details" data-id="${escapeHtml(p.id)}"><i class="fa-solid fa-circle-info"></i> Details</button>
-            </div>
-            <div class="card-actions-util">
-              ${!p.isPrivate && safeGh ? `<a href="${safeGh}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm btn-icon" title="View GitHub Repository" aria-label="View GitHub Repository"><i class="fa-brands fa-github"></i></a>` : ''}
-              <button class="btn btn-secondary btn-sm btn-icon" data-action="share" data-id="${escapeHtml(p.id)}" title="Copy direct link" aria-label="Copy direct link"><i class="fa-solid fa-share-nodes"></i></button>
-            </div>
+            ${safeDl ? `<a href="${safeDl}" target="_blank" rel="noopener noreferrer" class="btn btn-emerald btn-sm"><i class="fa-solid fa-download"></i> Download ${meta.assetSize ? `(${escapeHtml(meta.assetSize)})` : ''}</a>` : ''}
+            ${safeWeb ? `<button class="btn btn-primary btn-sm" data-action="preview" data-id="${escapeHtml(p.id)}"><i class="fa-solid fa-display"></i> Live Preview</button><a href="${safeWeb}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm"><i class="fa-solid fa-arrow-up-right-from-square"></i> Launch</a>` : ''}
+            ${!p.isPrivate && safeGh ? `<a href="${safeGh}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm"><i class="fa-brands fa-github"></i> Source</a>` : ''}
+            <button class="btn btn-secondary btn-sm" data-action="details" data-id="${escapeHtml(p.id)}"><i class="fa-solid fa-circle-info"></i> Details</button>
+            <button class="btn btn-secondary btn-sm spacer" data-action="share" data-id="${escapeHtml(p.id)}" title="Copy direct link" aria-label="Copy direct link for ${escapeHtml(p.name)}"><i class="fa-solid fa-share-nodes" aria-hidden="true"></i></button>
           </div>
         </div>
       </article>`;
@@ -699,68 +609,111 @@ function renderDistributionTable() {
 
 document.querySelectorAll('.filter-btn').forEach(btn => {
   btn.addEventListener('click', () => {
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.filter-btn').forEach(b => {
+      b.classList.remove('active');
+      b.setAttribute('aria-selected', 'false');
+    });
     btn.classList.add('active');
+    btn.setAttribute('aria-selected', 'true');
     activeFilter = btn.getAttribute('data-filter') || 'all';
     renderProjects();
   });
 });
 
 // ---------------------------------------------------------------------------
-// Subtle Interactive 3D Geometric Hero (Three.js 0.160.0)
+// Interactive 3D Systems Core with Gravitas & Scroll-Drive (Three.js 0.160.0)
 // ---------------------------------------------------------------------------
 function initHero3D() {
   const canvas = document.getElementById('hero-3d-canvas');
+  const fallbackEl = document.getElementById('hero-3d-fallback');
   if (!canvas || !canvas.parentElement) return;
+
+  const showFallback = () => {
+    canvas.style.display = 'none';
+    if (fallbackEl) fallbackEl.style.display = 'grid';
+  };
 
   let renderer;
   try {
     renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
   } catch {
-    return; // Graceful 2D fallback if WebGL is unavailable
+    showFallback();
+    return;
   }
+
+  let contextLost = false;
+  canvas.addEventListener('webglcontextlost', e => {
+    e.preventDefault();
+    contextLost = true;
+    showFallback();
+  });
 
   const container = canvas.parentElement;
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(42, container.clientWidth / container.clientHeight, 0.1, 100);
-  camera.position.set(0, 0, 5.2);
+  camera.position.set(0, 0, 5.4);
 
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.matchMedia('(pointer: coarse)').matches;
+  renderer.setPixelRatio(isMobile ? 1 : Math.min(window.devicePixelRatio || 1, 2));
   renderer.setSize(container.clientWidth, container.clientHeight, false);
 
   const rootGroup = new THREE.Group();
   scene.add(rootGroup);
 
-  // Outer sleek wireframe icosahedron
-  const outerGeo = new THREE.IcosahedronGeometry(1.45, 1);
+  // Outer architectural wireframe icosahedron
+  const outerGeo = new THREE.IcosahedronGeometry(1.48, 1);
   const outerWire = new THREE.WireframeGeometry(outerGeo);
-  const outerMat = new THREE.LineBasicMaterial({ color: 0x38bdf8, transparent: true, opacity: 0.48 });
+  const outerMat = new THREE.LineBasicMaterial({ color: 0x38bdf8, transparent: true, opacity: 0.45 });
   const outerMesh = new THREE.LineSegments(outerWire, outerMat);
   rootGroup.add(outerMesh);
 
-  // Inner faceted solid core
-  const coreGeo = new THREE.OctahedronGeometry(0.82, 0);
+  // Inner high-mass faceted core
+  const coreGeo = new THREE.OctahedronGeometry(0.84, 0);
   const coreMat = new THREE.MeshStandardMaterial({
     color: 0x10b981,
     emissive: 0x064e3b,
-    emissiveIntensity: 0.6,
-    metalness: 0.75,
-    roughness: 0.25,
+    emissiveIntensity: 0.65,
+    metalness: 0.82,
+    roughness: 0.22,
     flatShading: true
   });
   const coreMesh = new THREE.Mesh(coreGeo, coreMat);
   rootGroup.add(coreMesh);
 
-  // Clean orbital halo ring
-  const ringGeo = new THREE.TorusGeometry(2.05, 0.012, 8, 96);
-  const ringMat = new THREE.MeshBasicMaterial({ color: 0xa78bfa, transparent: true, opacity: 0.35 });
+  // Primary & secondary counter-rotating gimbal halos
+  const ringGeo = new THREE.TorusGeometry(2.05, 0.014, 8, 96);
+  const ringMat = new THREE.MeshBasicMaterial({ color: 0xa78bfa, transparent: true, opacity: 0.38 });
   const ringMesh = new THREE.Mesh(ringGeo, ringMat);
   ringMesh.rotation.x = Math.PI * 0.36;
   ringMesh.rotation.y = Math.PI * 0.12;
   rootGroup.add(ringMesh);
 
+  const gimbalGeo = new THREE.TorusGeometry(1.78, 0.01, 8, 84);
+  const gimbalMat = new THREE.MeshBasicMaterial({ color: 0x0a84ff, transparent: true, opacity: 0.28 });
+  const gimbalMesh = new THREE.Mesh(gimbalGeo, gimbalMat);
+  gimbalMesh.rotation.x = -Math.PI * 0.28;
+  gimbalMesh.rotation.z = Math.PI * 0.22;
+  rootGroup.add(gimbalMesh);
+
+  // 3 Domain Satellites (MetShield Emerald, Black Browser Blue, Quantum Violet)
+  const satGroup = new THREE.Group();
+  const satSpecs = [
+    { color: 0x30d158, angle: 0, radius: 2.05 },
+    { color: 0x0a84ff, angle: (Math.PI * 2) / 3, radius: 2.05 },
+    { color: 0xbf5af2, angle: (Math.PI * 4) / 3, radius: 2.05 }
+  ];
+  const satGeo = new THREE.SphereGeometry(0.065, 16, 16);
+  satSpecs.forEach(spec => {
+    const sat = new THREE.Mesh(satGeo, new THREE.MeshBasicMaterial({ color: spec.color }));
+    sat.position.set(Math.cos(spec.angle) * spec.radius, 0, Math.sin(spec.angle) * spec.radius);
+    satGroup.add(sat);
+  });
+  satGroup.rotation.x = Math.PI * 0.36;
+  satGroup.rotation.y = Math.PI * 0.12;
+  rootGroup.add(satGroup);
+
   // Sparse ambient starfield
-  const count = 90;
+  const count = isMobile ? 55 : 95;
   const positions = new Float32Array(count * 3);
   for (let i = 0; i < count; i++) {
     positions[i * 3] = (Math.random() - 0.5) * 9;
@@ -772,25 +725,29 @@ function initHero3D() {
   const starMat = new THREE.PointsMaterial({ color: 0xe4e4e7, size: 0.035, transparent: true, opacity: 0.55 });
   scene.add(new THREE.Points(starGeo, starMat));
 
-  const keyLight = new THREE.DirectionalLight(0x38bdf8, 2.2);
+  const keyLight = new THREE.DirectionalLight(0x38bdf8, 2.3);
   keyLight.position.set(3, 4, 5);
   scene.add(keyLight);
 
-  const rimLight = new THREE.DirectionalLight(0x10b981, 1.8);
+  const rimLight = new THREE.DirectionalLight(0x10b981, 1.9);
   rimLight.position.set(-4, -2, 3);
   scene.add(rimLight);
   scene.add(new THREE.AmbientLight(0xffffff, 0.45));
 
   let targetX = 0;
   let targetY = 0;
+  let pulseVelocity = 0;
   container.addEventListener('pointermove', e => {
     const rect = container.getBoundingClientRect();
-    targetX = ((e.clientX - rect.left) / rect.width - 0.5) * 0.7;
-    targetY = ((e.clientY - rect.top) / rect.height - 0.5) * 0.7;
+    targetX = ((e.clientX - rect.left) / rect.width - 0.5) * 0.75;
+    targetY = ((e.clientY - rect.top) / rect.height - 0.5) * 0.75;
   });
   container.addEventListener('pointerleave', () => {
     targetX = 0;
     targetY = 0;
+  });
+  container.addEventListener('pointerdown', () => {
+    pulseVelocity = 0.08;
   });
 
   const ro = new ResizeObserver(() => {
@@ -817,6 +774,7 @@ function initHero3D() {
 
   let last = performance.now();
   function animate(now) {
+    if (contextLost) return;
     requestAnimationFrame(animate);
     if (!isVisible) {
       last = now;
@@ -825,13 +783,26 @@ function initHero3D() {
     const dt = Math.min((now - last) / 1000, 0.05);
     last = now;
 
-    outerMesh.rotation.y += dt * 0.28;
-    outerMesh.rotation.x += dt * 0.14;
-    coreMesh.rotation.y -= dt * 0.42;
-    ringMesh.rotation.z += dt * 0.2;
+    // Scroll-driven depth & pitch (never blocks page scroll)
+    const scrollNorm = Math.min(window.scrollY / 650, 1);
+    camera.position.z = 5.4 + scrollNorm * 0.9;
+    camera.position.y = -scrollNorm * 0.35;
 
-    rootGroup.rotation.y += (targetX - rootGroup.rotation.y) * 0.06;
-    rootGroup.rotation.x += (targetY - rootGroup.rotation.x) * 0.06;
+    // Weighted inertia + click impulse
+    pulseVelocity *= 0.92;
+    const speedBoost = 1 + pulseVelocity * 18;
+    outerMesh.rotation.y += dt * 0.22 * speedBoost;
+    outerMesh.rotation.x += dt * 0.11 * speedBoost;
+    coreMesh.rotation.y -= dt * 0.35 * speedBoost;
+    ringMesh.rotation.z += dt * 0.16 * speedBoost;
+    gimbalMesh.rotation.z -= dt * 0.21 * speedBoost;
+    satGroup.rotation.y += dt * 0.28 * speedBoost;
+
+    const coreScale = 1 + pulseVelocity * 1.1;
+    coreMesh.scale.setScalar(coreScale);
+
+    rootGroup.rotation.y += (targetX - rootGroup.rotation.y) * 0.055;
+    rootGroup.rotation.x += (targetY + scrollNorm * 0.22 - rootGroup.rotation.x) * 0.055;
 
     renderer.render(scene, camera);
   }
@@ -865,78 +836,10 @@ function observeReveals() {
 }
 
 // ---------------------------------------------------------------------------
-// Complete GitHub Repository Directory
-// ---------------------------------------------------------------------------
-const FALLBACK_REPOS = [
-  { name: 'MetShield-AI', language: 'TypeScript', description: 'MoES / IMD Automatic Weather Station Real-Time QC System (SIH26073)', html_url: `https://github.com/${GITHUB_USER}/MetShield-AI`, homepage: 'https://aws2026-nu.vercel.app', stargazers_count: 1 },
-  { name: 'Black-Firefox', language: 'C#', description: 'Black Browser — Fast, privacy-first native Windows 10/11 browser in C# (.NET 4.8) + WebView2.', html_url: `https://github.com/${GITHUB_USER}/Black-Firefox`, homepage: 'https://blackbrowser.vercel.app/', stargazers_count: 1 },
-  { name: 'Blue-Browser-Tauri', language: 'Rust / TypeScript', description: 'Cross-platform browser in TypeScript/React + Rust (Tauri) for Windows, macOS, and Linux.', html_url: `https://github.com/${GITHUB_USER}/Blue-Browser-Tauri`, homepage: '', stargazers_count: 0 },
-  { name: 'quantum-drone-sih', language: 'Python / HTML', description: 'Hybrid Quantum-Resilient Drone Surveillance System — Quantum-safe communications & real-time GCS.', html_url: `https://github.com/${GITHUB_USER}/quantum-drone-sih`, homepage: 'https://quantum-drone-gcs.pages.dev', stargazers_count: 0 },
-  { name: 'black-browser-website', language: 'HTML / CSS', description: 'Official web landing page and storefront for Black Browser.', html_url: `https://github.com/${GITHUB_USER}/black-browser-website`, homepage: 'https://blackbrowser.vercel.app/', stargazers_count: 0 },
-  { name: 'BlackTube', language: 'C#', description: 'Ultra-lightweight, ad-free YouTube desktop client (C# .NET 4.8 + WebView2).', html_url: `https://github.com/${GITHUB_USER}/BlackTube`, homepage: '', stargazers_count: 0 },
-  { name: 'mtube', language: 'JavaScript', description: 'Lightweight, ad-free YouTube + YouTube Music desktop app (Electron) with PiP and SponsorBlock.', html_url: `https://github.com/${GITHUB_USER}/mtube`, homepage: '', stargazers_count: 0 },
-  { name: 'ytube', language: 'C#', description: 'Ad-free YouTube Desktop application for Windows (.NET 4.8 + WebView2 with RAM limits & SponsorBlock).', html_url: `https://github.com/${GITHUB_USER}/ytube`, homepage: '', stargazers_count: 0 },
-  { name: 'cinematic-birthday', language: 'TypeScript', description: 'Create an animated, shareable birthday surprise link — 100% client-side, zero uploads.', html_url: `https://github.com/${GITHUB_USER}/cinematic-birthday`, homepage: 'https://cinematic-birthday-3ou.pages.dev', stargazers_count: 0 },
-  { name: 'Electronics_Calculator', language: 'Kotlin / Java', description: 'Scientific calculator Android app with sin, cos, tan, log, factorial and expression parsing.', html_url: `https://github.com/${GITHUB_USER}/Electronics_Calculator`, homepage: '', stargazers_count: 0 },
-  { name: 'Black', language: 'JavaScript', description: 'Early Electron/JS prototype of Black Browser (superseded by Black Browser v9.1.0).', html_url: `https://github.com/${GITHUB_USER}/Black`, homepage: '', stargazers_count: 0 },
-  { name: 'all-websites-3d', language: 'JavaScript', description: 'Portfolio & Software Distribution Hub with interactive Three.js 3D hero.', html_url: `https://github.com/${GITHUB_USER}/all-websites-3d`, homepage: `https://${GITHUB_USER}.github.io/all-websites-3d/`, stargazers_count: 0 },
-  { name: 'shivamkumarmehta64-sketch', language: 'Markdown', description: 'GitHub profile repository for personal branding and live telemetry.', html_url: `https://github.com/${GITHUB_USER}/shivamkumarmehta64-sketch`, homepage: '', stargazers_count: 0 }
-];
-
-function renderAllRepos(repos) {
-  const grid = document.getElementById('all-repos-grid');
-  if (!grid) return;
-
-  grid.innerHTML = repos
-    .map(r => {
-      const safeRepo = sanitizeHttpUrl(r.html_url);
-      const safeHome = sanitizeHttpUrl(r.homepage);
-      const lang = r.language || 'Code';
-      const desc = r.description || 'Open-source engineering repository.';
-      const stars = typeof r.stargazers_count === 'number' ? r.stargazers_count : 0;
-
-      return `
-      <article class="repo-tile reveal">
-        <div class="repo-tile-head">
-          <span class="repo-tile-name" title="${escapeHtml(r.name)}"><i class="fa-brands fa-github" style="color: var(--text-muted); margin-right: 0.4rem;"></i>${escapeHtml(r.name)}</span>
-          <span class="repo-lang">${escapeHtml(lang)}</span>
-        </div>
-        <p class="repo-tile-desc">${escapeHtml(desc)}</p>
-        <div class="repo-tile-foot">
-          <span class="mono" style="font-size: 0.74rem; color: var(--text-muted);"><i class="fa-regular fa-star"></i> ${stars}</span>
-          <div style="display: flex; gap: 0.4rem; align-items: center;">
-            ${safeHome ? `<a href="${safeHome}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">Live</a>` : ''}
-            ${safeRepo ? `<a href="${safeRepo}" target="_blank" rel="noopener noreferrer" class="btn btn-glass btn-sm">Repo <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.7rem;"></i></a>` : ''}
-          </div>
-        </div>
-      </article>`;
-    })
-    .join('');
-
-  observeReveals();
-}
-
-async function fetchAllRepos() {
-  try {
-    const res = await fetch(`https://api.github.com/users/${GITHUB_USER}/repos?sort=updated&per_page=30`);
-    if (!res.ok) return;
-    const json = await res.json();
-    if (!Array.isArray(json) || json.length === 0) return;
-    const publicRepos = json.filter(r => !r.private);
-    if (publicRepos.length > 0) {
-      renderAllRepos(publicRepos);
-    }
-  } catch {
-    // Keep fallback repos
-  }
-}
-
-// ---------------------------------------------------------------------------
 // Bootstrap
 // ---------------------------------------------------------------------------
 renderProjects();
 renderDistributionTable();
-renderAllRepos(FALLBACK_REPOS);
 observeReveals();
 initHero3D();
 
@@ -971,7 +874,6 @@ Promise.all(PROJECTS.map(fetchRepoTelemetry)).then(() => {
   renderDistributionTable();
   updateGitHubStrip();
 });
-fetchAllRepos();
 
 const initialHash = window.location.hash.replace('#', '');
 if (initialHash) {

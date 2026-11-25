@@ -4,19 +4,38 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="theme-color" content="#000000" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
   <title>Shivam Kumar Mehta — Native Software, AI & Systems Engineering</title>
   <meta name="description" content="Official software distribution & engineering showcase by Shivam Kumar Mehta. Featuring MetShield-AI (MoES WMO-No. 8 QC), Black Browser (460 KB native Windows browser), BlackTube, Quantum Drone GCS, Cinematic Birthday & aerotech Forensics." />
   <meta property="og:title" content="Shivam Kumar Mehta — Native Software, AI & Systems Engineering" />
   <meta property="og:description" content="6 flagship engineering builds: MetShield-AI (MoES), Black Browser v9.1.0, BlackTube v1.0.0, Quantum Drone GCS, Cinematic Birthday & aerotech Forensics." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://shivamkumarmehta64-sketch.github.io/all-websites-3d/" />
+  <link rel="canonical" href="https://shivamkumarmehta64-sketch.github.io/all-websites-3d/" />
   <meta property="og:image" content="https://shivamkumarmehta64-sketch.github.io/all-websites-3d/assets/metshield-architecture.png" />
   <meta name="twitter:card" content="summary_large_image" />
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfilePage",
+      "mainEntity": {
+        "@type": "Person",
+        "name": "Shivam Kumar Mehta",
+        "jobTitle": "Student Developer & Systems Engineer",
+        "url": "https://shivamkumarmehta64-sketch.github.io/all-websites-3d/",
+        "sameAs": [
+          "https://github.com/shivamkumarmehta64-sketch",
+          "https://www.linkedin.com/in/shivam-kumar-mehta"
+        ]
+      }
+    }
+  </script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <style>
     :root {
@@ -73,6 +92,18 @@
       outline: 2px solid var(--apple-blue);
       outline-offset: 2px;
     }
+    .skip-link {
+      position: absolute;
+      left: -9999px;
+      top: 0;
+      z-index: 100;
+      padding: 0.65rem 1.1rem;
+      background: var(--apple-blue);
+      color: #fff;
+      font-weight: 600;
+      border-radius: 0 0 12px 0;
+    }
+    .skip-link:focus { left: 0; }
     .mono { font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace; }
 
     /* Ambient Keynote Spotlight */
@@ -196,10 +227,34 @@
       transform: translateY(0) scale(1);
     }
     @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
       .reveal { opacity: 1; transform: none; transition: none; }
+      .btn, .nav-pill, .spotlight-card, .bento-card, .project-card { transition: none; }
+      .btn-primary:hover, .nav-pill-primary:hover, .spotlight-card:hover, .bento-card:hover, .project-card:hover { transform: none; }
+    }
+    @media (prefers-reduced-transparency: reduce) {
+      .navbar, .stage-hud, .stage-label, .toast {
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        background: var(--bg-surface);
+      }
+      .modal-backdrop {
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        background: rgba(0, 0, 0, 0.92);
+      }
+    }
+    @media (prefers-contrast: more) {
+      :root {
+        --border: rgba(255, 255, 255, 0.28);
+        --border-specular: rgba(255, 255, 255, 0.42);
+        --border-hover: rgba(255, 255, 255, 0.65);
+        --text-secondary: #d1d1d6;
+        --text-muted: #aeaeb2;
+      }
     }
 
-    /* Live GitHub Telemetry Strip */
+    /* Live GitHub Telemetry Strip (Content Layer — Elevated Surface) */
     .gh-strip {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -207,9 +262,7 @@
       margin: 0 auto 2rem;
       padding: 1rem 1.25rem;
       border-radius: var(--radius-md);
-      background: var(--glass);
-      backdrop-filter: blur(20px) saturate(180%);
-      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      background: var(--bg-surface);
       border: 1px solid var(--border-specular);
     }
     .gh-metric {
@@ -235,7 +288,7 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 0.45rem;
+      gap: 0.5rem;
       min-height: 44px;
       padding: 0.7rem 1.45rem;
       border-radius: var(--radius-pill);
@@ -243,16 +296,7 @@
       font-weight: 600;
       letter-spacing: -0.01em;
       border: 1px solid transparent;
-      cursor: pointer;
-      text-decoration: none;
-      white-space: nowrap;
-      user-select: none;
-      transition: transform 0.25s var(--spring), background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
-    }
-    .btn:active { transform: scale(0.97); }
-    .btn:focus-visible, .filter-btn:focus-visible, .nav-pill:focus-visible, .modal-close:focus-visible {
-      outline: 2px solid var(--apple-blue);
-      outline-offset: 2px;
+      transition: all 0.3s var(--spring);
     }
     .btn-primary {
       background: var(--text);
@@ -260,8 +304,8 @@
     }
     .btn-primary:hover {
       background: #ffffff;
-      transform: translateY(-1px);
-      box-shadow: 0 8px 24px rgba(255, 255, 255, 0.16);
+      transform: scale(1.02);
+      box-shadow: 0 10px 28px rgba(255, 255, 255, 0.18);
     }
     .btn-blue {
       background: var(--apple-blue);
@@ -269,29 +313,18 @@
     }
     .btn-blue:hover {
       background: #2894ff;
-      transform: translateY(-1px);
-      box-shadow: 0 8px 24px rgba(10, 132, 255, 0.3);
+      transform: scale(1.02);
+      box-shadow: 0 10px 28px rgba(10, 132, 255, 0.32);
     }
-    .btn-glass, .btn-secondary {
-      background: rgba(255, 255, 255, 0.08);
+    .btn-glass {
+      background: rgba(255, 255, 255, 0.07);
       color: var(--text);
       border-color: var(--border-specular);
       backdrop-filter: blur(12px);
     }
-    .btn-glass:hover, .btn-secondary:hover {
-      background: rgba(255, 255, 255, 0.15);
+    .btn-glass:hover {
+      background: rgba(255, 255, 255, 0.13);
       border-color: var(--border-hover);
-      transform: translateY(-1px);
-    }
-    .btn-emerald {
-      background: var(--apple-green);
-      color: #000;
-      font-weight: 600;
-    }
-    .btn-emerald:hover {
-      background: #3fe067;
-      transform: translateY(-1px);
-      box-shadow: 0 8px 22px rgba(48, 209, 88, 0.28);
     }
     .btn-link {
       background: transparent;
@@ -303,13 +336,8 @@
     .btn-link:hover { text-decoration: underline; }
     .btn-sm {
       min-height: 36px;
-      padding: 0.42rem 0.95rem;
-      font-size: 0.81rem;
-    }
-    .btn-icon {
-      width: 36px;
-      min-width: 36px;
-      padding: 0;
+      padding: 0.42rem 1rem;
+      font-size: 0.82rem;
     }
 
     /* Keynote Hero */
@@ -428,11 +456,9 @@
       line-height: 1.5;
     }
 
-    /* Flagship Spotlight Modules (Apple Pro App Style) */
+    /* Flagship Spotlight Modules (Content Layer — Elevated Surface) */
     .spotlight-card {
-      background: var(--glass);
-      backdrop-filter: blur(28px) saturate(180%);
-      -webkit-backdrop-filter: blur(28px) saturate(180%);
+      background: var(--bg-surface);
       border: 1px solid var(--border-specular);
       border-radius: var(--radius-lg);
       box-shadow:
@@ -620,9 +646,7 @@
       gap: 1.35rem;
     }
     .bento-card {
-      background: var(--glass);
-      backdrop-filter: blur(24px) saturate(180%);
-      -webkit-backdrop-filter: blur(24px) saturate(180%);
+      background: var(--bg-surface);
       border: 1px solid var(--border-specular);
       border-radius: var(--radius-lg);
       padding: 2rem;
@@ -728,9 +752,7 @@
 
     /* Dynamic Project Cards & Stages (Apple HIG Iconography & Pro Surfaces) */
     .project-card {
-      background: var(--glass);
-      backdrop-filter: blur(24px) saturate(180%);
-      -webkit-backdrop-filter: blur(24px) saturate(180%);
+      background: var(--bg-surface);
       border: 1px solid var(--border-specular);
       border-radius: var(--radius-lg);
       overflow: hidden;
@@ -967,95 +989,28 @@
       display: flex;
       flex-wrap: wrap;
       align-items: center;
-      justify-content: space-between;
       gap: 0.5rem;
     }
-    .card-actions-main, .card-actions-util {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 0.45rem;
+    .card-footer .spacer { margin-left: auto; }
+    .btn-emerald {
+      background: var(--apple-green);
+      color: #000;
+      font-weight: 600;
     }
-    .card-actions-util { margin-left: auto; }
-
-    /* GitHub Repositories Directory */
-    .repos-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 1rem;
-    }
-    .repo-tile {
-      display: flex;
-      flex-direction: column;
-      gap: 0.65rem;
-      padding: 1.2rem;
-      border-radius: var(--radius-md);
-      background: var(--glass);
-      border: 1px solid var(--border-specular);
-      backdrop-filter: blur(20px);
-      transition: transform 0.25s var(--spring), border-color 0.25s ease, background 0.25s ease;
-    }
-    .repo-tile:hover {
-      transform: translateY(-2px);
-      border-color: var(--border-hover);
-      background: rgba(255, 255, 255, 0.05);
-    }
-    .repo-tile-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 0.5rem;
-    }
-    .repo-tile-name {
-      font-size: 0.96rem;
-      font-weight: 650;
-      color: var(--text);
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-    .repo-lang {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.7rem;
-      padding: 0.18rem 0.55rem;
-      border-radius: var(--radius-pill);
+    .btn-emerald:hover { background: #3fe067; transform: translateY(-1px); }
+    .btn-secondary {
       background: rgba(255, 255, 255, 0.07);
-      border: 1px solid var(--border);
-      color: var(--text-secondary);
-      white-space: nowrap;
+      color: var(--text);
+      border: 1px solid var(--border-specular);
     }
-    .repo-tile-desc {
-      font-size: 0.82rem;
-      line-height: 1.5;
-      color: var(--text-secondary);
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      min-height: 2.45em;
-    }
-    .repo-tile-foot {
-      margin-top: auto;
-      padding-top: 0.65rem;
-      border-top: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 0.5rem;
-    }
-    @media (max-width: 1024px) {
-      .repos-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    }
-    @media (max-width: 640px) {
-      .repos-grid { grid-template-columns: 1fr; }
-    }
+    .btn-secondary:hover { background: rgba(255, 255, 255, 0.14); border-color: var(--border-hover); }
+    .btn-sm { min-height: 36px; padding: 0.45rem 0.9rem; font-size: 0.8rem; }
 
     /* Distribution Matrix */
     .matrix-box {
       border: 1px solid var(--border-specular);
       border-radius: var(--radius-lg);
-      background: var(--glass);
-      backdrop-filter: blur(24px);
+      background: var(--bg-surface);
       overflow-x: auto;
     }
     table {
@@ -1278,6 +1233,7 @@
   </style>
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Skip to content</a>
   <div class="ambient-glow" aria-hidden="true"></div>
 
   <!-- Apple-Style Frosted Dynamic Navbar -->
@@ -1291,7 +1247,6 @@
         <a href="#flagships">Flagships</a>
         <a href="#ecosystem">Ecosystem</a>
         <a href="#distribution">Downloads</a>
-        <a href="#repositories">Repositories</a>
         <a href="#architecture">Engineering</a>
       </nav>
       <div class="nav-actions">
@@ -1303,7 +1258,7 @@
     </div>
   </header>
 
-  <main>
+  <main id="main-content">
     <!-- Keynote Hero -->
     <section class="hero">
       <div class="container">
@@ -1327,9 +1282,17 @@
 
         <div class="hero-stage" aria-label="Interactive 3D Systems Core">
           <canvas id="hero-3d-canvas"></canvas>
+          <div id="hero-3d-fallback" style="display: none; position: absolute; inset: 0; place-items: center; text-align: center; padding: 2rem;" aria-hidden="true">
+            <div>
+              <div style="width: 72px; height: 72px; margin: 0 auto 1rem; border-radius: 20px; background: linear-gradient(135deg, rgba(10,132,255,0.22), rgba(48,209,88,0.22)); border: 1px solid var(--border-specular); display: grid; place-items: center; font-size: 1.75rem; color: var(--apple-cyan);">
+                <i class="fa-solid fa-cubes"></i>
+              </div>
+              <div class="mono" style="font-size: 0.85rem; color: var(--text-secondary);">SYSTEMS CORE · STATIC VIEW</div>
+            </div>
+          </div>
           <div class="stage-hud">
             <span><strong>Systems Core</strong> · Real-Time WebGL Telemetry</span>
-            <span class="mono" style="color: var(--apple-cyan);">MOVE POINTER TO ORBIT</span>
+            <span class="mono" style="color: var(--apple-cyan);">DRAG OR SCROLL TO ORBIT</span>
           </div>
         </div>
       </div>
@@ -1480,7 +1443,7 @@
       <div class="container">
         <div class="chapter-header" style="margin-bottom: 2rem;">
           <span class="chapter-kicker" style="color: var(--apple-blue);">The Ecosystem</span>
-          <h2 class="chapter-title">Eight precision tools. One vision.</h2>
+          <h2 class="chapter-title">Six precision tools. One vision.</h2>
         </div>
 
         <div id="gh-telemetry-strip" class="gh-strip reveal" aria-label="GitHub Portfolio Summary">
@@ -1489,7 +1452,7 @@
             <span class="gh-metric-lbl">Public Repositories</span>
           </div>
           <div class="gh-metric">
-            <span class="gh-metric-val" id="gh-live-apps">5</span>
+            <span class="gh-metric-val" id="gh-live-apps">4</span>
             <span class="gh-metric-lbl">Live Web Portals</span>
           </div>
           <div class="gh-metric">
@@ -1503,10 +1466,10 @@
         </div>
 
         <div class="filter-bar" role="tablist" aria-label="Filter software">
-          <button class="filter-btn active" data-filter="all">All Releases (8)</button>
-          <button class="filter-btn" data-filter="desktop">Native Desktop (4)</button>
-          <button class="filter-btn" data-filter="web">AI &amp; Web (2)</button>
-          <button class="filter-btn" data-filter="security">Security &amp; Defense (2)</button>
+          <button class="filter-btn active" role="tab" aria-selected="true" data-filter="all">All Releases (6)</button>
+          <button class="filter-btn" role="tab" aria-selected="false" data-filter="desktop">Native Desktop (2)</button>
+          <button class="filter-btn" role="tab" aria-selected="false" data-filter="web">AI &amp; Web (2)</button>
+          <button class="filter-btn" role="tab" aria-selected="false" data-filter="security">Security &amp; Defense (2)</button>
         </div>
 
         <div id="projects-grid" class="bento-grid"></div>
@@ -1536,19 +1499,6 @@
             <tbody id="distribution-tbody"></tbody>
           </table>
         </div>
-      </div>
-    </section>
-
-    <!-- Complete GitHub Repository Index -->
-    <section id="repositories" style="padding-top: 1.5rem;">
-      <div class="container">
-        <div class="chapter-header" style="margin-bottom: 2rem;">
-          <span class="chapter-kicker" style="color: var(--apple-green);">Open Source Index</span>
-          <h2 class="chapter-title">All GitHub Repositories</h2>
-          <p class="chapter-desc">Live directory of public repositories under <code>@shivamkumarmehta64-sketch</code>, synced with GitHub.</p>
-        </div>
-
-        <div id="all-repos-grid" class="repos-grid"></div>
       </div>
     </section>
 
@@ -1590,7 +1540,7 @@
       <div class="container">
         <div class="creator-band">
           <div class="creator-info">
-            <img src="https://avatars.githubusercontent.com/u/251188287?v=4" alt="Shivam Kumar Mehta" class="creator-avatar" />
+            <img src="https://avatars.githubusercontent.com/u/251188287?v=4" alt="Shivam Kumar Mehta" class="creator-avatar" width="76" height="76" loading="lazy" decoding="async" />
             <div>
               <h2>Crafted by Shivam Kumar Mehta</h2>
               <p>Systems, IoT &amp; Native Software Engineer (ECE @ PCE). Open to high-impact engineering collaborations and mission-critical builds.</p>
