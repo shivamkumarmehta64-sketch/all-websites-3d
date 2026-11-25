@@ -59,7 +59,7 @@ const PROJECTS = [
     defaultStars: 1,
     defaultForks: 0,
     defaultVersion: 'v9.1.0',
-    website: 'https://shivamkumarmehta64-sketch.github.io/Black-Firefox/',
+    website: 'https://blackbrowser.vercel.app/',
     github: `https://github.com/${GITHUB_USER}/Black-Firefox`,
     iconImg: 'assets/black-firefox-icon.png',
     detailImg: null,
