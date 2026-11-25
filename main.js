@@ -421,7 +421,7 @@ function renderProjects() {
       if (safeDl) {
         primaryAction = `<a href="${safeDl}" target="_blank" rel="noopener noreferrer" class="btn btn-blue btn-sm"><i class="fa-solid fa-download"></i> Download ${meta.assetSize ? `(${escapeHtml(meta.assetSize)})` : ''}</a>`;
       } else if (safeWeb) {
-        primaryAction = `<button class="btn btn-primary btn-sm" data-action="preview" data-id="${escapeHtml(p.id)}">Live Preview</button>`;
+        primaryAction = `<a href="${safeWeb}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm"><i class="fa-solid fa-arrow-up-right-from-square"></i> Launch Live</a>`;
       } else if (!p.isPrivate && safeGh) {
         primaryAction = `<a href="${safeGh}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">Explore Repo</a>`;
       } else {
@@ -449,12 +449,6 @@ function renderProjects() {
 
         <div class="bento-hook">${escapeHtml(p.hook)}</div>
         <p class="bento-desc">${escapeHtml(p.summary)}</p>
-
-        ${
-          p.detailImg
-            ? `<div class="bento-preview"><img src="${escapeHtml(p.detailImg)}" alt="${escapeHtml(p.name)} preview" /></div>`
-            : ''
-        }
 
         <div class="bento-tags">
           ${p.tech.map(t => `<span class="bento-tag">${escapeHtml(t)}</span>`).join('')}
@@ -508,7 +502,7 @@ function renderDistributionTable() {
       const heroDl = document.getElementById('black-browser-hero-dl');
       if (heroDl) {
         heroDl.href = safeDl;
-        heroDl.textContent = `Download ${meta.version} (${meta.assetSize || 'Setup'})`;
+        heroDl.innerHTML = `<i class="fa-solid fa-download"></i> Download ${escapeHtml(meta.version)} (${escapeHtml(meta.assetSize || 'Setup')})`;
       }
     }
 
@@ -575,11 +569,13 @@ function initHero3D() {
 
   const container = canvas.parentElement;
   const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(40, container.clientWidth / container.clientHeight, 0.1, 100);
+  const initW = Math.max(container.clientWidth, 1);
+  const initH = Math.max(container.clientHeight, 1);
+  const camera = new THREE.PerspectiveCamera(40, initW / initH, 0.1, 100);
   camera.position.set(0, 0, 5.6);
 
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
-  renderer.setSize(container.clientWidth, container.clientHeight, false);
+  renderer.setSize(initW, initH, false);
 
   const rootGroup = new THREE.Group();
   scene.add(rootGroup);
