@@ -102,22 +102,22 @@ const PROJECTS = [
     name: 'BlackTube',
     repo: 'BlackTube',
     filter: 'desktop',
-    domainLabel: 'Distraction-Free Media',
+    domainLabel: 'Native Windows Media',
     statusColor: '#ff453a',
     statusBg: 'rgba(255, 69, 58, 0.14)',
     iconClass: 'fa-brands fa-youtube',
-    hook: 'Pure cinema. Zero noise.',
+    hook: 'Pure cinema. ~99 KB binary.',
     summary:
-      'Lightweight, ad-free YouTube desktop client engineered in C# (.NET 4.8) and WebView2. Built for hardware-accelerated playback without browser clutter or telemetry.',
+      'Ultra-lightweight dedicated YouTube desktop app in C# .NET + WebView2 (~99 KB standalone, <50 MB RAM) featuring a 5-Tier AdShield, SponsorBlock, PiP, and Sleep Timer.',
     highlights: [
-      'Pure desktop playback without heavy Chromium/Electron memory overhead',
-      'Built as companion media app to the Black Browser Windows ecosystem',
-      'Clean native window chrome focused on low latency and privacy'
+      '5-Tier Resilient AdShield (network blocker, /youtubei/v1/ stripper, 16x fallback)',
+      'Built-in SponsorBlock auto-skip, Picture-in-Picture (Ctrl+Shift+P) & Sleep Timer',
+      'Windows 11 DWM Immersive Dark Mode & edge-to-edge F11 borderless fullscreen'
     ],
-    tech: ['C#', '.NET 4.8', 'WebView2', 'Zero Telemetry'],
+    tech: ['C#', '.NET 4.8', 'WebView2', '5-Tier AdShield', 'SponsorBlock'],
     runtime: 'C# / .NET 4.8',
-    footprint: 'Minimal RAM',
-    platform: 'Windows x64',
+    footprint: '~99 KB · <50 MB RAM',
+    platform: 'Windows 10 / 11',
     defaultStars: 0,
     defaultForks: 0,
     defaultVersion: 'v1.0 Source',
@@ -126,7 +126,38 @@ const PROJECTS = [
     iconImg: 'assets/blacktube-icon.ico',
     detailImg: null,
     architecture:
-      'Native Windows WebView2 container stripping ad scripts and telemetry endpoints while preserving hardware-accelerated video playback.'
+      'Native Windows WebView2 container stripping ad scripts and /youtubei/v1/ ad payloads while supporting SponsorBlock API, frameless PiP, and DWM dark chrome.'
+  },
+  {
+    id: 'mtube',
+    name: 'mTube (YT-Desktop)',
+    repo: 'mtube',
+    filter: 'desktop',
+    domainLabel: 'Cross-Platform Media',
+    statusColor: '#ff453a',
+    statusBg: 'rgba(255, 69, 58, 0.14)',
+    iconClass: 'fa-solid fa-music',
+    hook: 'YouTube & Music. Unified.',
+    summary:
+      'Ad-free YouTube + YouTube Music desktop client (v2.1.0) with instant Ctrl+1 / Ctrl+2 tab switching, SponsorBlock, Picture-in-Picture, system tray controls, and media keys.',
+    highlights: [
+      'Dual-mode YouTube & YouTube Music switching (Ctrl+1 / Ctrl+2) in one window',
+      'Keyboard media keys, close-to-tray playback controls, and SponsorBlock skip',
+      'Portable Windows .exe release (v2.1.0) and Linux build support'
+    ],
+    tech: ['Electron', 'JavaScript', 'SponsorBlock', 'PiP', 'Media Keys'],
+    runtime: 'Electron Desktop',
+    footprint: 'v2.1.0 Portable',
+    platform: 'Windows / Linux',
+    defaultStars: 1,
+    defaultForks: 0,
+    defaultVersion: 'v2.1.0',
+    website: null,
+    github: `https://github.com/${GITHUB_USER}/mtube`,
+    iconImg: null,
+    detailImg: null,
+    architecture:
+      'Single-instance Electron shell integrating YouTube & YouTube Music views with global hardware media keys, system tray playback menu, and SponsorBlock filtering.'
   },
   {
     id: 'aerotech',
@@ -159,37 +190,6 @@ const PROJECTS = [
     detailImg: 'assets/aerotech-dashboard.png',
     architecture:
       'Python triage pipeline decompiling suspicious APKs, scoring behavioral permissions, sealing hash manifests via ed25519 keys, and exporting STIX 2.1 IOC bundles.'
-  },
-  {
-    id: 'quantum-drone',
-    name: 'Quantum Drone',
-    repo: 'quantum-drone-sih',
-    filter: 'security',
-    domainLabel: 'Air-Gapped Mesh Defense',
-    statusColor: '#30d158',
-    statusBg: 'rgba(48, 209, 88, 0.14)',
-    iconClass: 'fa-solid fa-satellite-dish',
-    hook: 'Quantum-resilient surveillance.',
-    summary:
-      'Hybrid quantum-resilient drone surveillance system featuring quantum-safe communications, real-time ground control station (GCS) telemetry, and air-gapped mesh operations.',
-    highlights: [
-      'Post-quantum / hybrid cryptographic key exchange for tactical telemetry links',
-      'Real-time Ground Control Station (GCS) monitoring and mission orchestration',
-      'Resilient air-gapped mesh networking for contested environments'
-    ],
-    tech: ['Quantum-Safe', 'Mesh Ops', 'Real-Time GCS', 'Defense'],
-    runtime: 'Systems / Mesh',
-    footprint: 'Air-Gapped GCS',
-    platform: 'Tactical / Edge',
-    defaultStars: 0,
-    defaultForks: 0,
-    defaultVersion: 'SIH Edition',
-    website: null,
-    github: `https://github.com/${GITHUB_USER}/quantum-drone-sih`,
-    iconImg: null,
-    detailImg: null,
-    architecture:
-      'Hybrid quantum-safe communication layer bridging unmanned aerial nodes and ground control stations over resilient air-gapped mesh topologies.'
   }
 ];
 

@@ -934,16 +934,16 @@
             </p>
             <div class="stat-trio">
               <div>
-                <div class="stat-val">3-Tier</div>
-                <div class="stat-lbl">WMO-No. 8 QC Engine</div>
+                <div class="stat-val">98.7%</div>
+                <div class="stat-lbl">Macro F1 (20k Frames)</div>
               </div>
               <div>
-                <div class="stat-val">20 Nodes</div>
-                <div class="stat-lbl">Live Ring-Buffer</div>
+                <div class="stat-val">0.005 ms</div>
+                <div class="stat-lbl">p95 QC Latency</div>
               </div>
               <div>
-                <div class="stat-val">Zero</div>
-                <div class="stat-lbl">Server Overhead</div>
+                <div class="stat-val">212</div>
+                <div class="stat-lbl">Automated Tests</div>
               </div>
             </div>
             <div class="spotlight-actions">
@@ -966,7 +966,7 @@
                     <div class="mono" style="font-size: 0.74rem; color: var(--apple-green);">● ΔP ≤ -2.5 hPa + ΔRH ≥ +15% · VERIFIED</div>
                   </div>
                 </div>
-                <div style="background: rgba(0,0,0,0.35); border: 1px solid var(--border); border-radius: 12px; padding: 0.9rem;">
+                <div style="background: rgba(0,0,0,0.35); border: 1px solid var(--border); border-radius: 12px; padding: 0.9rem; margin-bottom: 0.9rem;">
                   <div class="mono" style="display: flex; justify-content: space-between; font-size: 0.76rem; color: var(--text-secondary); margin-bottom: 0.5rem;">
                     <span>TEMP: 28.4°C</span>
                     <span>PRES: 998.4 hPa</span>
@@ -976,6 +976,18 @@
                     <path d="M0 38 C 40 34, 65 14, 105 20 C 145 26, 170 8, 210 16 C 240 22, 260 10, 280 12" fill="none" stroke="#30d158" stroke-width="2.5" stroke-linecap="round"/>
                     <path d="M0 44 C 50 42, 85 32, 130 35 C 175 38, 215 24, 280 28" fill="none" stroke="#0a84ff" stroke-width="2" stroke-dasharray="4 4"/>
                   </svg>
+                </div>
+                <!-- README Mermaid Architecture Pipeline -->
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.45rem; text-align: center;">
+                  <div style="padding: 0.45rem; border-radius: 8px; background: rgba(48, 209, 88, 0.1); border: 1px solid rgba(48, 209, 88, 0.28); font-size: 0.7rem;">
+                    <strong style="color: var(--apple-green); display: block;">Tier 1</strong>WMO Limits
+                  </div>
+                  <div style="padding: 0.45rem; border-radius: 8px; background: rgba(10, 132, 255, 0.1); border: 1px solid rgba(10, 132, 255, 0.28); font-size: 0.7rem;">
+                    <strong style="color: var(--apple-blue); display: block;">Tier 2</strong>Drift &amp; Freeze
+                  </div>
+                  <div style="padding: 0.45rem; border-radius: 8px; background: rgba(191, 90, 242, 0.12); border: 1px solid rgba(191, 90, 242, 0.3); font-size: 0.7rem;">
+                    <strong style="color: var(--apple-purple); display: block;">Tier 3</strong>Storm vs Spike
+                  </div>
                 </div>
               </div>
             </div>
