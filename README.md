@@ -30,8 +30,8 @@ Clean 2D developer showcase & software distribution hub featuring a Light/Dark A
 | **Quantum Drone GCS** | Cyber Forensics & PQC Telemetry | Active | [`quantum-drone-sih`](https://github.com/shivamkumarmehta64-sketch/quantum-drone-sih) |
 | **Cinematic Birthday** | Interactive 3D Web (Next.js / R3F) | Active | [`cinematic-birthday`](https://github.com/shivamkumarmehta64-sketch/cinematic-birthday) |
 | **aerotech** | Cyber Forensics & Network Audit | Active | [`aerotech`](https://github.com/shivamkumarmehta64-sketch/aerotech) |
-| **Blue Browser (Tauri)** | Cross-Platform Rust Browser | **Archived (`v0.1.0`)** | [`Blue-Browser-Tauri`](https://github.com/shivamkumarmehta64-sketch/Blue-Browser-Tauri) |
-| **Electronics Calculator** | ECE Scientific Android App | **Archived (`v1.0`)** | [`Electronics_Calculator`](https://github.com/shivamkumarmehta64-sketch/Electronics_Calculator) |
+| **Blue Browser (Tauri)** | Cross-Platform Rust Browser | Active (`v0.1.0`) | [`Blue-Browser-Tauri`](https://github.com/shivamkumarmehta64-sketch/Blue-Browser-Tauri) |
+| **Electronics Calculator** | ECE Scientific Android App | Active (`v1.0`) | [`Electronics_Calculator`](https://github.com/shivamkumarmehta64-sketch/Electronics_Calculator) |
 
 ---
 
