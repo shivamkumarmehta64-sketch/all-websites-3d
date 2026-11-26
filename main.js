@@ -19,8 +19,8 @@ const PROJECTS = [
       'Real-time 3-tier quality control and Explainable AI anomaly detection for Automatic Weather Stations, compliant with WMO-No. 8 meteorological limits.',
     highlights: [
       'Tier 1–3 QC checks separating convective storms (ΔP + ΔRH) from thermistor faults',
-      'Live Web Sensors API barometer fallback & moving-average packet imputation',
-      'Official NIC/IMD formatted CSV audit log export on Vercel edge deployment'
+      '223/223 Vitest tests, bounded rate-limits, streaming body caps & sanitized telemetry',
+      'Live Web Sensors API barometer fallback & official NIC/IMD CSV audit export'
     ],
     tech: ['Next.js', 'TypeScript', 'Recharts', 'WMO-No. 8', 'Vercel'],
     runtime: 'Next.js / Edge',
@@ -50,8 +50,8 @@ const PROJECTS = [
       'Fast, privacy-first native Windows 10/11 browser (~460 KB executable, <60 MB RAM) engineered in C# (.NET 4.8) + Microsoft WebView2 with zero cloud telemetry.',
     highlights: [
       '3-Layer AdShield (domain blocking, YouTube payload stripping & auto-skip)',
-      'Windows DPAPI local password vault, bookmarks, QR share & MV2 extensions',
-      'Signed-hash v9.1.0 Setup.exe & Portable ZIP + black://home Speed Dial'
+      'Fail-closed SHA-256 updater, Authenticode bootstrapper check & 22/22 security tests',
+      'Windows DPAPI local password vault, SHA-pinned CI & black://home Speed Dial'
     ],
     tech: ['C#', '.NET 4.8', 'WebView2', 'WinForms', 'AdShield', 'MIT'],
     runtime: 'C# / .NET 4.8',
@@ -82,7 +82,7 @@ const PROJECTS = [
       'Lightweight, distraction-free YouTube desktop client engineered in C# (.NET 4.8) and Microsoft WebView2 with zero telemetry and minimal RAM consumption.',
     highlights: [
       'Pure desktop playback without heavy Chromium/Electron memory overhead',
-      'Built as companion media app to the Black Browser Windows ecosystem',
+      'NavigationStarting domain allowlist guarding against untrusted redirects',
       'Clean native window chrome focused on low latency and privacy'
     ],
     tech: ['C#', '.NET 4.8', 'WebView2', 'WinForms', 'Zero Telemetry'],
@@ -194,6 +194,70 @@ const PROJECTS = [
     detailImg: 'assets/cinematic-birthday.png',
     architecture:
       'Static Next.js application encoding celebration payloads client-side with zero database dependency, deployed on Cloudflare Pages.'
+  },
+  {
+    id: 'blue-browser-tauri',
+    name: 'Blue Browser (Tauri)',
+    repo: 'Blue-Browser-Tauri',
+    hasReleases: false,
+    filter: 'desktop',
+    domainLabel: 'Cross-Platform Rust Browser',
+    statusText: 'TAURI · RUST',
+    statusColor: '#38bdf8',
+    statusBg: 'rgba(56, 189, 248, 0.12)',
+    iconClass: 'fa-solid fa-compass',
+    summary:
+      'Cross-platform companion to Black Browser engineered in Rust (Tauri) + TypeScript/React, targeting Windows, macOS, and Linux with native system WebViews.',
+    highlights: [
+      'Rust core backend paired with TypeScript/React chrome for low memory overhead',
+      'Cross-platform packaging for Windows, macOS, and Linux desktops',
+      'Zero-telemetry architecture sharing Black Browser privacy principles'
+    ],
+    tech: ['Rust', 'Tauri', 'TypeScript', 'React', 'Cross-Platform'],
+    runtime: 'Rust / Tauri',
+    footprint: 'Native WebView',
+    platform: 'Win / macOS / Linux',
+    defaultStars: 0,
+    defaultForks: 0,
+    defaultVersion: 'Tauri v2',
+    website: null,
+    github: `https://github.com/${GITHUB_USER}/Blue-Browser-Tauri`,
+    iconImg: null,
+    detailImg: null,
+    architecture:
+      'Tauri desktop shell combining a Rust IPC/process backend with a TypeScript + React frontend.'
+  },
+  {
+    id: 'electronics-calculator',
+    name: 'Electronics Calculator',
+    repo: 'Electronics_Calculator',
+    hasReleases: false,
+    filter: 'security',
+    domainLabel: 'ECE Scientific Android App',
+    statusText: 'KOTLIN · ECE',
+    statusColor: '#fbbf24',
+    statusBg: 'rgba(251, 191, 36, 0.12)',
+    iconClass: 'fa-solid fa-microchip',
+    summary:
+      'Native Kotlin Android scientific calculator built for ECE coursework — featuring trigonometric, logarithmic, factorial, and real-time mXparser expression evaluation.',
+    highlights: [
+      'Real-time mathematical expression parsing via mXparser (sin, cos, tan, log, n!)',
+      'Clean Material mobile UI tuned for fast lab & exam calculations',
+      '100% offline Android execution with zero network permissions'
+    ],
+    tech: ['Kotlin', 'Android', 'mXparser', 'ECE Lab Tool'],
+    runtime: 'Android / Kotlin',
+    footprint: 'Offline APK',
+    platform: 'Android',
+    defaultStars: 0,
+    defaultForks: 0,
+    defaultVersion: 'v1.0',
+    website: null,
+    github: `https://github.com/${GITHUB_USER}/Electronics_Calculator`,
+    iconImg: null,
+    detailImg: null,
+    architecture:
+      'Native Kotlin Android application delegating symbolic/scientific expression evaluation to mXparser offline.'
   }
 ];
 
@@ -410,64 +474,17 @@ window.addEventListener('keydown', e => {
 });
 
 function buildCardStageHtml(p) {
-  if (p.id === 'metshield-ai') {
-    return `
-      <div class="card-stage-inner stage-metshield">
-        <img src="assets/jatayu-seal.jpg" alt="MetShield AI Crest" class="stage-seal" />
-        <div class="tele-mini">
-          <div class="tele-mini-metrics">
-            <span>28.4°C</span>
-            <span>998.4 hPa</span>
-            <span>74% RH</span>
-          </div>
-          <svg viewBox="0 0 240 46" width="100%" height="44" aria-hidden="true">
-            <path d="M0 32 C 30 30, 50 14, 80 18 C 110 22, 130 8, 160 14 C 190 20, 210 10, 240 12" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round"/>
-            <path d="M0 38 C 40 36, 70 28, 110 31 C 150 34, 180 24, 240 26" fill="none" stroke="#38bdf8" stroke-width="1.8" stroke-dasharray="4 4"/>
-          </svg>
-          <div class="mono" style="font-size: 0.68rem; color: #6ee7b7;">WMO-NO. 8 TIER 1-3 · 20 AWS NODES</div>
-        </div>
-      </div>`;
-  }
-  if (p.id === 'black-browser') {
-    return `
-      <div class="card-stage-inner stage-browser">
-        <div class="browser-mockup">
-          <div class="browser-chrome">
-            <div class="dots"><span></span><span></span><span></span></div>
-            <div class="browser-url">🔒 black://home · Speed Dial</div>
-          </div>
-          <div class="browser-center">
-            <img src="assets/black-firefox-icon.png" alt="Black Browser Icon" class="app-emblem" />
-            <div>
-              <div style="font-weight: 700; font-size: 0.92rem; color: #f8fafc;">Black Browser v9.1.0</div>
-              <div class="mono" style="font-size: 0.7rem; color: #7dd3fc;">~460 KB · 3-Layer AdShield · DPAPI Vault</div>
-            </div>
-          </div>
-        </div>
-      </div>`;
-  }
-  if (p.id === 'blacktube') {
-    return `
-      <div class="card-stage-inner stage-player">
-        <div class="player-mockup">
-          <div class="player-screen">
-            <img src="assets/blacktube-icon.ico" alt="BlackTube Icon" class="app-emblem" />
-            <div style="flex: 1;">
-              <div style="font-weight: 700; font-size: 0.92rem; color: #f8fafc;">BlackTube Desktop</div>
-              <div class="mono" style="font-size: 0.7rem; color: #fda4af;">WebView2 Playback · 0 Telemetry · Low RAM</div>
-            </div>
-            <span style="width: 34px; height: 34px; border-radius: 999px; background: rgba(239,68,68,0.2); border: 1px solid rgba(248,113,113,0.45); display: grid; place-items: center; color: #f87171;">
-              <i class="fa-solid fa-play" style="font-size: 0.75rem;"></i>
-            </span>
-          </div>
-          <div class="player-bar"><div class="player-bar-fill"></div></div>
-        </div>
-      </div>`;
-  }
   if (p.detailImg) {
-    return `<img src="${escapeHtml(p.detailImg)}" alt="${escapeHtml(p.name)} Preview" class="card-stage-inner stage-screenshot" loading="lazy" decoding="async" />`;
+    return `<img src="${escapeHtml(p.detailImg)}" alt="${escapeHtml(p.name)} Preview" class="card-stage-inner" loading="lazy" decoding="async" />`;
   }
-  return `<img src="assets/aerotech-dashboard.png" alt="${escapeHtml(p.name)} Preview" class="card-stage-inner stage-screenshot" loading="lazy" decoding="async" />`;
+  if (p.iconImg) {
+    return `
+      <div class="stage-centered">
+        <img src="${escapeHtml(p.iconImg)}" alt="${escapeHtml(p.name)}" loading="lazy" decoding="async" />
+        <div class="stage-centered-meta mono">${escapeHtml(p.runtime)} · ${escapeHtml(p.footprint)}</div>
+      </div>`;
+  }
+  return `<img src="assets/aerotech-dashboard.png" alt="${escapeHtml(p.name)} Preview" class="card-stage-inner" loading="lazy" decoding="async" />`;
 }
 
 // ---------------------------------------------------------------------------
@@ -492,48 +509,36 @@ function renderProjects() {
       const safeDl = sanitizeHttpUrl(meta.downloadUrl);
       const safeGh = sanitizeHttpUrl(p.github);
 
+      const primaryAction = safeDl
+        ? `<a href="${safeDl}" target="_blank" rel="noopener noreferrer" class="btn btn-emerald btn-sm">Download${meta.assetSize ? ` (${escapeHtml(meta.assetSize)})` : ''}</a>`
+        : safeWeb
+        ? `<button class="btn btn-primary btn-sm" data-action="preview" data-id="${escapeHtml(p.id)}">Live Preview</button>`
+        : !p.isPrivate && safeGh
+        ? `<a href="${safeGh}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">Source</a>`
+        : '';
+
       return `
-      <article class="project-card reveal" style="transition-delay: ${Math.min(visible.indexOf(p) * 45, 220)}ms;" id="card-${escapeHtml(p.id)}">
+      <article class="project-card" id="card-${escapeHtml(p.id)}">
         <div class="card-stage">
           ${buildCardStageHtml(p)}
-          <div class="stage-overlay">
-            <span class="stage-label">
-              <i class="${escapeHtml(p.iconClass)}" style="color: ${escapeHtml(p.statusColor)};"></i>
-              <span>${escapeHtml(p.domainLabel)}</span>
-            </span>
-            <span class="status-pill" style="background: ${escapeHtml(p.statusBg)}; color: ${escapeHtml(p.statusColor)};">
-              ${escapeHtml(p.statusText)}
-            </span>
-          </div>
         </div>
 
         <div class="card-body">
-          <div class="card-title-row">
-            <div class="card-title-group">
-              ${p.iconImg ? `<img src="${escapeHtml(p.iconImg)}" alt="" class="card-mini-icon" />` : `<span class="card-mini-icon" style="display: grid; place-items: center; background: ${escapeHtml(p.statusBg)}; color: ${escapeHtml(p.statusColor)};"><i class="${escapeHtml(p.iconClass)}" style="font-size: 0.75rem;"></i></span>`}
-              <h3 class="card-title">${escapeHtml(p.name)}</h3>
-            </div>
-            <div class="card-stats">
-              ${p.isPrivate ? '<span><i class="fa-solid fa-lock"></i> Private</span>' : `<span><i class="fa-regular fa-star"></i> ${meta.stars}</span><span><i class="fa-solid fa-code-fork"></i> ${meta.forks}</span>`}
-            </div>
+          <div class="card-top">
+            <h3 class="card-title">${escapeHtml(p.name)}</h3>
+            <span class="card-status mono" style="color: ${escapeHtml(p.statusColor)};">${escapeHtml(p.statusText)}</span>
           </div>
 
           <p class="card-desc">${escapeHtml(p.summary)}</p>
 
-          <ul class="card-highlights">
-            ${p.highlights.map(h => `<li><i class="fa-solid fa-check"></i><span>${escapeHtml(h)}</span></li>`).join('')}
-          </ul>
-
-          <div class="tech-row">
-            ${p.tech.map(t => `<span class="tech-tag">${escapeHtml(t)}</span>`).join('')}
+          <div class="card-meta-line mono">
+            ${escapeHtml(p.domainLabel)} · ${escapeHtml(meta.version || p.defaultVersion)}
           </div>
 
           <div class="card-footer">
-            ${safeDl ? `<a href="${safeDl}" target="_blank" rel="noopener noreferrer" class="btn btn-emerald btn-sm"><i class="fa-solid fa-download"></i> Download ${meta.assetSize ? `(${escapeHtml(meta.assetSize)})` : ''}</a>` : ''}
-            ${safeWeb ? `<button class="btn btn-primary btn-sm" data-action="preview" data-id="${escapeHtml(p.id)}"><i class="fa-solid fa-display"></i> Live Preview</button><a href="${safeWeb}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm"><i class="fa-solid fa-arrow-up-right-from-square"></i> Launch</a>` : ''}
-            ${!p.isPrivate && safeGh ? `<a href="${safeGh}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm"><i class="fa-brands fa-github"></i> Source</a>` : ''}
-            <button class="btn btn-secondary btn-sm" data-action="details" data-id="${escapeHtml(p.id)}"><i class="fa-solid fa-circle-info"></i> Details</button>
-            <button class="btn btn-secondary btn-sm spacer" data-action="share" data-id="${escapeHtml(p.id)}" title="Copy direct link" aria-label="Copy direct link for ${escapeHtml(p.name)}"><i class="fa-solid fa-share-nodes" aria-hidden="true"></i></button>
+            ${primaryAction}
+            <button class="btn btn-secondary btn-sm" data-action="details" data-id="${escapeHtml(p.id)}">Details</button>
+            <button class="btn btn-secondary btn-sm spacer" data-action="share" data-id="${escapeHtml(p.id)}" title="Copy direct link" aria-label="Copy direct link for ${escapeHtml(p.name)}"><i class="fa-solid fa-link" aria-hidden="true"></i></button>
           </div>
         </div>
       </article>`;
