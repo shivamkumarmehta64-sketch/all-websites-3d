@@ -1,0 +1,86 @@
+{
+  "generatedAt": "2026-11-26T04:28:39.316Z",
+  "publicRepos": 13,
+  "repos": {
+    "MetShield-AI": {
+      "stars": 1,
+      "forks": 0,
+      "version": null,
+      "downloadUrl": null,
+      "assetName": null,
+      "assetSizeBytes": 0,
+      "zipUrl": null,
+      "shaUrl": null
+    },
+    "Black-Firefox": {
+      "stars": 1,
+      "forks": 0,
+      "version": "v9.1.0",
+      "downloadUrl": "https://github.com/shivamkumarmehta64-sketch/Black-Firefox/releases/download/v9.1.0/BlackBrowser-v9.1.0-Windows-x64-Setup.exe",
+      "assetName": "BlackBrowser-v9.1.0-Windows-x64-Setup.exe",
+      "assetSizeBytes": 2938090,
+      "zipUrl": "https://github.com/shivamkumarmehta64-sketch/Black-Firefox/releases/download/v9.1.0/BlackBrowser-v9.1.0-Windows-x64.zip",
+      "shaUrl": "https://github.com/shivamkumarmehta64-sketch/Black-Firefox/releases/download/v9.1.0/SHA256SUMS.txt"
+    },
+    "BlackTube": {
+      "stars": 0,
+      "forks": 0,
+      "version": "v1.0.0",
+      "downloadUrl": "https://github.com/shivamkumarmehta64-sketch/BlackTube/releases/download/v1.0.0/BlackTube-v1.0.0-Windows-x64.zip",
+      "assetName": "BlackTube-v1.0.0-Windows-x64.zip",
+      "assetSizeBytes": 331195,
+      "zipUrl": "https://github.com/shivamkumarmehta64-sketch/BlackTube/releases/download/v1.0.0/BlackTube-v1.0.0-Windows-x64.zip",
+      "shaUrl": "https://github.com/shivamkumarmehta64-sketch/BlackTube/releases/download/v1.0.0/SHA256SUMS.txt"
+    },
+    "aerotech": {
+      "stars": 0,
+      "forks": 0,
+      "version": null,
+      "downloadUrl": null,
+      "assetName": null,
+      "assetSizeBytes": 0,
+      "zipUrl": null,
+      "shaUrl": null
+    },
+    "quantum-drone-sih": {
+      "stars": 0,
+      "forks": 0,
+      "version": null,
+      "downloadUrl": null,
+      "assetName": null,
+      "assetSizeBytes": 0,
+      "zipUrl": null,
+      "shaUrl": null
+    },
+    "cinematic-birthday": {
+      "stars": 0,
+      "forks": 1,
+      "version": null,
+      "downloadUrl": null,
+      "assetName": null,
+      "assetSizeBytes": 0,
+      "zipUrl": null,
+      "shaUrl": null
+    },
+    "Blue-Browser-Tauri": {
+      "stars": 0,
+      "forks": 0,
+      "version": "v0.1.0",
+      "downloadUrl": "https://github.com/shivamkumarmehta64-sketch/Blue-Browser-Tauri/releases/download/v0.1.0/Blue.Browser_0.1.0_x64-setup.exe",
+      "assetName": "Blue.Browser_0.1.0_x64-setup.exe",
+      "assetSizeBytes": 2573736,
+      "zipUrl": null,
+      "shaUrl": null
+    },
+    "Electronics_Calculator": {
+      "stars": 0,
+      "forks": 0,
+      "version": null,
+      "downloadUrl": null,
+      "assetName": null,
+      "assetSizeBytes": 0,
+      "zipUrl": null,
+      "shaUrl": null
+    }
+  }
+}

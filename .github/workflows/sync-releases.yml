@@ -1,0 +1,64 @@
+name: Sync GitHub Releases Metadata
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67290ff59a8b0d375c7 # v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae5a50d722 # v6
+        with:
+          node-version: '20'
+
+      - name: Generate data/releases.json
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          node -e '
+          const fs = require("fs");
+          const user = "shivamkumarmehta64-sketch";
+          const repos = ["MetShield-AI","Black-Firefox","BlackTube","aerotech","quantum-drone-sih","cinematic-birthday","Blue-Browser-Tauri","Electronics_Calculator"];
+          const headers = { "Accept": "application/vnd.github+json", "Authorization": "Bearer " + process.env.GH_TOKEN };
+          (async () => {
+            const uRes = await fetch("https://api.github.com/users/" + user, { headers });
+            const u = uRes.ok ? await uRes.json() : {};
+            const out = { generatedAt: new Date().toISOString(), publicRepos: u.public_repos ?? 13, repos: {} };
+            for (const r of repos) {
+              const rr = await fetch("https://api.github.com/repos/" + user + "/" + r, { headers });
+              const rj = rr.ok ? await rr.json() : null;
+              const rl = await fetch("https://api.github.com/repos/" + user + "/" + r + "/releases/latest", { headers });
+              const rlj = rl.ok ? await rl.json() : null;
+              const entry = { stars: rj?.stargazers_count ?? 0, forks: rj?.forks_count ?? 0, version: rlj?.tag_name ?? null, downloadUrl: null, assetName: null, assetSizeBytes: 0, zipUrl: null, shaUrl: null };
+              if (Array.isArray(rlj?.assets) && rlj.assets.length > 0) {
+                const p = rlj.assets.find(a => /-setup\.exe$/i.test(a.name)) || rlj.assets.find(a => /\.exe$/i.test(a.name)) || rlj.assets.find(a => /\.zip$/i.test(a.name)) || rlj.assets[0];
+                const z = rlj.assets.find(a => /\.zip$/i.test(a.name));
+                const s = rlj.assets.find(a => /sha256/i.test(a.name));
+                entry.downloadUrl = p.browser_download_url;
+                entry.assetName = p.name;
+                entry.assetSizeBytes = p.size;
+                entry.zipUrl = z?.browser_download_url ?? null;
+                entry.shaUrl = s?.browser_download_url ?? null;
+              }
+              out.repos[r] = entry;
+            }
+            fs.mkdirSync("data", { recursive: true });
+            fs.writeFileSync("data/releases.json", JSON.stringify(out, null, 2) + "\n");
+          })();
+          '
+
+      - name: Commit updated releases.json if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/releases.json
+          git diff --staged --quiet || (git commit -m "chore: sync static GitHub release metadata" && git push)

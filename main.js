@@ -2,6 +2,16 @@ import * as THREE from 'three';
 
 const GITHUB_USER = 'shivamkumarmehta64-sketch';
 const CACHE_TTL_MS = 10 * 60 * 1000;
+let staticReleasesPromise = null;
+
+function loadStaticReleases() {
+  if (!staticReleasesPromise) {
+    staticReleasesPromise = fetch('./data/releases.json')
+      .then(res => (res.ok ? res.json() : null))
+      .catch(() => null);
+  }
+  return staticReleasesPromise;
+}
 
 const PROJECTS = [
   {
@@ -12,8 +22,8 @@ const PROJECTS = [
     filter: 'web',
     domainLabel: 'MoES / IMD Real-Time QC',
     statusText: 'SIH 2026 · LIVE',
-    statusColor: '#10b981',
-    statusBg: 'rgba(16, 185, 129, 0.12)',
+    statusColor: '#2fb36d',
+    statusBg: 'rgba(47, 179, 109, 0.12)',
     iconClass: 'fa-solid fa-shield-halved',
     summary:
       'Real-time 3-tier quality control and Explainable AI anomaly detection for Automatic Weather Stations, compliant with WMO-No. 8 meteorological limits.',
@@ -43,8 +53,8 @@ const PROJECTS = [
     filter: 'desktop',
     domainLabel: 'Privacy-First Windows Browser',
     statusText: 'v9.1.0 SETUP',
-    statusColor: '#38bdf8',
-    statusBg: 'rgba(56, 189, 248, 0.12)',
+    statusColor: '#3b9eff',
+    statusBg: 'rgba(59, 158, 255, 0.12)',
     iconClass: 'fa-solid fa-globe',
     summary:
       'Fast, privacy-first native Windows 10/11 browser (~460 KB executable, <60 MB RAM) engineered in C# (.NET 4.8) + Microsoft WebView2 with zero cloud telemetry.',
@@ -75,8 +85,8 @@ const PROJECTS = [
     filter: 'desktop',
     domainLabel: 'Ad-Free Desktop Client',
     statusText: 'v1.0.0 RELEASE',
-    statusColor: '#f87171',
-    statusBg: 'rgba(248, 113, 113, 0.12)',
+    statusColor: '#d49a2a',
+    statusBg: 'rgba(212, 154, 42, 0.12)',
     iconClass: 'fa-brands fa-youtube',
     summary:
       'Lightweight, distraction-free YouTube desktop client engineered in C# (.NET 4.8) and Microsoft WebView2 with zero telemetry and minimal RAM consumption.',
@@ -107,8 +117,8 @@ const PROJECTS = [
     filter: 'security',
     domainLabel: 'Digital Forensics Platform',
     statusText: 'BIHAR PS-02',
-    statusColor: '#a78bfa',
-    statusBg: 'rgba(167, 139, 250, 0.12)',
+    statusColor: '#d49a2a',
+    statusBg: 'rgba(212, 154, 42, 0.12)',
     iconClass: 'fa-solid fa-user-secret',
     summary:
       'Autonomous Android APK Security & Digital Forensic Triage Platform built for Bihar Cybercrime Hackathon 2026 (PS-02), with ed25519 custody proofs and STIX 2.1 output.',
@@ -139,8 +149,8 @@ const PROJECTS = [
     filter: 'security',
     domainLabel: 'Post-Quantum UAV C2',
     statusText: 'CLOUDFLARE · LIVE',
-    statusColor: '#64d2ff',
-    statusBg: 'rgba(100, 210, 255, 0.12)',
+    statusColor: '#3b9eff',
+    statusBg: 'rgba(59, 158, 255, 0.12)',
     iconClass: 'fa-solid fa-satellite-dish',
     summary:
       'Hybrid Quantum-Resilient Drone Surveillance & Ground Control Station combining NIST FIPS 203 ML-KEM-768 post-quantum cryptography with AES-256-GCM air-gapped telemetry.',
@@ -171,8 +181,8 @@ const PROJECTS = [
     filter: 'web',
     domainLabel: 'Client-Side Experience',
     statusText: 'PAGES · LIVE',
-    statusColor: '#bf5af2',
-    statusBg: 'rgba(191, 90, 242, 0.12)',
+    statusColor: '#2fb36d',
+    statusBg: 'rgba(47, 179, 109, 0.12)',
     iconClass: 'fa-solid fa-wand-magic-sparkles',
     summary:
       '100% client-side interactive web experience turning photos and custom messages into a shareable, animated celebration link with zero server uploads.',
@@ -203,8 +213,8 @@ const PROJECTS = [
     filter: 'desktop',
     domainLabel: 'Cross-Platform Rust Browser',
     statusText: 'TAURI · RUST',
-    statusColor: '#38bdf8',
-    statusBg: 'rgba(56, 189, 248, 0.12)',
+    statusColor: '#3b9eff',
+    statusBg: 'rgba(59, 158, 255, 0.12)',
     iconClass: 'fa-solid fa-compass',
     summary:
       'Cross-platform companion to Black Browser engineered in Rust (Tauri) + TypeScript/React, targeting Windows, macOS, and Linux with native system WebViews.',
@@ -235,8 +245,8 @@ const PROJECTS = [
     filter: 'security',
     domainLabel: 'ECE Scientific Android App',
     statusText: 'KOTLIN · ECE',
-    statusColor: '#fbbf24',
-    statusBg: 'rgba(251, 191, 36, 0.12)',
+    statusColor: '#d49a2a',
+    statusBg: 'rgba(212, 154, 42, 0.12)',
     iconClass: 'fa-solid fa-microchip',
     summary:
       'Native Kotlin Android scientific calculator built for ECE coursework — featuring trigonometric, logarithmic, factorial, and real-time mXparser expression evaluation.',
@@ -331,6 +341,24 @@ async function fetchRepoTelemetry(project) {
     assetName: null,
     assetSize: ''
   };
+
+  // Prefer build-time static releases.json (zero GitHub API rate-limit issues at 1,000+ users)
+  const staticJson = await loadStaticReleases();
+  const staticEntry = staticJson?.repos?.[project.repo];
+  if (staticEntry) {
+    const data = {
+      stars: staticEntry.stars ?? fallback.stars,
+      forks: staticEntry.forks ?? fallback.forks,
+      version: staticEntry.version || fallback.version,
+      downloadUrl: sanitizeHttpUrl(staticEntry.downloadUrl),
+      assetName: staticEntry.assetName || null,
+      assetSize: staticEntry.assetSizeBytes ? formatBytes(staticEntry.assetSizeBytes) : '',
+      zipUrl: sanitizeHttpUrl(staticEntry.zipUrl),
+      shaUrl: sanitizeHttpUrl(staticEntry.shaUrl)
+    };
+    liveCache.set(project.id, data);
+    return data;
+  }
 
   try {
     const requests = [fetch(`https://api.github.com/repos/${GITHUB_USER}/${project.repo}`)];
@@ -470,21 +498,159 @@ if (modal) {
   });
 }
 window.addEventListener('keydown', e => {
-  if (e.key === 'Escape') closeModal();
+  if (e.key === 'Escape') {
+    closeModal();
+    const drawer = document.getElementById('mobile-nav-drawer');
+    const mobBtn = document.getElementById('mobile-nav-btn');
+    if (drawer?.classList.contains('open')) {
+      drawer.classList.remove('open');
+      mobBtn?.setAttribute('aria-expanded', 'false');
+    }
+  }
+  if (e.key === 'Tab' && modal?.classList.contains('open')) {
+    const focusables = Array.from(
+      modal.querySelectorAll('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])')
+    ).filter(el => el.offsetParent !== null);
+    if (focusables.length === 0) return;
+    const first = focusables[0];
+    const last = focusables[focusables.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  }
 });
 
+function openResumeModal() {
+  if (!modal) return;
+  modalTitle.innerHTML = '<i class="fa-solid fa-file-lines" style="color: var(--accent);"></i> Shivam Kumar Mehta — ECE &amp; Systems Resume';
+  modalExternal.style.display = 'none';
+  modalBody.style.padding = '1.65rem';
+  modalBody.innerHTML = `
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:1rem;padding-bottom:1.1rem;border-bottom:1px solid var(--border);margin-bottom:1.25rem;">
+      <div>
+        <h3 style="font-size:1.55rem;font-weight:800;letter-spacing:-0.025em;margin-bottom:0.2rem;">Shivam Kumar Mehta</h3>
+        <div style="color:var(--text-secondary);font-size:0.9rem;margin-bottom:0.45rem;">B.Tech Electronics &amp; Communication Engineering · Purnea College of Engineering (BEU, Bihar)</div>
+        <div class="mono" style="display:flex;flex-wrap:wrap;gap:0.75rem;font-size:0.76rem;color:var(--text-muted);">
+          <span>shivamkumarmehta64@gmail.com</span>
+          <span>·</span>
+          <a href="https://github.com/shivamkumarmehta64-sketch" target="_blank" rel="noopener noreferrer" style="color:var(--accent);">github.com/shivamkumarmehta64-sketch</a>
+          <span>·</span>
+          <a href="https://www.linkedin.com/in/shivam-kumar-mehta" target="_blank" rel="noopener noreferrer" style="color:var(--accent);">linkedin.com/in/shivam-kumar-mehta</a>
+        </div>
+      </div>
+      <button id="print-resume-btn" type="button" class="btn btn-primary btn-sm"><i class="fa-solid fa-print"></i> Print / Save PDF</button>
+    </div>
+
+    <div style="display:grid;gap:1.25rem;font-size:0.88rem;line-height:1.55;">
+      <div>
+        <div class="mono" style="font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);margin-bottom:0.45rem;">Education</div>
+        <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;">
+          <strong>B.Tech in Electronics &amp; Communication Engineering (ECE)</strong>
+          <span class="mono" style="color:var(--text-muted);font-size:0.78rem;">2023 – Present</span>
+        </div>
+        <div style="color:var(--text-secondary);">Purnea College of Engineering — Bihar Engineering University (BEU), Bihar</div>
+      </div>
+
+      <div>
+        <div class="mono" style="font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);margin-bottom:0.45rem;">Technical Skills (Verified Across 13 Public Repositories)</div>
+        <div style="display:grid;gap:0.35rem;color:var(--text-secondary);">
+          <div><strong style="color:var(--text);">Systems &amp; Desktop:</strong> C# (.NET 4.8), WinForms, Microsoft WebView2, Rust, Tauri v2, Windows DPAPI, Authenticode</div>
+          <div><strong style="color:var(--text);">Web &amp; Frontend:</strong> TypeScript, Next.js (App Router), React, Tailwind CSS, HTML5/CSS3, Three.js (WebGL2)</div>
+          <div><strong style="color:var(--text);">IoT, Mobile &amp; ECE:</strong> Kotlin, Android SDK, mXparser, WMO-No. 8 Telemetry QC, Web Generic Sensor API</div>
+          <div><strong style="color:var(--text);">Security &amp; Testing:</strong> ML-KEM-768 (FIPS 203), AES-256-GCM, Ed25519, STIX 2.1, Vitest, Playwright, SHA-Pinned CI/CD</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="mono" style="font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);margin-bottom:0.55rem;">Key Engineering Projects</div>
+        <div style="display:grid;gap:0.75rem;color:var(--text-secondary);">
+          <div>
+            <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;">
+              <strong style="color:var(--text);">MetShield-AI (MoES / IMD — SIH 2026)</strong>
+              <span class="mono" style="font-size:0.75rem;color:var(--emerald);">223 / 223 Vitest · Next.js / TypeScript</span>
+            </div>
+            <div>Built 3-tier WMO-No. 8 quality control separating convective storms (ΔP ≤ -2.5 hPa + ΔRH ≥ +15%) from thermistor faults across 20 live AWS nodes, with bounded rate limits and streaming body guards.</div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;">
+              <strong style="color:var(--text);">Black Browser v9.1.0 &amp; BlackTube v1.0.0</strong>
+              <span class="mono" style="font-size:0.75rem;color:var(--accent);">~460 KB · &lt;60 MB RAM · 22/22 Security Tests</span>
+            </div>
+            <div>Engineered native Windows 10/11 C# (.NET 4.8) + WebView2 apps with 3-Layer AdShield, DPAPI local password vault, Authenticode verification, and fail-closed SHA-256 releases.</div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;">
+              <strong style="color:var(--text);">Quantum Drone GCS &amp; aerotech Forensics</strong>
+              <span class="mono" style="font-size:0.75rem;color:var(--text-muted);">ML-KEM-768 · Ed25519 · Bihar PS-02</span>
+            </div>
+            <div>Developed an air-gapped UAV Ground Control Station (ML-KEM-768 + AES-256-GCM) and a Python/Streamlit Android APK forensic triage pipeline with Ed25519 custody proofs and STIX 2.1 export.</div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;">
+              <strong style="color:var(--text);">Blue Browser (Tauri v0.1.0) &amp; Electronics Calculator</strong>
+              <span class="mono" style="font-size:0.75rem;color:var(--text-muted);">Rust / Tauri · Kotlin / mXparser</span>
+            </div>
+            <div>Shipped a cross-platform Rust/React desktop browser (Windows/macOS/Linux) and an offline Kotlin Android scientific calculator tailored for ECE lab coursework.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+  const printBtn = document.getElementById('print-resume-btn');
+  if (printBtn) printBtn.addEventListener('click', () => window.print());
+  openModalShell();
+}
+
 function buildCardStageHtml(p) {
+  if (p.id === 'metshield-ai') {
+    return `
+      <div class="stage-metshield">
+        <div class="stage-ms-head">
+          <div class="stage-ms-id">
+            <img src="assets/jatayu-seal.jpg" alt="MetShield-AI Seal" loading="lazy" decoding="async" />
+            <span>NAWS-QMS v4.2</span>
+          </div>
+          <span class="stage-ms-pill mono">WMO-No. 8</span>
+        </div>
+        <svg viewBox="0 0 320 74" class="stage-ms-wave" aria-hidden="true">
+          <defs>
+            <linearGradient id="msGradCard" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#30d158" stop-opacity="0.32" />
+              <stop offset="100%" stop-color="#30d158" stop-opacity="0" />
+            </linearGradient>
+          </defs>
+          <path d="M0,54 C35,52 60,48 92,42 C126,36 146,16 178,20 C210,24 234,48 270,44 C292,42 306,34 320,32 L320,74 L0,74 Z" fill="url(#msGradCard)" />
+          <path d="M0,54 C35,52 60,48 92,42 C126,36 146,16 178,20 C210,24 234,48 270,44 C292,42 306,34 320,32" fill="none" stroke="#30d158" stroke-width="2" />
+          <path d="M0,26 C40,28 70,32 106,38 C142,46 160,60 192,56 C224,52 260,34 320,30" fill="none" stroke="#0a84ff" stroke-width="1.6" stroke-dasharray="4 3" />
+        </svg>
+        <div class="stage-ms-metrics">
+          <div class="stage-ms-cell"><span>QC Tiers</span><strong class="mono">3-Tier</strong></div>
+          <div class="stage-ms-cell"><span>Nodes</span><strong class="mono">20 AWS</strong></div>
+          <div class="stage-ms-cell"><span>Vitest</span><strong class="mono" style="color: var(--emerald);">223/223</strong></div>
+        </div>
+      </div>`;
+  }
   if (p.detailImg) {
     return `<img src="${escapeHtml(p.detailImg)}" alt="${escapeHtml(p.name)} Preview" class="card-stage-inner" loading="lazy" decoding="async" />`;
   }
   if (p.iconImg) {
     return `
-      <div class="stage-centered">
+      <div class="stage-centered" style="--stage-glow: ${escapeHtml(p.statusBg)};">
         <img src="${escapeHtml(p.iconImg)}" alt="${escapeHtml(p.name)}" loading="lazy" decoding="async" />
         <div class="stage-centered-meta mono">${escapeHtml(p.runtime)} · ${escapeHtml(p.footprint)}</div>
       </div>`;
   }
-  return `<img src="assets/aerotech-dashboard.png" alt="${escapeHtml(p.name)} Preview" class="card-stage-inner" loading="lazy" decoding="async" />`;
+  return `
+    <div class="stage-centered" style="--stage-glow: ${escapeHtml(p.statusBg)};">
+      <div class="stage-fa-badge" style="color: ${escapeHtml(p.statusColor)};">
+        <i class="${escapeHtml(p.iconClass)}" aria-hidden="true"></i>
+      </div>
+      <div class="stage-centered-meta mono">${escapeHtml(p.runtime)} · ${escapeHtml(p.footprint)}</div>
+    </div>`;
 }
 
 // ---------------------------------------------------------------------------
@@ -700,22 +866,71 @@ function initHero3D() {
   gimbalMesh.rotation.z = Math.PI * 0.22;
   rootGroup.add(gimbalMesh);
 
-  // 3 Domain Satellites (MetShield Emerald, Black Browser Blue, Quantum Violet)
+  // 4 Interactive Ecosystem & Timeline Satellites orbiting the GitHub/ECE Core
   const satGroup = new THREE.Group();
   const satSpecs = [
-    { color: 0x30d158, angle: 0, radius: 2.05 },
-    { color: 0x0a84ff, angle: (Math.PI * 2) / 3, radius: 2.05 },
-    { color: 0xbf5af2, angle: (Math.PI * 4) / 3, radius: 2.05 }
+    { id: 'metshield-ai', label: 'METSHIELD-AI · SIH 2026 (223 VITEST)', color: 0x2fb36d, hex: '#2fb36d', angle: 0, radius: 2.05 },
+    { id: 'black-browser', label: 'BLACK BROWSER · v9.1.0 (~460 KB)', color: 0x3b9eff, hex: '#3b9eff', angle: Math.PI * 0.5, radius: 2.05 },
+    { id: 'quantum-drone-gcs', label: 'QUANTUM DRONE · ML-KEM-768 PQC', color: 0x5e9eff, hex: '#5e9eff', angle: Math.PI, radius: 2.05 },
+    { id: 'timeline', label: 'TIMELINE · 2023–26 BEU ECE → RELEASES', color: 0xd49a2a, hex: '#d49a2a', angle: Math.PI * 1.5, radius: 2.05 }
   ];
-  const satGeo = new THREE.SphereGeometry(0.065, 16, 16);
+  const satGeo = new THREE.SphereGeometry(0.085, 18, 18);
+  const satMeshes = [];
   satSpecs.forEach(spec => {
     const sat = new THREE.Mesh(satGeo, new THREE.MeshBasicMaterial({ color: spec.color }));
     sat.position.set(Math.cos(spec.angle) * spec.radius, 0, Math.sin(spec.angle) * spec.radius);
+    sat.userData = spec;
     satGroup.add(sat);
+    satMeshes.push(sat);
   });
   satGroup.rotation.x = Math.PI * 0.36;
   satGroup.rotation.y = Math.PI * 0.12;
   rootGroup.add(satGroup);
+
+  // Dynamic connection beam from ECE/GitHub Core to active satellite
+  const beamGeo = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 0, 0)]);
+  const beamMat = new THREE.LineBasicMaterial({ color: 0x3b9eff, transparent: true, opacity: 0 });
+  const beamLine = new THREE.Line(beamGeo, beamMat);
+  scene.add(beamLine);
+
+  const hudDot = document.getElementById('orbit-hud-dot');
+  const hudText = document.getElementById('orbit-hud-text');
+  const orbitChips = Array.from(document.querySelectorAll('.orbit-chip[data-orbit-id]'));
+  let activeOrbitId = null;
+
+  function setActiveOrbit(id) {
+    activeOrbitId = id;
+    const spec = satSpecs.find(s => s.id === id);
+    if (hudText && hudDot) {
+      if (spec) {
+        hudText.textContent = spec.label;
+        hudDot.style.background = spec.hex;
+      } else {
+        hudText.textContent = 'CORE · 13 GITHUB REPOS';
+        hudDot.style.background = 'var(--emerald)';
+      }
+    }
+    orbitChips.forEach(chip => {
+      chip.classList.toggle('active', chip.getAttribute('data-orbit-id') === id);
+    });
+  }
+
+  function triggerOrbitAction(id) {
+    if (id === 'timeline') {
+      const tl = document.getElementById('timeline');
+      if (tl) tl.scrollIntoView({ behavior: 'smooth' });
+      return;
+    }
+    const proj = PROJECTS.find(p => p.id === id);
+    if (proj) openDetailsModal(proj);
+  }
+
+  orbitChips.forEach(chip => {
+    const id = chip.getAttribute('data-orbit-id');
+    chip.addEventListener('pointerenter', () => setActiveOrbit(id));
+    chip.addEventListener('pointerleave', () => setActiveOrbit(null));
+    chip.addEventListener('click', () => triggerOrbitAction(id));
+  });
 
   // Sparse ambient starfield
   const count = isMobile ? 55 : 95;
@@ -739,20 +954,38 @@ function initHero3D() {
   scene.add(rimLight);
   scene.add(new THREE.AmbientLight(0xffffff, 0.45));
 
+  const raycaster = new THREE.Raycaster();
+  const pointerNdc = new THREE.Vector2(99, 99);
   let targetX = 0;
   let targetY = 0;
   let pulseVelocity = 0;
+  let hoveredMesh = null;
+
   container.addEventListener('pointermove', e => {
     const rect = container.getBoundingClientRect();
     targetX = ((e.clientX - rect.left) / rect.width - 0.5) * 0.75;
     targetY = ((e.clientY - rect.top) / rect.height - 0.5) * 0.75;
+    pointerNdc.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+    pointerNdc.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+    raycaster.setFromCamera(pointerNdc, camera);
+    const hits = raycaster.intersectObjects(satMeshes, false);
+    hoveredMesh = hits[0]?.object || null;
+    canvas.style.cursor = hoveredMesh ? 'pointer' : 'grab';
+    if (hoveredMesh) setActiveOrbit(hoveredMesh.userData.id);
+    else if (!e.target.closest('.orbit-chip')) setActiveOrbit(null);
   });
   container.addEventListener('pointerleave', () => {
     targetX = 0;
     targetY = 0;
+    hoveredMesh = null;
+    canvas.style.cursor = 'grab';
+    setActiveOrbit(null);
   });
-  container.addEventListener('pointerdown', () => {
+  container.addEventListener('pointerdown', e => {
     pulseVelocity = 0.08;
+    if (hoveredMesh && e.target === canvas) {
+      triggerOrbitAction(hoveredMesh.userData.id);
+    }
   });
 
   const ro = new ResizeObserver(() => {
@@ -764,6 +997,7 @@ function initHero3D() {
     renderer.setSize(w, h, false);
   });
   ro.observe(container);
+  window.addEventListener('pagehide', () => renderer.dispose(), { once: true });
 
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   let isVisible = true;
@@ -809,20 +1043,89 @@ function initHero3D() {
     rootGroup.rotation.y += (targetX - rootGroup.rotation.y) * 0.055;
     rootGroup.rotation.x += (targetY + scrollNorm * 0.22 - rootGroup.rotation.x) * 0.055;
 
+    // Satellite scale & dynamic radial beam from Core to active node
+    let activeSat = null;
+    for (const sat of satMeshes) {
+      const isActive = sat.userData.id === activeOrbitId;
+      const targetScale = isActive ? 1.65 : 1;
+      sat.scale.lerp(new THREE.Vector3(targetScale, targetScale, targetScale), 0.16);
+      if (isActive) activeSat = sat;
+    }
+    if (activeSat) {
+      const corePos = new THREE.Vector3();
+      const satPos = new THREE.Vector3();
+      coreMesh.getWorldPosition(corePos);
+      activeSat.getWorldPosition(satPos);
+      beamGeo.setFromPoints([corePos, satPos]);
+      beamMat.color.setHex(activeSat.userData.color);
+      beamMat.opacity += (0.75 - beamMat.opacity) * 0.2;
+    } else {
+      beamMat.opacity += (0 - beamMat.opacity) * 0.2;
+    }
+
     renderer.render(scene, camera);
   }
   requestAnimationFrame(animate);
 }
 
 // ---------------------------------------------------------------------------
-// Apple Keynote Scroll-Reveal Observer
+// Scroll-Reveal, Staggered Cascade & Telemetry Counter
 // ---------------------------------------------------------------------------
+function animateCounter(el, targetValue, duration = 900) {
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reducedMotion || Number.isNaN(targetValue)) {
+    el.textContent = String(targetValue);
+    return;
+  }
+  const start = performance.now();
+  function tick(now) {
+    const t = Math.min((now - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - t, 3);
+    el.textContent = String(Math.round(eased * targetValue));
+    if (t < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
+let stripObserved = false;
+
 function observeReveals() {
-  const targets = document.querySelectorAll('.reveal, .spotlight-card, .pillar-card, .creator-band');
-  if (!('IntersectionObserver' in window)) {
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  document.querySelectorAll('.flagship-row').forEach(row => {
+    row.classList.add('reveal', row.classList.contains('reversed') ? 'reveal-right' : 'reveal-left');
+  });
+
+  document.querySelectorAll('.ece-node').forEach((node, idx) => {
+    node.classList.add('reveal');
+    node.style.setProperty('--reveal-delay', `${idx * 100}ms`);
+  });
+
+  document.querySelectorAll('.bento-tile, .spec-item').forEach((item, idx) => {
+    item.classList.add('reveal');
+    item.style.setProperty('--reveal-delay', `${idx * 75}ms`);
+  });
+
+  document.querySelectorAll('.timeline-item').forEach((item, idx) => {
+    item.classList.add('reveal');
+    item.style.setProperty('--reveal-delay', `${idx * 80}ms`);
+  });
+
+  document.querySelectorAll('.matrix-box, .creator-band, .section-header').forEach(el => {
+    el.classList.add('reveal');
+  });
+
+  document.querySelectorAll('#projects-grid .project-card').forEach((card, idx) => {
+    card.classList.add('card-enter');
+    card.style.setProperty('--card-delay', `${Math.min(idx, 7) * 65}ms`);
+  });
+
+  const targets = document.querySelectorAll('.reveal, .project-card.card-enter');
+  if (reducedMotion || !('IntersectionObserver' in window)) {
     targets.forEach(el => el.classList.add('in-view'));
     return;
   }
+
   const obs = new IntersectionObserver(
     entries => {
       for (const entry of entries) {
@@ -834,10 +1137,161 @@ function observeReveals() {
     },
     { threshold: 0.08, rootMargin: '0px 0px -30px 0px' }
   );
+
   targets.forEach(el => {
-    if (!el.classList.contains('reveal')) el.classList.add('reveal');
-    obs.observe(el);
+    if (!el.classList.contains('in-view')) obs.observe(el);
   });
+
+  const strip = document.getElementById('gh-telemetry-strip');
+  if (strip && !stripObserved) {
+    stripObserved = true;
+    const stripObs = new IntersectionObserver(
+      entries => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            strip.querySelectorAll('.gh-metric-val').forEach(valEl => {
+              const num = parseInt(valEl.textContent.trim(), 10);
+              if (!Number.isNaN(num)) animateCounter(valEl, num);
+            });
+            stripObs.unobserve(strip);
+          }
+        }
+      },
+      { threshold: 0.25 }
+    );
+    stripObs.observe(strip);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Scroll UI: Progress Hairline, Active Nav, Back-to-Top & Lenis Smooth Scroll
+// ---------------------------------------------------------------------------
+function initScrollUI() {
+  const progressBar = document.getElementById('scroll-progress');
+  const backToTopBtn = document.getElementById('back-to-top');
+  const navLinks = Array.from(document.querySelectorAll('.nav-links a[href^="#"]'));
+  const sections = navLinks
+    .map(link => {
+      const id = link.getAttribute('href')?.slice(1);
+      return id ? { link, el: document.getElementById(id) } : null;
+    })
+    .filter(item => item && item.el);
+
+  let lenisInstance = null;
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!reducedMotion) {
+    import('https://cdn.jsdelivr.net/npm/lenis@1.1.20/+esm')
+      .then(({ default: Lenis }) => {
+        lenisInstance = new Lenis({
+          duration: 1.05,
+          easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          smoothWheel: true
+        });
+        lenisInstance.on('scroll', updateScrollState);
+        function raf(time) {
+          lenisInstance.raf(time);
+          requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+      })
+      .catch(() => {
+        // Fallback to native smooth scrolling
+      });
+  }
+
+  function updateScrollState() {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop || 0;
+    const docHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight) - window.innerHeight;
+    const progress = docHeight > 0 ? Math.min(Math.max(scrollTop / docHeight, 0), 1) : 0;
+    if (progressBar) progressBar.style.transform = `scaleX(${progress.toFixed(4)})`;
+    if (backToTopBtn) backToTopBtn.classList.toggle('visible', scrollTop > 420);
+
+    const probeY = scrollTop + 140;
+    let activeId = null;
+    for (const { el } of sections) {
+      if (el.offsetTop <= probeY) activeId = el.id;
+    }
+    for (const { link, el } of sections) {
+      const isMatch = el.id === activeId;
+      link.classList.toggle('active', isMatch);
+      if (isMatch) link.setAttribute('aria-current', 'page');
+      else link.removeAttribute('aria-current');
+    }
+  }
+
+  window.addEventListener('scroll', updateScrollState, { passive: true });
+  updateScrollState();
+
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', e => {
+      const href = anchor.getAttribute('href');
+      if (!href || href === '#') return;
+      const target = document.querySelector(href);
+      if (!target) return;
+      e.preventDefault();
+      if (lenisInstance) lenisInstance.scrollTo(target, { offset: -72 });
+      else target.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth' });
+    });
+  });
+
+  if (backToTopBtn) {
+    backToTopBtn.addEventListener('click', () => {
+      if (lenisInstance) lenisInstance.scrollTo(0);
+      else window.scrollTo({ top: 0, behavior: reducedMotion ? 'auto' : 'smooth' });
+    });
+  }
+
+  const copyEmailBtn = document.getElementById('copy-email-btn');
+  if (copyEmailBtn) {
+    copyEmailBtn.addEventListener('click', () => {
+      const email = 'shivamkumarmehta64@gmail.com';
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(email).then(() => showToast(`Copied ${email}`)).catch(() => showToast(email));
+      } else {
+        showToast(email);
+      }
+    });
+  }
+
+  const themeBtn = document.getElementById('theme-toggle');
+  function syncThemeUI(theme) {
+    if (!themeBtn) return;
+    const isLight = theme === 'light';
+    themeBtn.setAttribute('aria-pressed', String(isLight));
+    themeBtn.setAttribute('aria-label', isLight ? 'Switch to dark mode' : 'Switch to light mode');
+    themeBtn.innerHTML = isLight
+      ? '<i class="fa-solid fa-moon" aria-hidden="true"></i>'
+      : '<i class="fa-solid fa-sun" aria-hidden="true"></i>';
+  }
+  syncThemeUI(document.documentElement.getAttribute('data-theme') || 'dark');
+  if (themeBtn) {
+    themeBtn.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+      const next = current === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', next);
+      try { localStorage.setItem('theme', next); } catch {}
+      syncThemeUI(next);
+    });
+  }
+  const openResumeBtn = document.getElementById('open-resume-btn');
+  if (openResumeBtn) openResumeBtn.addEventListener('click', openResumeModal);
+
+  const mobBtn = document.getElementById('mobile-nav-btn');
+  const mobDrawer = document.getElementById('mobile-nav-drawer');
+  if (mobBtn && mobDrawer) {
+    mobBtn.addEventListener('click', () => {
+      const next = !mobDrawer.classList.contains('open');
+      mobDrawer.classList.toggle('open', next);
+      mobBtn.setAttribute('aria-expanded', String(next));
+    });
+    mobDrawer.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        mobDrawer.classList.remove('open');
+        mobBtn.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -846,20 +1300,27 @@ function observeReveals() {
 renderProjects();
 renderDistributionTable();
 observeReveals();
+initScrollUI();
 initHero3D();
 
 async function updateGitHubStrip() {
-  try {
-    const res = await fetch(`https://api.github.com/users/${GITHUB_USER}`);
-    if (res.ok) {
-      const userJson = await res.json();
-      const el = document.getElementById('gh-total-repos');
-      if (el && typeof userJson.public_repos === 'number') {
-        el.textContent = String(userJson.public_repos);
+  const staticJson = await loadStaticReleases();
+  if (staticJson && typeof staticJson.publicRepos === 'number') {
+    const el = document.getElementById('gh-total-repos');
+    if (el) el.textContent = String(staticJson.publicRepos);
+  } else {
+    try {
+      const res = await fetch(`https://api.github.com/users/${GITHUB_USER}`);
+      if (res.ok) {
+        const userJson = await res.json();
+        const el = document.getElementById('gh-total-repos');
+        if (el && typeof userJson.public_repos === 'number') {
+          el.textContent = String(userJson.public_repos);
+        }
       }
+    } catch {
+      // Keep fallback count
     }
-  } catch {
-    // Keep fallback count
   }
   let liveApps = 0;
   let releaseCount = 0;
