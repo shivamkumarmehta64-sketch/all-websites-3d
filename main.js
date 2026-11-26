@@ -22,7 +22,7 @@ const PROJECTS = [
     filter: 'web',
     domainLabel: 'MoES / IMD Real-Time QC',
     statusText: 'SIH 2026 · LIVE',
-    statusColor: '#2fb36d',
+    statusColor: 'var(--emerald)',
     statusBg: 'rgba(47, 179, 109, 0.12)',
     iconClass: 'fa-solid fa-shield-halved',
     summary:
@@ -53,7 +53,7 @@ const PROJECTS = [
     filter: 'desktop',
     domainLabel: 'Privacy-First Windows Browser',
     statusText: 'v9.1.0 SETUP',
-    statusColor: '#3b9eff',
+    statusColor: 'var(--accent)',
     statusBg: 'rgba(59, 158, 255, 0.12)',
     iconClass: 'fa-solid fa-globe',
     summary:
@@ -85,7 +85,7 @@ const PROJECTS = [
     filter: 'desktop',
     domainLabel: 'Ad-Free Desktop Client',
     statusText: 'v1.0.0 RELEASE',
-    statusColor: '#d49a2a',
+    statusColor: 'var(--text-secondary)',
     statusBg: 'rgba(212, 154, 42, 0.12)',
     iconClass: 'fa-brands fa-youtube',
     summary:
@@ -117,7 +117,7 @@ const PROJECTS = [
     filter: 'security',
     domainLabel: 'Digital Forensics Platform',
     statusText: 'BIHAR PS-02',
-    statusColor: '#d49a2a',
+    statusColor: 'var(--text-secondary)',
     statusBg: 'rgba(212, 154, 42, 0.12)',
     iconClass: 'fa-solid fa-user-secret',
     summary:
@@ -149,7 +149,7 @@ const PROJECTS = [
     filter: 'security',
     domainLabel: 'Post-Quantum UAV C2',
     statusText: 'CLOUDFLARE · LIVE',
-    statusColor: '#3b9eff',
+    statusColor: 'var(--accent)',
     statusBg: 'rgba(59, 158, 255, 0.12)',
     iconClass: 'fa-solid fa-satellite-dish',
     summary:
@@ -181,7 +181,7 @@ const PROJECTS = [
     filter: 'web',
     domainLabel: 'Client-Side Experience',
     statusText: 'PAGES · LIVE',
-    statusColor: '#2fb36d',
+    statusColor: 'var(--emerald)',
     statusBg: 'rgba(47, 179, 109, 0.12)',
     iconClass: 'fa-solid fa-wand-magic-sparkles',
     summary:
@@ -213,7 +213,7 @@ const PROJECTS = [
     filter: 'desktop',
     domainLabel: 'Cross-Platform Rust Browser',
     statusText: 'TAURI · RUST',
-    statusColor: '#3b9eff',
+    statusColor: 'var(--accent)',
     statusBg: 'rgba(59, 158, 255, 0.12)',
     iconClass: 'fa-solid fa-compass',
     summary:
@@ -245,7 +245,7 @@ const PROJECTS = [
     filter: 'security',
     domainLabel: 'ECE Scientific Android App',
     statusText: 'KOTLIN · ECE',
-    statusColor: '#d49a2a',
+    statusColor: 'var(--text-secondary)',
     statusBg: 'rgba(212, 154, 42, 0.12)',
     iconClass: 'fa-solid fa-microchip',
     summary:
@@ -681,6 +681,17 @@ function renderProjects() {
   if (!grid) return;
 
   const visible = activeFilter === 'all' ? PROJECTS : PROJECTS.filter(p => p.filter === activeFilter);
+  if (visible.length === 0) {
+    grid.innerHTML = `
+      <div style="grid-column: 1 / -1; text-align: center; padding: 2.5rem 1rem; border: 1px solid var(--border); border-radius: var(--radius-lg); background: var(--bg-elevated);">
+        <p style="color: var(--text-secondary); margin-bottom: 1rem;">No builds match this filter.</p>
+        <button type="button" class="btn btn-secondary btn-sm" id="reset-filter-btn">Show all builds</button>
+      </div>`;
+    document.getElementById('reset-filter-btn')?.addEventListener('click', () => {
+      document.querySelector('.filter-btn[data-filter="all"]')?.click();
+    });
+    return;
+  }
   grid.innerHTML = visible
     .map(p => {
       const meta = liveCache.get(p.id) || {
@@ -723,7 +734,7 @@ function renderProjects() {
 
           <div class="card-footer">
             ${primaryAction}
-            <button class="btn btn-secondary btn-sm" data-action="details" data-id="${escapeHtml(p.id)}">Details</button>
+            <button class="btn btn-secondary btn-sm" data-action="details" data-id="${escapeHtml(p.id)}">Inspect</button>
             <button class="btn btn-secondary btn-sm spacer" data-action="share" data-id="${escapeHtml(p.id)}" title="Copy direct link" aria-label="Copy direct link for ${escapeHtml(p.name)}"><i class="fa-solid fa-link" aria-hidden="true"></i></button>
           </div>
         </div>
