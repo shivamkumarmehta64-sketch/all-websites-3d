@@ -27,7 +27,7 @@ jobs:
           node -e '
           const fs = require("fs");
           const user = "shivamkumarmehta64-sketch";
-          const repos = ["MetShield-AI","Black-Firefox","BlackTube","aerotech","quantum-drone-sih","cinematic-birthday","Blue-Browser-Tauri","Electronics_Calculator"];
+          const repos = ["MetShield-AI","BlackBrowser","BlackTube","aerotech","quantum-drone-sih","cinematic-birthday","Blue-Browser-Tauri","Electronics_Calculator"];
           const headers = { "Accept": "application/vnd.github+json", "Authorization": "Bearer " + process.env.GH_TOKEN };
           (async () => {
             const uRes = await fetch("https://api.github.com/users/" + user, { headers });

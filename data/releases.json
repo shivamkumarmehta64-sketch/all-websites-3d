@@ -12,15 +12,15 @@
       "zipUrl": null,
       "shaUrl": null
     },
-    "Black-Firefox": {
+    "BlackBrowser": {
       "stars": 1,
       "forks": 0,
       "version": "v9.1.0",
-      "downloadUrl": "https://github.com/shivamkumarmehta64-sketch/Black-Firefox/releases/download/v9.1.0/BlackBrowser-v9.1.0-Windows-x64-Setup.exe",
+      "downloadUrl": "https://github.com/shivamkumarmehta64-sketch/BlackBrowser/releases/download/v9.1.0/BlackBrowser-v9.1.0-Windows-x64-Setup.exe",
       "assetName": "BlackBrowser-v9.1.0-Windows-x64-Setup.exe",
       "assetSizeBytes": 2938090,
-      "zipUrl": "https://github.com/shivamkumarmehta64-sketch/Black-Firefox/releases/download/v9.1.0/BlackBrowser-v9.1.0-Windows-x64.zip",
-      "shaUrl": "https://github.com/shivamkumarmehta64-sketch/Black-Firefox/releases/download/v9.1.0/SHA256SUMS.txt"
+      "zipUrl": "https://github.com/shivamkumarmehta64-sketch/BlackBrowser/releases/download/v9.1.0/BlackBrowser-v9.1.0-Windows-x64.zip",
+      "shaUrl": "https://github.com/shivamkumarmehta64-sketch/BlackBrowser/releases/download/v9.1.0/SHA256SUMS.txt"
     },
     "BlackTube": {
       "stars": 0,

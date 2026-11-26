@@ -5,7 +5,7 @@ Clean 2D developer showcase & software distribution hub featuring a Light/Dark A
 ## Live Site
 
 - **Portfolio & Downloads:** **[shivamkumarmehta64-sketch.github.io/all-websites-3d](https://shivamkumarmehta64-sketch.github.io/all-websites-3d/)**
-- **Black Browser (Latest Release):** [Installer & Portable ZIP](https://github.com/shivamkumarmehta64-sketch/Black-Firefox/releases/latest)
+- **Black Browser (Latest Release):** [Installer & Portable ZIP](https://github.com/shivamkumarmehta64-sketch/BlackBrowser/releases/latest)
 - **LinkedIn:** [linkedin.com/in/shivam-kumar-mehta](https://www.linkedin.com/in/shivam-kumar-mehta)
 - **GitHub:** [github.com/shivamkumarmehta64-sketch](https://github.com/shivamkumarmehta64-sketch)
 
@@ -25,7 +25,7 @@ Clean 2D developer showcase & software distribution hub featuring a Light/Dark A
 | Project | Category | Status | Repository |
 | :--- | :--- | :--- | :--- |
 | **MetShield-AI** | AI & Web (MoES WMO-No. 8 QC) | Active | [`MetShield-AI`](https://github.com/shivamkumarmehta64-sketch/MetShield-AI) |
-| **Black Browser** | Windows Desktop (C++ / WebView2) | Active | [`Black-Firefox`](https://github.com/shivamkumarmehta64-sketch/Black-Firefox) |
+| **Black Browser** | Windows Desktop (C++ / WebView2) | Active | [`BlackBrowser`](https://github.com/shivamkumarmehta64-sketch/BlackBrowser) |
 | **BlackTube** | Windows Desktop (.NET 4.8 / WebView2) | Active | [`BlackTube`](https://github.com/shivamkumarmehta64-sketch/BlackTube) |
 | **Quantum Drone GCS** | Cyber Forensics & PQC Telemetry | Active | [`quantum-drone-sih`](https://github.com/shivamkumarmehta64-sketch/quantum-drone-sih) |
 | **Cinematic Birthday** | Interactive 3D Web (Next.js / R3F) | Active | [`cinematic-birthday`](https://github.com/shivamkumarmehta64-sketch/cinematic-birthday) |

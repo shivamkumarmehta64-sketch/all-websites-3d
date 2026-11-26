@@ -49,7 +49,7 @@ const PROJECTS = [
   {
     id: 'black-browser',
     name: 'Black Browser',
-    repo: 'Black-Firefox',
+    repo: 'BlackBrowser',
     filter: 'desktop',
     domainLabel: 'Privacy-First Windows Browser',
     statusText: 'v9.1.0 SETUP',
@@ -70,8 +70,8 @@ const PROJECTS = [
     defaultStars: 1,
     defaultForks: 0,
     defaultVersion: 'v9.1.0',
-    website: 'https://shivamkumarmehta64-sketch.github.io/Black-Firefox/',
-    github: `https://github.com/${GITHUB_USER}/Black-Firefox`,
+    website: 'https://shivamkumarmehta64-sketch.github.io/BlackBrowser/',
+    github: `https://github.com/${GITHUB_USER}/BlackBrowser`,
     iconImg: 'assets/black-firefox-icon.png',
     detailImg: null,
     architecture:
