@@ -229,7 +229,7 @@ const PROJECTS = [
     platform: 'Win / macOS / Linux',
     defaultStars: 0,
     defaultForks: 0,
-    defaultVersion: 'Tauri v2',
+    defaultVersion: 'v0.1.0',
     website: null,
     github: `https://github.com/${GITHUB_USER}/Blue-Browser-Tauri`,
     iconImg: null,
@@ -424,10 +424,15 @@ const modalBody = document.getElementById('modal-body');
 const modalExternal = document.getElementById('modal-external-link');
 const modalCloseBtn = document.getElementById('modal-close-btn');
 let lastFocusedElement = null;
+let openModalProjectId = null;
+let lenisInstance = null;
 
 function openModalShell() {
   lastFocusedElement = document.activeElement instanceof HTMLElement ? document.activeElement : null;
   document.body.style.overflow = 'hidden';
+  if (lenisInstance) lenisInstance.stop();
+  modal.removeAttribute('inert');
+  modal.setAttribute('aria-hidden', 'false');
   modal.classList.add('open');
   if (modalCloseBtn) modalCloseBtn.focus();
 }
@@ -435,8 +440,13 @@ function openModalShell() {
 function closeModal() {
   if (!modal) return;
   modal.classList.remove('open');
+  modal.setAttribute('aria-hidden', 'true');
+  modal.setAttribute('inert', '');
+  if (modalExternal) modalExternal.style.display = 'none';
   modalBody.innerHTML = '';
+  openModalProjectId = null;
   document.body.style.overflow = '';
+  if (lenisInstance) lenisInstance.start();
   if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
     lastFocusedElement.focus();
     lastFocusedElement = null;
@@ -446,16 +456,26 @@ function closeModal() {
 function openPreviewModal(project) {
   const safeUrl = sanitizeHttpUrl(project.website);
   if (!safeUrl || !modal) return;
+  openModalProjectId = null;
   modalTitle.innerHTML = `<i class="${escapeHtml(project.iconClass)}" style="color: ${escapeHtml(project.statusColor)};"></i> ${escapeHtml(project.name)} — Live Preview`;
   modalExternal.href = safeUrl;
   modalExternal.style.display = 'inline-flex';
-  modalBody.style.padding = '0';
-  modalBody.innerHTML = `<iframe class="preview-frame" src="${safeUrl}" title="${escapeHtml(project.name)} live preview" loading="lazy" sandbox="allow-scripts allow-same-origin allow-forms allow-popups" referrerpolicy="no-referrer"></iframe>`;
+  if (project.id === 'metshield-ai') {
+    modalBody.style.padding = '1.35rem';
+    modalBody.innerHTML = `
+      ${project.detailImg ? `<img src="${escapeHtml(project.detailImg)}" alt="${escapeHtml(project.name)} preview" style="width: 100%; max-height: 360px; object-fit: cover; object-position: top; border-radius: 12px; border: 1px solid var(--border); margin-bottom: 1rem;" />` : ''}
+      <p style="color: var(--text-secondary); margin-bottom: 1rem;">${escapeHtml(project.name)} enforces strict <code>X-Frame-Options: DENY</code> security headers and cannot be embedded inside an iframe. Launch the live portal directly in a new tab:</p>
+      <a href="${safeUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm"><i class="fa-solid fa-arrow-up-right-from-square"></i> Open ${escapeHtml(project.name)} Portal</a>`;
+  } else {
+    modalBody.style.padding = '0';
+    modalBody.innerHTML = `<iframe class="preview-frame" src="${safeUrl}" title="${escapeHtml(project.name)} live preview" loading="lazy" sandbox="allow-scripts allow-same-origin allow-forms allow-popups" referrerpolicy="no-referrer"></iframe>`;
+  }
   openModalShell();
 }
 
 function openDetailsModal(project) {
   if (!modal) return;
+  openModalProjectId = project.id;
   const meta = liveCache.get(project.id) || {};
   const safeWeb = sanitizeHttpUrl(project.website);
   const safeDl = sanitizeHttpUrl(meta.downloadUrl);
@@ -778,7 +798,14 @@ function renderDistributionTable() {
   });
 }
 
-document.querySelectorAll('.filter-btn').forEach(btn => {
+  document.querySelectorAll('[data-open-details]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const proj = PROJECTS.find(p => p.id === btn.getAttribute('data-open-details'));
+      if (proj) openDetailsModal(proj);
+    });
+  });
+
+  document.querySelectorAll('.filter-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.filter-btn').forEach(b => {
       b.classList.remove('active');
@@ -1098,17 +1125,17 @@ function observeReveals() {
 
   document.querySelectorAll('.ece-node').forEach((node, idx) => {
     node.classList.add('reveal');
-    node.style.setProperty('--reveal-delay', `${idx * 100}ms`);
+    node.style.setProperty('--reveal-delay', `${idx * 55}ms`);
   });
 
   document.querySelectorAll('.bento-tile, .spec-item').forEach((item, idx) => {
     item.classList.add('reveal');
-    item.style.setProperty('--reveal-delay', `${idx * 75}ms`);
+    item.style.setProperty('--reveal-delay', `${idx * 50}ms`);
   });
 
   document.querySelectorAll('.timeline-item').forEach((item, idx) => {
     item.classList.add('reveal');
-    item.style.setProperty('--reveal-delay', `${idx * 80}ms`);
+    item.style.setProperty('--reveal-delay', `${idx * 55}ms`);
   });
 
   document.querySelectorAll('.matrix-box, .creator-band, .section-header').forEach(el => {
@@ -1117,12 +1144,14 @@ function observeReveals() {
 
   document.querySelectorAll('#projects-grid .project-card').forEach((card, idx) => {
     card.classList.add('card-enter');
-    card.style.setProperty('--card-delay', `${Math.min(idx, 7) * 65}ms`);
+    card.style.setProperty('--card-delay', `${Math.min(idx, 7) * 55}ms`);
   });
 
-  const targets = document.querySelectorAll('.reveal, .project-card.card-enter');
+  const revealTargets = document.querySelectorAll('.reveal');
+  const cardTargets = document.querySelectorAll('#projects-grid .project-card.card-enter');
   if (reducedMotion || !('IntersectionObserver' in window)) {
-    targets.forEach(el => el.classList.add('in-view'));
+    revealTargets.forEach(el => el.classList.add('in-view'));
+    cardTargets.forEach(el => el.classList.add('in-view'));
     return;
   }
 
@@ -1135,11 +1164,27 @@ function observeReveals() {
         }
       }
     },
-    { threshold: 0.08, rootMargin: '0px 0px -30px 0px' }
+    { threshold: 0.08, rootMargin: '0px 0px -15% 0px' }
   );
 
-  targets.forEach(el => {
+  revealTargets.forEach(el => {
     if (!el.classList.contains('in-view')) obs.observe(el);
+  });
+
+  const cardObs = new IntersectionObserver(
+    entries => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          cardObs.unobserve(entry.target);
+        }
+      }
+    },
+    { threshold: 0.01, rootMargin: '0px 0px 40px 0px' }
+  );
+
+  cardTargets.forEach(el => {
+    if (!el.classList.contains('in-view')) cardObs.observe(el);
   });
 
   const strip = document.getElementById('gh-telemetry-strip');
@@ -1177,23 +1222,45 @@ function initScrollUI() {
     })
     .filter(item => item && item.el);
 
-  let lenisInstance = null;
+  let lenisLocal = null;
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   if (!reducedMotion) {
-    import('https://cdn.jsdelivr.net/npm/lenis@1.1.20/+esm')
-      .then(({ default: Lenis }) => {
-        lenisInstance = new Lenis({
+    Promise.all([
+      import('https://cdn.jsdelivr.net/npm/lenis@1.1.20/+esm'),
+      import('https://cdn.jsdelivr.net/npm/gsap@3.12.5/+esm'),
+      import('https://cdn.jsdelivr.net/npm/gsap@3.12.5/ScrollTrigger/+esm')
+    ])
+      .then(([{ default: Lenis }, { gsap }, { ScrollTrigger }]) => {
+        gsap.registerPlugin(ScrollTrigger);
+        lenisLocal = new Lenis({
           duration: 1.05,
           easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
           smoothWheel: true
         });
-        lenisInstance.on('scroll', updateScrollState);
-        function raf(time) {
-          lenisInstance.raf(time);
-          requestAnimationFrame(raf);
+        lenisInstance = lenisLocal;
+        lenisLocal.on('scroll', () => {
+          updateScrollState();
+          ScrollTrigger.update();
+        });
+        gsap.ticker.add(time => {
+          lenisLocal.raf(time * 1000);
+        });
+        gsap.ticker.lagSmoothing(0);
+
+        const heroStage = document.querySelector('.hero-stage');
+        if (heroStage) {
+          gsap.to(heroStage, {
+            y: -28,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: '.hero',
+              start: 'top top',
+              end: 'bottom top',
+              scrub: 0.6
+            }
+          });
         }
-        requestAnimationFrame(raf);
       })
       .catch(() => {
         // Fallback to native smooth scrolling
@@ -1295,12 +1362,61 @@ function initScrollUI() {
 }
 
 // ---------------------------------------------------------------------------
+// ScrollX-UI Craft: Cursor Spotlight Cards & Animated Filter Tabs
+// ---------------------------------------------------------------------------
+function initSpotlightCards() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (window.matchMedia('(pointer: coarse)').matches) return;
+
+  const selector = '.project-card, .ece-node, .flagship-media, .bento-tile';
+  document.addEventListener('pointermove', e => {
+    const card = e.target instanceof Element ? e.target.closest(selector) : null;
+    if (!card) return;
+    const rect = card.getBoundingClientRect();
+    card.style.setProperty('--mx', `${(e.clientX - rect.left).toFixed(1)}px`);
+    card.style.setProperty('--my', `${(e.clientY - rect.top).toFixed(1)}px`);
+  }, { passive: true });
+}
+
+function initAnimatedFilterTabs() {
+  const bar = document.querySelector('.filter-bar');
+  if (!bar) return;
+
+  const indicator = document.createElement('span');
+  indicator.className = 'filter-pill-indicator';
+  indicator.setAttribute('aria-hidden', 'true');
+  bar.prepend(indicator);
+  bar.classList.add('has-indicator');
+
+  const syncIndicator = () => {
+    const active = bar.querySelector('.filter-btn.active');
+    if (!active) return;
+    indicator.style.width = `${active.offsetWidth}px`;
+    indicator.style.height = `${active.offsetHeight}px`;
+    indicator.style.transform = `translate(${active.offsetLeft}px, ${active.offsetTop}px)`;
+  };
+
+  bar.addEventListener('click', e => {
+    if (e.target instanceof Element && e.target.closest('.filter-btn')) {
+      requestAnimationFrame(syncIndicator);
+    }
+  });
+  window.addEventListener('resize', syncIndicator, { passive: true });
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(syncIndicator);
+  }
+  requestAnimationFrame(syncIndicator);
+}
+
+// ---------------------------------------------------------------------------
 // Bootstrap
 // ---------------------------------------------------------------------------
 renderProjects();
 renderDistributionTable();
 observeReveals();
 initScrollUI();
+initSpotlightCards();
+initAnimatedFilterTabs();
 initHero3D();
 
 async function updateGitHubStrip() {
@@ -1341,6 +1457,10 @@ Promise.all(PROJECTS.map(fetchRepoTelemetry)).then(() => {
   renderProjects();
   renderDistributionTable();
   updateGitHubStrip();
+  if (openModalProjectId) {
+    const openProj = PROJECTS.find(p => p.id === openModalProjectId);
+    if (openProj) openDetailsModal(openProj);
+  }
 });
 
 const initialHash = window.location.hash.replace('#', '');

@@ -1184,11 +1184,13 @@
       justify-content: center;
       padding: 1.25rem;
       opacity: 0;
+      visibility: hidden;
       pointer-events: none;
-      transition: opacity 0.24s var(--ease-out);
+      transition: opacity 0.24s var(--ease-out), visibility 0.24s var(--ease-out);
     }
     .modal-backdrop.open {
       opacity: 1;
+      visibility: visible;
       pointer-events: auto;
     }
     .modal-panel {
@@ -1302,12 +1304,20 @@
       .nav-inner { padding: 0.75rem 1rem; gap: 0.5rem; }
       .brand { font-size: 0.88rem; }
       .nav-links, .nav-actions .nav-pill-primary { display: none; }
-      .mobile-nav-btn { display: inline-flex; }
+      .mobile-nav-btn { display: inline-flex; min-width: 44px; min-height: 44px; justify-content: center; }
+      .nav-pill-ghost { min-height: 44px; min-width: 44px; justify-content: center; }
       .nav-pill-ghost span { display: none; }
+      .btn, .filter-btn { min-height: 44px; }
       .bento-grid, .specs-grid { grid-template-columns: 1fr; }
       .creator-band { flex-direction: column; align-items: flex-start; }
-      .hero { padding: 3rem 0; }
-      .hero-stage { height: 300px; }
+      .hero { padding: 2.25rem 0 2.75rem; }
+      .hero-stage { height: 280px; }
+      .orbit-dock { flex-wrap: wrap; gap: 0.35rem; max-width: calc(100% - 1.5rem); }
+      .orbit-chip { min-height: 38px; padding: 0.35rem 0.65rem; font-size: 0.72rem; }
+      .stage-caption { display: none; }
+      .modal-backdrop { padding: 0.75rem; }
+      .modal-panel { max-height: 92dvh; }
+      footer { padding-bottom: max(2rem, env(safe-area-inset-bottom)); }
     }
 
     /* Scroll-Reveal & Micro-Interaction Choreography */
@@ -1380,10 +1390,136 @@
       100% { box-shadow: 0 0 0 0 rgba(48, 209, 88, 0); }
     }
 
+    /* =======================================================================
+       Awwwards + ScrollX-UI Craft Layer (Spotlight, Shiny CTA, Animated Tabs, Lustre)
+       ======================================================================= */
+    .project-card,
+    .flagship-media,
+    .bento-tile {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card::before,
+    .ece-node::before,
+    .flagship-media::before,
+    .bento-tile::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.35s var(--ease-out);
+      background: radial-gradient(
+        420px circle at var(--mx, 50%) var(--my, 50%),
+        rgba(41, 151, 255, 0.14),
+        transparent 60%
+      );
+      z-index: 1;
+    }
+    :root[data-theme="light"] .project-card::before,
+    :root[data-theme="light"] .ece-node::before,
+    :root[data-theme="light"] .flagship-media::before,
+    :root[data-theme="light"] .bento-tile::before {
+      background: radial-gradient(
+        420px circle at var(--mx, 50%) var(--my, 50%),
+        rgba(0, 102, 204, 0.08),
+        transparent 60%
+      );
+    }
+    .project-card:hover::before,
+    .ece-node:hover::before,
+    .flagship-media:hover::before,
+    .bento-tile:hover::before {
+      opacity: 1;
+    }
+
+    /* Shiny CTA sweep (ScrollX-UI shiny-button) */
+    .btn-primary,
+    .nav-pill-primary {
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s var(--ease-out), background 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
+    }
+    .btn-primary::after,
+    .nav-pill-primary::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -120%;
+      width: 75%;
+      height: 100%;
+      pointer-events: none;
+      background: linear-gradient(110deg, transparent 20%, rgba(255, 255, 255, 0.28) 50%, transparent 80%);
+      transform: skewX(-18deg);
+      transition: left 0.55s var(--ease-out);
+    }
+    .btn-primary:hover::after,
+    .nav-pill-primary:hover::after {
+      left: 140%;
+    }
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(41, 151, 255, 0.28);
+    }
+
+    /* Animated Tabs indicator (ScrollX-UI animated-tabs) */
+    .filter-bar {
+      position: relative;
+    }
+    .filter-pill-indicator {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      border-radius: var(--radius-pill);
+      background: var(--text);
+      pointer-events: none;
+      z-index: 0;
+      transition: transform 0.35s var(--ease-out), width 0.35s var(--ease-out);
+    }
+    .filter-bar.has-indicator .filter-btn {
+      position: relative;
+      z-index: 1;
+      transition: color 0.25s var(--ease-out), border-color 0.25s var(--ease-out);
+    }
+    .filter-bar.has-indicator .filter-btn.active {
+      background: transparent;
+      border-color: transparent;
+    }
+
+    /* Lustre editorial italic accent (ScrollX-UI lustretext) */
+    @keyframes lustreSweep {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+    .hero h1 em {
+      background: linear-gradient(110deg, var(--text) 35%, var(--accent) 50%, var(--text) 65%);
+      background-size: 220% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: lustreSweep 7s ease-in-out infinite;
+    }
+
+    /* Accessible keyboard focus ring */
+    :is(a, button, [tabindex]):focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
-      .btn, .nav-pill, .project-card, .toast { transition: none; }
-      .project-card:hover { transform: none; }
+      .btn, .nav-pill, .project-card, .toast, .filter-pill-indicator { transition: none; }
+      .project-card:hover, .btn-primary:hover { transform: none; box-shadow: none; }
+      .project-card::before, .ece-node::before, .flagship-media::before, .bento-tile::before,
+      .btn-primary::after, .nav-pill-primary::after { display: none; }
+      .hero h1 em {
+        animation: none !important;
+        -webkit-text-fill-color: currentColor;
+        background: none;
+      }
       .reveal, .reveal.reveal-left, .reveal.reveal-right, .project-card.card-enter {
         opacity: 1 !important;
         transform: none !important;
@@ -1420,7 +1556,7 @@
         <button id="theme-toggle" type="button" class="nav-pill nav-pill-ghost" aria-label="Switch color theme" aria-pressed="false">
           <i class="fa-solid fa-sun" aria-hidden="true"></i>
         </button>
-        <a href="https://github.com/shivamkumarmehta64-sketch" target="_blank" rel="noopener noreferrer" class="nav-pill nav-pill-ghost">
+        <a href="https://github.com/shivamkumarmehta64-sketch" target="_blank" rel="noopener noreferrer" class="nav-pill nav-pill-ghost" aria-label="GitHub profile">
           <i class="fa-brands fa-github" aria-hidden="true"></i><span>GitHub</span>
         </a>
         <a href="#distribution" class="nav-pill nav-pill-primary">Downloads</a>
@@ -1644,7 +1780,7 @@
             <span class="gh-metric-lbl">Live Web Portals</span>
           </div>
           <div class="gh-metric">
-            <span class="gh-metric-val" id="gh-active-releases">2</span>
+            <span class="gh-metric-val" id="gh-active-releases">3</span>
             <span class="gh-metric-lbl">Desktop Releases</span>
           </div>
           <div class="gh-metric">

@@ -38,7 +38,8 @@ const server = http.createServer((req, res) => {
         "style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com",
         "font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com data:",
         "img-src 'self' data: https:",
-        "connect-src 'self' https://api.github.com"
+        "connect-src 'self' https://api.github.com https://cdn.jsdelivr.net",
+        "frame-src https:"
     ];
     res.setHeader('Content-Security-Policy', cspDirectives.join('; ') + ';');
     res.setHeader('Access-Control-Allow-Origin', '*');
