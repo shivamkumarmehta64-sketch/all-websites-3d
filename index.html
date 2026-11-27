@@ -50,24 +50,26 @@
 
   <style>
     :root {
-      --bg: #0a0a0c;
-      --bg-elevated: #121215;
-      --bg-surface: #18181c;
-      --bg-hover: #212126;
-      --nav-bg: rgba(10, 10, 12, 0.84);
-      --border: rgba(255, 255, 255, 0.08);
-      --border-strong: rgba(255, 255, 255, 0.16);
-      --shadow-card: 0 1px 0 rgba(255, 255, 255, 0.05) inset, 0 12px 32px rgba(0, 0, 0, 0.28);
+      /* Midnight Slate & Alabaster (Prägen Hätlen / Linear / Resend inspired) */
+      --bg: #080a0f;
+      --bg-elevated: #10131c;
+      --bg-surface: #161b28;
+      --bg-hover: #1d2436;
+      --nav-bg: rgba(8, 10, 15, 0.78);
+      --border: rgba(216, 226, 245, 0.085);
+      --border-strong: rgba(216, 226, 245, 0.18);
+      --shadow-card: 0 1px 0 rgba(255, 255, 255, 0.07) inset, 0 16px 40px rgba(0, 0, 0, 0.42);
 
-      --text: #f5f5f7;
-      --text-secondary: #a1a1aa;
-      --text-muted: #71717a;
+      --text: #f3f1ec;
+      --text-secondary: #a6b0c3;
+      --text-muted: #768299;
 
       --accent: #2997ff;
-      --accent-hover: #47a6ff;
-      --accent-soft: rgba(41, 151, 255, 0.12);
+      --accent-hover: #52adff;
+      --accent-soft: rgba(41, 151, 255, 0.13);
       --emerald: #2fb36d;
-      --emerald-soft: rgba(47, 179, 109, 0.12);
+      --emerald-soft: rgba(47, 179, 109, 0.13);
+      --amber: #eab354;
       --apple-green: #2fb36d;
       --apple-blue: #2997ff;
       --apple-cyan: #5e9eff;
@@ -81,24 +83,26 @@
     }
 
     :root[data-theme="light"] {
-      --bg: #f9f9fb;
+      /* Editorial Studio Paper (Carter Ogunsola / Apple Gallery inspired) */
+      --bg: #f6f5f0;
       --bg-elevated: #ffffff;
-      --bg-surface: #f2f2f5;
-      --bg-hover: #e8e8ed;
-      --nav-bg: rgba(249, 249, 251, 0.84);
-      --border: rgba(0, 0, 0, 0.075);
-      --border-strong: rgba(0, 0, 0, 0.15);
-      --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.03), 0 10px 28px rgba(0, 0, 0, 0.045);
+      --bg-surface: #eeece6;
+      --bg-hover: #e5e2da;
+      --nav-bg: rgba(246, 245, 240, 0.84);
+      --border: rgba(18, 21, 28, 0.085);
+      --border-strong: rgba(18, 21, 28, 0.17);
+      --shadow-card: 0 1px 2px rgba(18, 21, 28, 0.04), 0 12px 30px rgba(18, 21, 28, 0.055);
 
-      --text: #1d1d1f;
-      --text-secondary: #515154;
-      --text-muted: #6e6e73;
+      --text: #12151c;
+      --text-secondary: #4a5160;
+      --text-muted: #687082;
 
       --accent: #0066cc;
-      --accent-hover: #0055b3;
+      --accent-hover: #0052a3;
       --accent-soft: rgba(0, 102, 204, 0.09);
-      --emerald: #1b7a3d;
-      --emerald-soft: rgba(27, 122, 61, 0.09);
+      --emerald: #17783b;
+      --emerald-soft: rgba(23, 120, 59, 0.09);
+      --amber: #b4690e;
       color-scheme: light;
     }
 
@@ -926,11 +930,15 @@
     .stage-ms-cell span {
       display: block;
       font-size: 0.62rem;
-      color: #a1a1aa;
+      color: var(--text-secondary);
     }
     .stage-ms-cell strong {
       font-size: 0.76rem;
-      color: #f4f4f5;
+      color: var(--text);
+    }
+    :root[data-theme="light"] .stage-ms-cell {
+      background: rgba(0, 0, 0, 0.035);
+      border-color: rgba(0, 0, 0, 0.1);
     }
     .flagship-media, .project-card, .ece-node, .gh-strip, .matrix-box, .creator-band, .hero-stage {
       box-shadow: var(--shadow-card);
@@ -977,8 +985,70 @@
       align-items: center;
       gap: 0.45rem;
       padding-top: 0.25rem;
+      margin-top: auto;
     }
     .card-footer .spacer { margin-left: auto; }
+
+    /* Editorial Architecture Schematic (diagram-design skill: 4/10 density, 1 focal node) */
+    .arch-schematic-wrap {
+      margin-bottom: 1.5rem;
+      padding: 1.25rem 1.5rem;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      background: var(--bg-elevated);
+      overflow-x: auto;
+    }
+    .arch-schematic {
+      width: 100%;
+      min-width: 680px;
+      height: auto;
+      display: block;
+    }
+    /* ai-design-skills (B1, B5, B9): orphan prevention, 680px hero cap, physical active feedback */
+    h1, h2, h3, .section-title, .tagline-manifesto {
+      text-wrap: balance;
+    }
+    p, .hero-sub, .section-desc {
+      text-wrap: pretty;
+    }
+    #hero-h1, .hero-sub {
+      max-width: 680px;
+    }
+    .btn:active, .nav-pill:active, .filter-btn:active {
+      transform: scale(0.98) translateY(1px);
+    }
+
+    /* Premium Color Mixing: Dual-Tone Hero Ambient & Dimensional Card Surfaces */
+    .hero {
+      position: relative;
+      background-image:
+        radial-gradient(ellipse 55% 45% at 78% 22%, rgba(41, 151, 255, 0.10), transparent 70%),
+        radial-gradient(ellipse 45% 40% at 18% 72%, rgba(47, 179, 109, 0.065), transparent 70%),
+        radial-gradient(ellipse 35% 30% at 50% 10%, rgba(234, 179, 84, 0.04), transparent 70%);
+    }
+    :root[data-theme="light"] .hero {
+      background-image:
+        radial-gradient(ellipse 55% 45% at 78% 22%, rgba(0, 102, 204, 0.06), transparent 70%),
+        radial-gradient(ellipse 45% 40% at 18% 72%, rgba(23, 120, 59, 0.045), transparent 70%);
+    }
+    .project-card,
+    .stack-tile,
+    .bento-tile,
+    .ece-node {
+      background: linear-gradient(145deg, rgba(22, 28, 44, 0.78), rgba(11, 14, 22, 0.94));
+    }
+    :root[data-theme="light"] .project-card,
+    :root[data-theme="light"] .stack-tile,
+    :root[data-theme="light"] .bento-tile,
+    :root[data-theme="light"] .ece-node {
+      background: linear-gradient(145deg, #ffffff, #f8f7f3);
+    }
+
+    @media (max-width: 768px) {
+      .btn-sm, .filter-btn, .nav-pill, .orbit-chip {
+        min-height: 44px;
+      }
+    }
 
     /* Distribution Matrix */
     .matrix-box {
@@ -1419,13 +1489,29 @@
     }
 
     /* =======================================================================
-       Awwwards + ScrollX-UI Craft Layer (Spotlight, Shiny CTA, Animated Tabs, Lustre)
+       Awwwards + ScrollX-UI Craft Layer (3D Tilt, Spotlight, Shiny CTA, Tabs, Lustre)
        ======================================================================= */
     .project-card,
     .flagship-media,
-    .bento-tile {
+    .bento-tile,
+    .ece-node {
       position: relative;
       overflow: hidden;
+      transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translate3d(0, var(--ty, 0px), 0);
+      transition: transform 0.35s var(--ease-out), border-color 0.25s var(--ease-out), box-shadow 0.35s var(--ease-out);
+    }
+    .project-card:hover,
+    .flagship-media:hover,
+    .bento-tile:hover,
+    .ece-node:hover {
+      will-change: transform;
+      border-color: var(--border-strong);
+    }
+    .flagship-media img {
+      transition: transform 0.45s var(--ease-out);
+    }
+    .flagship-media:hover img {
+      transform: scale(1.03) translate3d(var(--px, 0px), var(--py, 0px), 0);
     }
 
     .project-card::before,
@@ -1539,8 +1625,10 @@
 
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
-      .btn, .nav-pill, .project-card, .toast, .filter-pill-indicator { transition: none; }
-      .project-card:hover, .btn-primary:hover { transform: none; box-shadow: none; }
+      .btn, .nav-pill, .project-card, .flagship-media, .bento-tile, .ece-node, .flagship-media img, .toast, .filter-pill-indicator { transition: none; }
+      .project-card, .flagship-media, .bento-tile, .ece-node,
+      .project-card:hover, .flagship-media:hover, .bento-tile:hover, .ece-node:hover,
+      .flagship-media:hover img, .btn-primary:hover { transform: none !important; box-shadow: none; }
       .project-card::before, .ece-node::before, .flagship-media::before, .bento-tile::before,
       .btn-primary::after, .nav-pill-primary::after { display: none; }
       .hero h1 em {
@@ -1561,11 +1649,729 @@
         animation: none !important;
         transition: none !important;
       }
+
+      /* ── reduced-motion: skip word-reveal ── */
+      .h1-word { opacity: 1 !important; filter: none !important; transform: none !important; transition: none !important; }
+      #scroll-ruler { display: none; }
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       PATTERN 1 · Linear-style per-word staggered blur+translateY h1
+       ═══════════════════════════════════════════════════════════════ */
+    #hero-h1 {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0 0.3em;
+      animation: none; /* override old fadeUpIn */
+    }
+    .h1-word {
+      display: inline-block;
+      opacity: 1;
+      filter: blur(0);
+      transform: translateY(0);
+      transition: opacity 0.55s var(--ease-out), filter 0.55s var(--ease-out), transform 0.55s var(--ease-out);
+    }
+    .h1-word.word-pre {
+      opacity: 0;
+      filter: blur(10px);
+      transform: translateY(16px);
+    }
+    .h1-word.word-visible {
+      opacity: 1;
+      filter: blur(0);
+      transform: translateY(0);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       PATTERN 2 · Rauno ruler-tick scrubber
+       ═══════════════════════════════════════════════════════════════ */
+    #scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 20px;
+      z-index: 9999;
+      pointer-events: none;
+      display: flex;
+      align-items: flex-start;
+      overflow: hidden;
+    }
+    #scroll-ruler {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 20px;
+      display: flex;
+      align-items: flex-end;
+      padding-bottom: 2px;
+      /* ticks generated via repeating-linear-gradient */
+      background-image:
+        repeating-linear-gradient(
+          to right,
+          rgba(255,255,255,0.18) 0px,
+          rgba(255,255,255,0.18) 1px,
+          transparent 1px,
+          transparent 10px
+        );
+      /* progress fill overlay using clip-path driven by JS --ruler-p */
+      --ruler-p: 0%;
+    }
+    #scroll-ruler::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: var(--ruler-p, 0%);
+      height: 100%;
+      background-image:
+        repeating-linear-gradient(
+          to right,
+          var(--accent) 0px,
+          var(--accent) 1px,
+          transparent 1px,
+          transparent 10px
+        );
+      transition: width 0.1s linear;
+    }
+    /* accent position indicator pip */
+    #scroll-ruler::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: var(--ruler-p, 0%);
+      width: 2px;
+      height: 100%;
+      background: var(--accent);
+      box-shadow: 0 0 6px var(--accent);
+      transform: translateX(-50%);
+      transition: left 0.1s linear;
+    }
+    :root[data-theme="light"] #scroll-ruler {
+      background-image:
+        repeating-linear-gradient(
+          to right,
+          rgba(0,0,0,0.12) 0px,
+          rgba(0,0,0,0.12) 1px,
+          transparent 1px,
+          transparent 10px
+        );
+    }
+    :root[data-theme="light"] #scroll-ruler::after {
+      background-image:
+        repeating-linear-gradient(
+          to right,
+          var(--accent) 0px,
+          var(--accent) 1px,
+          transparent 1px,
+          transparent 10px
+        );
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       PATTERN 3 · Resend noise-texture on .btn-primary + metallic h3
+       ═══════════════════════════════════════════════════════════════ */
+    .btn-primary {
+      /* existing styles preserved; add noise overlay via pseudo */
+    }
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      /* SVG-encoded fractal noise, same technique as Resend's texture-btn.png */
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.055'/%3E%3C/svg%3E");
+      background-size: 180px 180px;
+      z-index: 2;
+      mix-blend-mode: overlay;
+    }
+    /* Metallic gradient on flagship h3 headings (Resend Domaine Display treatment) */
+    .flagship-copy h3 {
+      background: linear-gradient(
+        135deg,
+        var(--text) 0%,
+        rgba(255,255,255,0.72) 40%,
+        var(--text) 60%,
+        var(--text-secondary) 100%
+      );
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-size: 200% 100%;
+      animation: metallicShift 8s ease-in-out infinite;
+    }
+    :root[data-theme="light"] .flagship-copy h3 {
+      background: linear-gradient(
+        135deg,
+        var(--text) 0%,
+        rgba(0,0,0,0.55) 40%,
+        var(--text) 60%,
+        var(--text-secondary) 100%
+      );
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    @keyframes metallicShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       PATTERN 4 · Vercel "View as AI agent" footer affordance
+       ═══════════════════════════════════════════════════════════════ */
+    footer { text-align: center; }
+    #agent-copy-btn.copied {
+      color: var(--emerald);
+      border-color: var(--emerald-soft);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       PHASE 2 · Awwwards Editorial & Hardware Polish
+       ═══════════════════════════════════════════════════════════════ */
+    /* Cinematic letterbox bars (Huxley Saga-inspired intro framing) */
+    .letterbox-bar {
+      position: fixed;
+      left: 0;
+      right: 0;
+      height: 14px;
+      background: #050507;
+      z-index: 9990;
+      pointer-events: none;
+      transition: transform 0.65s var(--ease-out);
+      will-change: transform;
+    }
+    #letterbox-top { top: 0; transform: translateY(0); }
+    #letterbox-bottom { bottom: 0; transform: translateY(0); }
+    body.scrolled-past-intro #letterbox-top { transform: translateY(-100%); }
+    body.scrolled-past-intro #letterbox-bottom { transform: translateY(100%); }
+    :root[data-theme="light"] .letterbox-bar { background: #141418; }
+
+    /* Tagline / Philosophy Strip (Carter Ogunsola + Linear word reveal) */
+    #tagline-strip {
+      padding: clamp(3.2rem, 7vw, 5.5rem) 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .tagline-manifesto {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: clamp(2.4rem, 6.2vw, 4.75rem);
+      font-weight: 400;
+      line-height: 1.04;
+      letter-spacing: -0.025em;
+      color: var(--text);
+      max-width: 18ch;
+      text-align: left;
+    }
+    .tagline-word {
+      display: inline-block;
+      opacity: 0.28;
+      transform: translateY(6px);
+      transition: opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1), transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+      margin-right: 0.22em;
+    }
+    .tagline-word.word-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .tagline-spec-strip {
+      margin-top: 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem 1.25rem;
+      font-size: 0.76rem;
+      color: var(--text-secondary);
+      letter-spacing: 0.04em;
+    }
+    .tagline-spec-strip span {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .tagline-spec-strip i {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: inline-block;
+    }
+
+    /* Magic UI Border Beam on Flagship Media Cards */
+    .flagship-media {
+      position: relative;
+    }
+    .flagship-media::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      padding: 1.5px;
+      background: conic-gradient(
+        from var(--beam-angle, 0deg),
+        transparent 0deg,
+        transparent 280deg,
+        var(--accent) 320deg,
+        var(--emerald) 345deg,
+        transparent 360deg
+      );
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+      opacity: 0.55;
+      animation: borderBeamSpin 6s linear infinite;
+    }
+    @property --beam-angle {
+      syntax: '<angle>';
+      initial-value: 0deg;
+      inherits: false;
+    }
+    @keyframes borderBeamSpin {
+      to { --beam-angle: 360deg; }
+    }
+
+    /* MetShield QC Tier Badges */
+    .qc-tier-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-bottom: 1.15rem;
+    }
+    .qc-tier-pill {
+      font-size: 0.7rem;
+      padding: 0.24rem 0.55rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--bg-surface);
+      color: var(--text-secondary);
+    }
+    .qc-tier-pill[data-tier="1"] { border-color: rgba(47, 179, 109, 0.35); color: var(--emerald); }
+    .qc-tier-pill[data-tier="2"] { border-color: rgba(41, 151, 255, 0.35); color: var(--accent); }
+    .qc-tier-pill[data-tier="3"] { border-color: rgba(245, 166, 35, 0.35); color: #f5a623; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .letterbox-bar { display: none; }
+      .tagline-word { opacity: 1 !important; transform: none !important; transition: none !important; }
+      .flagship-media::after { animation: none; opacity: 0.25; }
+      #cursor-ring { display: none !important; }
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       PHASE 3 · Awwwards Interactive Craft (Stack, Beams, Cmd+K, Cursor)
+       ═══════════════════════════════════════════════════════════════ */
+    /* Canvas Reveal Dot Matrix on Project & Stack Cards (Aceternity UI port) */
+    .project-card::after,
+    .stack-tile::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.35s var(--ease-out);
+      background-image: radial-gradient(rgba(41, 151, 255, 0.28) 1px, transparent 1px);
+      background-size: 14px 14px;
+      -webkit-mask-image: radial-gradient(240px circle at var(--mx, 50%) var(--my, 50%), #000 0%, transparent 72%);
+      mask-image: radial-gradient(240px circle at var(--mx, 50%) var(--my, 50%), #000 0%, transparent 72%);
+      z-index: 0;
+    }
+    .project-card:hover::after,
+    .stack-tile:hover::after {
+      opacity: 1;
+    }
+
+    /* Ecosystem WebGL/Canvas Threads & Beams Backdrop */
+    #ecosystem {
+      position: relative;
+      overflow: hidden;
+    }
+    #ecosystem .container {
+      position: relative;
+      z-index: 2;
+    }
+    #ecosystem-beams-canvas {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.55;
+    }
+    :root[data-theme="light"] #ecosystem-beams-canvas {
+      opacity: 0.35;
+    }
+
+    /* 8-Cell Tech Stack Bento */
+    .stack-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1rem;
+    }
+    .stack-tile {
+      position: relative;
+      border-radius: var(--radius-lg);
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+      transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(var(--ty, 0px));
+      transition: transform 0.25s var(--ease-out), border-color 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out);
+      will-change: transform;
+      box-shadow: var(--shadow-card);
+      overflow: hidden;
+    }
+    .stack-tile:hover {
+      border-color: rgba(41, 151, 255, 0.45);
+    }
+    .stack-tile::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.35s var(--ease-out);
+      background: radial-gradient(360px circle at var(--mx, 50%) var(--my, 50%), rgba(41, 151, 255, 0.14), transparent 60%);
+      z-index: 1;
+    }
+    .stack-tile:hover::before { opacity: 1; }
+    .stack-kicker {
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      position: relative;
+      z-index: 2;
+    }
+    .stack-name {
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      position: relative;
+      z-index: 2;
+    }
+    .stack-stat {
+      font-size: 0.82rem;
+      line-height: 1.45;
+      color: var(--text-secondary);
+      position: relative;
+      z-index: 2;
+    }
+    @media (max-width: 960px) {
+      .stack-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 560px) {
+      .stack-grid { grid-template-columns: 1fr; }
+    }
+
+    /* Cmd+K Command Palette (<dialog>) */
+    .cmd-k-trigger {
+      gap: 0.45rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.74rem;
+    }
+    .cmd-k-trigger kbd {
+      font-family: inherit;
+      font-size: 0.68rem;
+      padding: 0.1rem 0.35rem;
+      border-radius: 5px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border);
+    }
+    :root[data-theme="light"] .cmd-k-trigger kbd {
+      background: rgba(0, 0, 0, 0.06);
+    }
+    #cmd-palette {
+      margin: auto;
+      padding: 0;
+      width: min(580px, calc(100vw - 2rem));
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      background: rgba(14, 14, 18, 0.92);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      color: var(--text);
+      box-shadow: 0 28px 90px rgba(0, 0, 0, 0.65);
+      overflow: hidden;
+    }
+    :root[data-theme="light"] #cmd-palette {
+      background: rgba(252, 252, 254, 0.95);
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.18);
+    }
+    #cmd-palette[open] {
+      display: flex;
+      flex-direction: column;
+    }
+    #cmd-palette::backdrop {
+      background: rgba(5, 5, 8, 0.65);
+      backdrop-filter: blur(4px);
+    }
+    .cmd-head {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.9rem 1.1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .cmd-head i { color: var(--accent); font-size: 0.9rem; }
+    #cmd-input {
+      flex: 1;
+      border: 0;
+      outline: 0;
+      background: transparent;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.95rem;
+    }
+    #cmd-input::placeholder { color: var(--text-muted); }
+    .cmd-esc {
+      font-size: 0.68rem;
+      padding: 0.18rem 0.45rem;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+    #cmd-results {
+      max-height: 340px;
+      overflow-y: auto;
+      padding: 0.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+    .cmd-item {
+      width: 100%;
+      text-align: left;
+      border: 0;
+      background: transparent;
+      color: var(--text);
+      padding: 0.65rem 0.8rem;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.15s ease;
+    }
+    .cmd-item:hover,
+    .cmd-item[aria-selected="true"] {
+      background: rgba(41, 151, 255, 0.14);
+    }
+    .cmd-item-main {
+      display: flex;
+      flex-direction: column;
+      gap: 0.12rem;
+    }
+    .cmd-item-title { font-size: 0.88rem; font-weight: 600; }
+    .cmd-item-sub { font-size: 0.74rem; color: var(--text-secondary); }
+    .cmd-item-kind {
+      font-size: 0.68rem;
+      padding: 0.15rem 0.45rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    /* Awwwards Magnetic Cursor Ring (Desktop fine-pointer only) */
+    #cursor-ring {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 28px;
+      height: 28px;
+      margin: -14px 0 0 -14px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(41, 151, 255, 0.55);
+      pointer-events: none;
+      z-index: 9998;
+      opacity: 0;
+      transform: translate3d(-100px, -100px, 0) scale(1);
+      transition: opacity 0.25s ease, width 0.22s var(--ease-out), height 0.22s var(--ease-out), margin 0.22s var(--ease-out), border-color 0.22s ease, background 0.22s ease;
+      will-change: transform;
+    }
+    #cursor-ring.visible { opacity: 1; }
+    #cursor-ring.active {
+      width: 46px;
+      height: 46px;
+      margin: -23px 0 0 -23px;
+      border-color: var(--emerald);
+      background: rgba(47, 179, 109, 0.08);
+    }
+    @media (pointer: coarse) {
+      #cursor-ring { display: none; }
+    }
+    /* ═══════════════════════════════════════════════════════════════
+       PHASE 4 · MunixDelta-Inspired 3D Perspective Grid, Digital Rain,
+       Cursor Smoke Trail & 3D Flippable Engineering Pass
+       ═══════════════════════════════════════════════════════════════ */
+    #cursor-smoke-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+      opacity: 0.8;
+    }
+
+    /* 3D Perspective Floor Grid behind Flagships */
+    #flagships {
+      position: relative;
+      overflow: hidden;
+    }
+    #flagships .container {
+      position: relative;
+      z-index: 2;
+    }
+    #flagships::before {
+      content: '';
+      position: absolute;
+      inset: -10% -15% 0;
+      pointer-events: none;
+      z-index: 1;
+      background-image:
+        radial-gradient(ellipse 65% 40% at 50% 0%, rgba(41, 151, 255, 0.14), transparent 70%),
+        repeating-linear-gradient(to right, rgba(41, 151, 255, 0.09) 0 1px, transparent 1px 88px),
+        repeating-linear-gradient(to bottom, rgba(41, 151, 255, 0.08) 0 1px, transparent 1px 64px);
+      transform: perspective(650px) rotateX(-35deg);
+      transform-origin: center top;
+      -webkit-mask-image: linear-gradient(to bottom, #000 0%, rgba(0, 0, 0, 0.45) 45%, transparent 90%);
+      mask-image: linear-gradient(to bottom, #000 0%, rgba(0, 0, 0, 0.45) 45%, transparent 90%);
+    }
+    :root[data-theme="light"] #flagships::before {
+      background-image:
+        radial-gradient(ellipse 65% 40% at 50% 0%, rgba(0, 102, 204, 0.08), transparent 70%),
+        repeating-linear-gradient(to right, rgba(0, 102, 204, 0.07) 0 1px, transparent 1px 88px),
+        repeating-linear-gradient(to bottom, rgba(0, 102, 204, 0.06) 0 1px, transparent 1px 64px);
+    }
+
+    /* Scroll-driven Digital Telemetry Rain on #stack */
+    #stack {
+      position: relative;
+      overflow: hidden;
+    }
+    #stack .container {
+      position: relative;
+      z-index: 2;
+    }
+    #stack-field-canvas {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 18%, #000 82%, transparent 100%);
+      mask-image: linear-gradient(to bottom, transparent 0%, #000 18%, #000 82%, transparent 100%);
+      opacity: 0.72;
+    }
+
+    /* 3D Flippable Engineering Pass in #connect */
+    .connect-split {
+      display: grid;
+      grid-template-columns: 1.45fr 1fr;
+      gap: 1.5rem;
+      align-items: stretch;
+    }
+    .pass-card {
+      perspective: 900px;
+      min-height: 220px;
+    }
+    .pass-inner {
+      display: grid;
+      height: 100%;
+      transform-style: preserve-3d;
+    }
+    .pass-face {
+      grid-area: 1 / 1;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(41, 151, 255, 0.28);
+      background: linear-gradient(145deg, rgba(16, 20, 30, 0.94), rgba(10, 14, 22, 0.96));
+      padding: 1.35rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 0.9rem;
+      box-shadow: var(--shadow-card);
+      transition: transform 0.55s cubic-bezier(0.2, 0.65, 0.28, 1);
+    }
+    :root[data-theme="light"] .pass-face {
+      background: linear-gradient(145deg, #ffffff, #f2f5fb);
+      border-color: rgba(0, 102, 204, 0.22);
+    }
+    .pass-front { transform: rotateY(0deg); z-index: 2; }
+    .pass-back { transform: rotateY(180deg); z-index: 1; pointer-events: none; }
+    .pass-card.flipped .pass-front { transform: rotateY(-180deg); z-index: 1; pointer-events: none; }
+    .pass-card.flipped .pass-back { transform: rotateY(0deg); z-index: 3; pointer-events: auto; }
+    .pass-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+    .pass-id {
+      font-size: 0.72rem;
+      color: var(--emerald);
+      letter-spacing: 0.06em;
+    }
+    .pass-meta {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+    .pass-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+    .pass-links a {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.45rem 0.65rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      font-size: 0.82rem;
+      color: var(--text);
+      text-decoration: none;
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+    .pass-links a:hover {
+      border-color: var(--accent);
+      background: rgba(41, 151, 255, 0.08);
+    }
+    @media (max-width: 860px) {
+      .connect-split { grid-template-columns: 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      #cursor-smoke-canvas { display: none !important; }
+      .pass-face { transition: none; }
     }
   </style>
 </head>
 <body>
-  <div id="scroll-progress" aria-hidden="true"></div>
+  <canvas id="cursor-smoke-canvas" aria-hidden="true"></canvas>
+  <div id="letterbox-top" class="letterbox-bar" aria-hidden="true"></div>
+  <div id="letterbox-bottom" class="letterbox-bar" aria-hidden="true"></div>
+  <!-- Rauno-style ruler-tick scrubber (replaces plain hairline) -->
+  <div id="scroll-progress" aria-hidden="true" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+    <div id="scroll-ruler" aria-hidden="true"></div>
+  </div>
   <a href="#main-content" class="skip-link">Skip to content</a>
 
   <header class="navbar">
@@ -1581,6 +2387,10 @@
         <a href="#architecture">Engineering</a>
       </nav>
       <div class="nav-actions">
+        <button id="cmd-k-btn" type="button" class="nav-pill nav-pill-ghost cmd-k-trigger" aria-label="Open command palette">
+          <i class="fa-solid fa-terminal" aria-hidden="true"></i>
+          <kbd>Ctrl+K</kbd>
+        </button>
         <button id="theme-toggle" type="button" class="nav-pill nav-pill-ghost" aria-label="Switch color theme" aria-pressed="false">
           <i class="fa-solid fa-sun" aria-hidden="true"></i>
         </button>
@@ -1616,9 +2426,17 @@
               <span class="eyebrow-sep" aria-hidden="true">·</span>
               <span class="hero-eyebrow-org">Purnea College of Engineering (BEU, Bihar)</span>
             </div>
-            <h1>Systems built <em>from the metal up.</em></h1>
+            <!-- Linear-style staggered blur+translateY per-word hero h1 -->
+    <h1 id="hero-h1" aria-label="Systems built from the metal up.">
+      <span class="h1-word">Systems</span>
+      <span class="h1-word">built</span>
+      <span class="h1-word h1-serif"><em>from</em></span>
+      <span class="h1-word h1-serif"><em>the</em></span>
+      <span class="h1-word h1-serif"><em>metal</em></span>
+      <span class="h1-word h1-serif"><em>up.</em></span>
+    </h1>
             <p class="hero-sub">
-              I'm <strong class="hl">Shivam Kumar Mehta</strong> — an ECE undergrad obsessed with low-overhead software. From <strong class="hl-emerald">WMO-No. 8 weather station QC</strong> for MoES to <strong class="hl">sub-60 MB C# &amp; Rust browsers</strong>, I ship verifiable tools instead of bloated wrappers.
+              I'm <strong class="hl">Shivam Kumar Mehta</strong>, an ECE undergrad building low-overhead software. My work runs from <strong class="hl-emerald">WMO-No. 8 weather station QC</strong> for MoES to <strong class="hl">sub-60 MB C# and Rust browsers</strong>.
             </p>
             <div class="hero-ctas">
               <a href="#flagships" class="btn btn-primary">Explore Releases</a>
@@ -1652,6 +2470,27 @@
       </div>
     </section>
 
+    <section id="tagline-strip" aria-label="Engineering philosophy">
+      <div class="container">
+        <p class="tagline-manifesto" id="tagline-manifesto">
+          <span class="tagline-word">Built</span>
+          <span class="tagline-word">from</span>
+          <span class="tagline-word">the</span>
+          <span class="tagline-word">metal</span>
+          <span class="tagline-word">up.</span>
+          <span class="tagline-word">Every</span>
+          <span class="tagline-word">byte</span>
+          <span class="tagline-word">deliberate.</span>
+        </p>
+        <div class="tagline-spec-strip mono">
+          <span><i aria-hidden="true"></i>ML-KEM-768</span>
+          <span><i aria-hidden="true"></i>WMO-No. 8</span>
+          <span><i aria-hidden="true"></i>~460 KB Binary</span>
+          <span><i aria-hidden="true"></i>223 / 223 Vitest</span>
+        </div>
+      </div>
+    </section>
+
     <section id="flagships">
       <div class="container">
         <div class="section-header">
@@ -1663,10 +2502,15 @@
           <article class="flagship-row">
             <div class="flagship-copy">
               <span class="flagship-meta" style="color: var(--emerald);">MoES / IMD · SIH 2026</span>
-              <h3>MetShield-AI — telling real storms apart from broken sensors.</h3>
+              <h3>MetShield-AI separates real storms from broken sensors.</h3>
               <p>
-                Remote weather stations throw false alerts when a thermistor drifts or freezes. Built for <strong class="hl-emerald">Smart India Hackathon 2026</strong>, MetShield-AI cross-checks pressure drops against relative humidity spikes under <strong class="hl-emerald">WMO-No. 8</strong> rules so operators see real convective fronts, not noisy hardware.
+                Remote weather stations throw false alerts when a thermistor drifts or freezes. Built for <strong class="hl-emerald">Smart India Hackathon 2026</strong>, MetShield-AI cross-checks pressure drops against relative humidity spikes under <strong class="hl-emerald">WMO-No. 8</strong> rules so operators get alerts for real convective fronts.
               </p>
+              <div class="qc-tier-row mono" aria-label="Three-Tier QC Pipeline">
+                <span class="qc-tier-pill" data-tier="1">T1 · WMO Limits</span>
+                <span class="qc-tier-pill" data-tier="2">T2 · Drift &amp; Freeze</span>
+                <span class="qc-tier-pill" data-tier="3">T3 · Storm vs Spike</span>
+              </div>
               <div class="stat-trio">
                 <div>
                   <div class="stat-val">3-Tier</div>
@@ -1726,7 +2570,7 @@
           <article class="flagship-row reversed">
             <div class="flagship-copy">
               <span class="flagship-meta" style="color: var(--accent);">v9.1.0 · Windows 10 / 11</span>
-              <h3>Black Browser — a ~460 KB Windows browser without the Chromium tax.</h3>
+              <h3>Black Browser runs on Windows in ~460 KB and under 60 MB of RAM.</h3>
               <p>
                 I got tired of browsers eating 700 MB of RAM just to open docs on a student laptop. Built in <strong class="hl">C# (.NET 4.8) over WebView2</strong>, it pairs a 3-layer ad/YouTube filter and Windows DPAPI vault with an <strong class="hl">Authenticode-verified installer</strong>, fail-closed SHA-256 updates, and 22 security regression tests.
               </p>
@@ -1773,6 +2617,7 @@
     </section>
 
     <section id="ecosystem">
+      <canvas id="ecosystem-beams-canvas" aria-hidden="true"></canvas>
       <div class="container">
         <div class="section-header">
           <h2 class="section-title">Software ecosystem</h2>
@@ -1832,6 +2677,58 @@
       </div>
     </section>
 
+    <section id="stack" aria-label="Technical Stack">
+      <canvas id="stack-field-canvas" aria-hidden="true"></canvas>
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Systems &amp; silicon stack</h2>
+          <p class="section-desc">Eight production runtimes and cryptographic primitives powering every repository.</p>
+        </div>
+        <div class="stack-grid">
+          <div class="stack-tile">
+            <span class="stack-kicker mono">WebGL2 / 3D</span>
+            <div class="stack-name">Three.js</div>
+            <p class="stack-stat">Interactive hardware core, orbital telemetry nodes, and low-overhead shader geometry.</p>
+          </div>
+          <div class="stack-tile">
+            <span class="stack-kicker mono">Post-Quantum</span>
+            <div class="stack-name">ML-KEM-768</div>
+            <p class="stack-stat">Lattice key encapsulation + AES-256-GCM sealing for air-gapped UAV C2 links.</p>
+          </div>
+          <div class="stack-tile">
+            <span class="stack-kicker mono">Native Windows</span>
+            <div class="stack-name">C# (.NET 4.8)</div>
+            <p class="stack-stat">WebView2 browser runtime (~460 KB executable, &lt;60 MB RAM, DPAPI vault).</p>
+          </div>
+          <div class="stack-tile">
+            <span class="stack-kicker mono">Systems Shell</span>
+            <div class="stack-name">Rust / Tauri</div>
+            <p class="stack-stat">Memory-safe native IPC &amp; cross-platform lightweight desktop shells.</p>
+          </div>
+          <div class="stack-tile">
+            <span class="stack-kicker mono">Edge &amp; QC</span>
+            <div class="stack-name">Next.js / TS</div>
+            <p class="stack-stat">20-node AWS telemetry streaming, WMO-No. 8 QC &amp; 223/223 Vitest verification.</p>
+          </div>
+          <div class="stack-tile">
+            <span class="stack-kicker mono">Mobile ECE</span>
+            <div class="stack-name">Kotlin</div>
+            <p class="stack-stat">Offline Android electronics math engine powered by mXparser.</p>
+          </div>
+          <div class="stack-tile">
+            <span class="stack-kicker mono">Forensics</span>
+            <div class="stack-name">Python</div>
+            <p class="stack-stat">Ed25519 signed APK custody bundles and STIX 2.1 threat intelligence triage.</p>
+          </div>
+          <div class="stack-tile">
+            <span class="stack-kicker mono">Motion Craft</span>
+            <div class="stack-name">GSAP + Lenis</div>
+            <p class="stack-stat">ScrollTrigger depth scrubbing, GPU-only transforms, and reduced-motion fallbacks.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section id="distribution">
       <div class="container">
         <div class="section-header">
@@ -1861,6 +2758,50 @@
         <div class="section-header">
           <h2 class="section-title">Engineering standards</h2>
           <p class="section-desc">Core architectural constraints applied across every repository.</p>
+        </div>
+
+        <div class="arch-schematic-wrap" aria-label="Hardware-to-Cloud Verification Schematic">
+          <svg class="arch-schematic" viewBox="0 0 920 132" role="img" aria-label="4-stage architecture: Physical Sensors, Cryptographic Edge, Native Runtime, and WMO-No. 8 Cloud Verification">
+            <defs>
+              <marker id="arch-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="currentColor" opacity="0.45" />
+              </marker>
+            </defs>
+            <g fill="none" stroke="currentColor" stroke-opacity="0.22" stroke-width="1.25">
+              <rect x="8" y="16" width="196" height="96" rx="12" />
+              <rect x="244" y="16" width="196" height="96" rx="12" />
+              <rect x="480" y="16" width="196" height="96" rx="12" />
+            </g>
+            <!-- Single focal node per diagram-design rule -->
+            <rect x="716" y="16" width="196" height="96" rx="12" fill="rgba(41, 151, 255, 0.08)" stroke="#2997ff" stroke-width="1.5" />
+
+            <g stroke="currentColor" stroke-opacity="0.45" stroke-width="1.25" marker-end="url(#arch-arrow)">
+              <line x1="204" y1="64" x2="240" y2="64" />
+              <line x1="440" y1="64" x2="476" y2="64" />
+              <line x1="676" y1="64" x2="712" y2="64" />
+            </g>
+
+            <g font-family="JetBrains Mono, monospace" font-size="10.5" fill="currentColor" opacity="0.58">
+              <text x="24" y="40">01 · ACQUISITION</text>
+              <text x="260" y="40">02 · SEALING</text>
+              <text x="496" y="40">03 · EXECUTION</text>
+            </g>
+            <text x="732" y="40" font-family="JetBrains Mono, monospace" font-size="10.5" fill="#2997ff">04 · VERIFICATION</text>
+
+            <g font-family="Plus Jakarta Sans, sans-serif" font-size="14" font-weight="700" fill="currentColor">
+              <text x="24" y="66">Physical Sensors</text>
+              <text x="260" y="66">Zero-Trust Edge</text>
+              <text x="496" y="66">Native Runtimes</text>
+              <text x="732" y="66">WMO-No. 8 Cloud QC</text>
+            </g>
+
+            <g font-family="JetBrains Mono, monospace" font-size="10.5" fill="currentColor" opacity="0.65">
+              <text x="24" y="90">Barometer · 6-DoF UAV</text>
+              <text x="260" y="90">ML-KEM-768 · DPAPI</text>
+              <text x="496" y="90">~460 KB · &lt;60 MB RAM</text>
+              <text x="732" y="90" fill="#2fb36d">223 / 223 Vitest Pass</text>
+            </g>
+          </svg>
         </div>
 
         <div class="apple-bento">
@@ -1922,27 +2863,68 @@
 
     <section id="connect">
       <div class="container">
-        <div class="creator-band">
-          <div class="creator-info">
-            <img src="https://avatars.githubusercontent.com/u/251188287?v=4" alt="Shivam Kumar Mehta" class="creator-avatar" width="64" height="64" loading="lazy" decoding="async" />
-            <div>
-              <h2>Shivam Kumar Mehta</h2>
-              <p><strong class="hl">B.Tech ECE @ Purnea College of Engineering (BEU, Bihar)</strong>. Mostly found debugging sensor math, tightening Windows binaries, or hardening APIs. Always up for systems &amp; embedded collaborations.</p>
+        <div class="connect-split">
+          <div class="creator-band">
+            <div class="creator-info">
+              <img src="https://avatars.githubusercontent.com/u/251188287?v=4" alt="Shivam Kumar Mehta" class="creator-avatar" width="64" height="64" loading="lazy" decoding="async" />
+              <div>
+                <h2>Shivam Kumar Mehta</h2>
+                <p><strong class="hl">B.Tech ECE @ Purnea College of Engineering (BEU, Bihar)</strong>. Mostly found debugging sensor math, tightening Windows binaries, or hardening APIs. Always up for systems &amp; embedded collaborations.</p>
+              </div>
+            </div>
+            <div style="display: flex; flex-wrap: wrap; gap: 0.65rem;">
+              <a href="https://www.linkedin.com/in/shivam-kumar-mehta" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">
+                <i class="fa-brands fa-linkedin" aria-hidden="true"></i> LinkedIn
+              </a>
+              <a href="mailto:shivamkumarmehta64@gmail.com" class="btn btn-secondary btn-sm">
+                <i class="fa-solid fa-envelope" aria-hidden="true"></i> Email
+              </a>
+              <button id="copy-email-btn" type="button" class="btn btn-secondary btn-sm" aria-label="Copy email address">
+                <i class="fa-regular fa-copy" aria-hidden="true"></i> Copy Email
+              </button>
+              <button id="open-resume-btn" type="button" class="btn btn-secondary btn-sm">
+                <i class="fa-solid fa-file-lines" aria-hidden="true"></i> Resume / PDF
+              </button>
             </div>
           </div>
-          <div style="display: flex; flex-wrap: wrap; gap: 0.65rem;">
-            <a href="https://www.linkedin.com/in/shivam-kumar-mehta" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">
-              <i class="fa-brands fa-linkedin" aria-hidden="true"></i> LinkedIn
-            </a>
-            <a href="mailto:shivamkumarmehta64@gmail.com" class="btn btn-secondary btn-sm">
-              <i class="fa-solid fa-envelope" aria-hidden="true"></i> Email
-            </a>
-            <button id="copy-email-btn" type="button" class="btn btn-secondary btn-sm" aria-label="Copy email address">
-              <i class="fa-regular fa-copy" aria-hidden="true"></i> Copy Email
-            </button>
-            <button id="open-resume-btn" type="button" class="btn btn-secondary btn-sm">
-              <i class="fa-solid fa-file-lines" aria-hidden="true"></i> Resume / PDF
-            </button>
+
+          <div class="pass-card" id="pass-card">
+            <div class="pass-inner">
+              <div class="pass-face pass-front" id="pass-front">
+                <div class="pass-head">
+                  <span class="pass-id mono">● ENGINEERING PASS</span>
+                  <span class="mono" style="font-size: 0.72rem; color: var(--text-muted);">BEU · ECE</span>
+                </div>
+                <div>
+                  <div style="font-weight: 700; font-size: 1.05rem;">@shivamkumarmehta64-sketch</div>
+                  <p class="pass-meta">13 public repositories · 245 passing security &amp; WMO-No. 8 QC tests · SIH 2026 MetShield-AI.</p>
+                </div>
+                <div>
+                  <button type="button" id="pass-flip-btn" class="btn btn-secondary btn-sm">
+                    Flip to Connect <i class="fa-solid fa-rotate" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="pass-face pass-back" id="pass-back" inert>
+                <div class="pass-head">
+                  <span class="pass-id mono" style="color: var(--accent);">DIRECT CHANNELS</span>
+                  <button type="button" id="pass-unflip-btn" class="btn btn-secondary btn-sm" aria-label="Flip back">
+                    Back <i class="fa-solid fa-rotate-left" aria-hidden="true"></i>
+                  </button>
+                </div>
+                <div class="pass-links">
+                  <a href="https://github.com/shivamkumarmehta64-sketch" target="_blank" rel="noopener noreferrer">
+                    <span>GitHub</span><span class="mono">↗</span>
+                  </a>
+                  <a href="https://www.linkedin.com/in/shivam-kumar-mehta" target="_blank" rel="noopener noreferrer">
+                    <span>LinkedIn</span><span class="mono">↗</span>
+                  </a>
+                  <a href="https://aws2026-nu.vercel.app" target="_blank" rel="noopener noreferrer">
+                    <span>MetShield-AI Live</span><span class="mono">↗</span>
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -1951,6 +2933,15 @@
 
   <footer>
     <p>© 2026 Shivam Kumar Mehta · Native Software &amp; Systems Engineering</p>
+    <!-- Vercel-style "View as AI agent" affordance -->
+    <div style="margin-top:0.75rem; display:flex; align-items:center; gap:0.75rem; flex-wrap:wrap; justify-content:center;">
+      <a href="./data/releases.json" target="_blank" rel="noopener noreferrer" id="agent-view-btn" class="btn btn-secondary btn-sm" style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;letter-spacing:0.04em;" aria-label="View portfolio as AI agent JSON">
+        <i class="fa-solid fa-robot" aria-hidden="true"></i> View as AI agent
+      </a>
+      <button type="button" id="agent-copy-btn" class="btn btn-secondary btn-sm" style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;letter-spacing:0.04em;" aria-label="Copy agent onboarding context">
+        <i class="fa-solid fa-clipboard" aria-hidden="true"></i> Onboard your agent
+      </button>
+    </div>
   </footer>
 
   <div id="app-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-title-text">
@@ -1979,6 +2970,16 @@
     <i class="fa-solid fa-circle-check" style="color: var(--emerald);" aria-hidden="true"></i>
     <span id="toast-text">Copied link</span>
   </div>
+
+  <dialog id="cmd-palette" aria-label="Command palette">
+    <div class="cmd-head">
+      <i class="fa-solid fa-terminal" aria-hidden="true"></i>
+      <input id="cmd-input" type="text" placeholder="Jump to project, section, or action..." autocomplete="off" spellcheck="false" aria-label="Search commands" />
+      <span class="cmd-esc mono">ESC</span>
+    </div>
+    <div id="cmd-results" role="listbox" aria-label="Command results"></div>
+  </dialog>
+  <div id="cursor-ring" aria-hidden="true"></div>
 
   <script type="importmap">
   {

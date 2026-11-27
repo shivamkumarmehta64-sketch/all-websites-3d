@@ -1142,7 +1142,7 @@ function initHero3D() {
   function animate(now) {
     if (contextLost) return;
     requestAnimationFrame(animate);
-    if (!isVisible) {
+    if (!isVisible || document.hidden) {
       last = now;
       return;
     }
@@ -1150,10 +1150,12 @@ function initHero3D() {
     last = now;
     elapsed += dt;
 
-    // Scroll-driven depth & pitch (never blocks page scroll)
-    const scrollNorm = Math.min(window.scrollY / 650, 1);
-    camera.position.z = 5.4 + scrollNorm * 0.9;
-    camera.position.y = -scrollNorm * 0.35;
+    // Scroll-driven depth, pitch & camera focus (never blocks page scroll)
+    const scrollNorm = Math.min(window.scrollY / 720, 1);
+    const targetCamZ = 5.4 + scrollNorm * 1.15;
+    const targetCamY = -scrollNorm * 0.42;
+    camera.position.z += (targetCamZ - camera.position.z) * 0.1;
+    camera.position.y += (targetCamY - camera.position.y) * 0.1;
 
     // Weighted inertia + drag momentum
     pulseVelocity *= 0.92;
@@ -1175,10 +1177,12 @@ function initHero3D() {
     const breath = 1 + Math.sin(elapsed * 2.1) * 0.035 + pulseVelocity * 1.1;
     coreMesh.scale.setScalar(breath);
 
-    const targetRootY = dragRotY + hoverX;
-    const targetRootX = dragRotX + hoverY + scrollNorm * 0.22;
+    const targetRootY = dragRotY + hoverX + scrollNorm * 0.35;
+    const targetRootX = dragRotX + hoverY + scrollNorm * 0.26;
+    const targetRootZ = -scrollNorm * 0.14;
     rootGroup.rotation.y += (targetRootY - rootGroup.rotation.y) * 0.08;
     rootGroup.rotation.x += (targetRootX - rootGroup.rotation.x) * 0.08;
+    rootGroup.rotation.z += (targetRootZ - rootGroup.rotation.z) * 0.08;
 
     // Multi-plane Keplerian orbital motion & active node highlight
     let activeSys = null;
@@ -1389,6 +1393,23 @@ function initScrollUI() {
             }
           });
         }
+
+        document.querySelectorAll('.flagship-media').forEach(media => {
+          gsap.fromTo(
+            media,
+            { y: 14 },
+            {
+              y: -14,
+              ease: 'none',
+              scrollTrigger: {
+                trigger: media,
+                start: 'top bottom',
+                end: 'bottom top',
+                scrub: 0.75
+              }
+            }
+          );
+        });
       })
       .catch(() => {
         // Fallback to native smooth scrolling
@@ -1490,20 +1511,68 @@ function initScrollUI() {
 }
 
 // ---------------------------------------------------------------------------
-// ScrollX-UI Craft: Cursor Spotlight Cards & Animated Filter Tabs
+// 3D Tactile Card Tilt, Spotlight & Magnetic CTA Craft
 // ---------------------------------------------------------------------------
 function initSpotlightCards() {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   if (window.matchMedia('(pointer: coarse)').matches) return;
 
-  const selector = '.project-card, .ece-node, .flagship-media, .bento-tile';
+  const selector = '.project-card, .ece-node, .flagship-media, .bento-tile, .stack-tile';
+  let activeCard = null;
+
+  const resetCard = card => {
+    if (!card) return;
+    card.style.setProperty('--rx', '0deg');
+    card.style.setProperty('--ry', '0deg');
+    card.style.setProperty('--ty', '0px');
+    card.style.setProperty('--px', '0px');
+    card.style.setProperty('--py', '0px');
+  };
+
   document.addEventListener('pointermove', e => {
     const card = e.target instanceof Element ? e.target.closest(selector) : null;
+    if (activeCard && activeCard !== card) {
+      resetCard(activeCard);
+      activeCard = null;
+    }
     if (!card) return;
+    activeCard = card;
+
     const rect = card.getBoundingClientRect();
-    card.style.setProperty('--mx', `${(e.clientX - rect.left).toFixed(1)}px`);
-    card.style.setProperty('--my', `${(e.clientY - rect.top).toFixed(1)}px`);
+    const relX = e.clientX - rect.left;
+    const relY = e.clientY - rect.top;
+    const nx = rect.width ? (relX / rect.width - 0.5) : 0;
+    const ny = rect.height ? (relY / rect.height - 0.5) : 0;
+
+    card.style.setProperty('--mx', `${relX.toFixed(1)}px`);
+    card.style.setProperty('--my', `${relY.toFixed(1)}px`);
+    card.style.setProperty('--rx', `${(-ny * 5.5).toFixed(2)}deg`);
+    card.style.setProperty('--ry', `${(nx * 6.5).toFixed(2)}deg`);
+    card.style.setProperty('--ty', '-3px');
+    card.style.setProperty('--px', `${(-nx * 10).toFixed(1)}px`);
+    card.style.setProperty('--py', `${(-ny * 10).toFixed(1)}px`);
   }, { passive: true });
+
+  document.addEventListener('pointerout', e => {
+    if (!activeCard) return;
+    const related = e.relatedTarget;
+    if (!(related instanceof Node) || !activeCard.contains(related)) {
+      resetCard(activeCard);
+      activeCard = null;
+    }
+  }, { passive: true });
+
+  document.querySelectorAll('.btn-primary, .nav-pill-primary').forEach(btn => {
+    btn.addEventListener('pointermove', e => {
+      const rect = btn.getBoundingClientRect();
+      const dx = ((e.clientX - rect.left) / rect.width - 0.5) * 9;
+      const dy = ((e.clientY - rect.top) / rect.height - 0.5) * 7;
+      btn.style.transform = `translate3d(${dx.toFixed(1)}px, ${dy.toFixed(1)}px, 0)`;
+    }, { passive: true });
+    btn.addEventListener('pointerleave', () => {
+      btn.style.transform = '';
+    });
+  });
 }
 
 function initAnimatedFilterTabs() {
@@ -1546,6 +1615,594 @@ initScrollUI();
 initSpotlightCards();
 initAnimatedFilterTabs();
 initHero3D();
+initLinearWordReveal();
+initRulerScrubber();
+initAgentFooter();
+initTaglineReveal();
+initLetterboxIntro();
+initCommandPalette();
+initEcosystemBeams();
+initCursorRing();
+initCursorSmoke();
+initStackField();
+initPassCardFlip();
+
+// ---------------------------------------------------------------------------
+// PATTERN 1: Linear-style staggered per-word blur+translateY on hero <h1>
+// ---------------------------------------------------------------------------
+function initLinearWordReveal() {
+  const words = document.querySelectorAll('.h1-word');
+  if (!words.length) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    words.forEach(w => {
+      w.classList.remove('word-pre');
+      w.classList.add('word-visible');
+    });
+    return;
+  }
+
+  words.forEach(w => w.classList.add('word-pre'));
+  let delay = 80;
+  words.forEach((word, i) => {
+    word.style.transitionDelay = `${delay + i * 65}ms`;
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        word.classList.remove('word-pre');
+        word.classList.add('word-visible');
+      });
+    });
+  });
+}
+
+// ---------------------------------------------------------------------------
+// PATTERN 2: Rauno ruler-tick progress scrubber
+// ---------------------------------------------------------------------------
+function initRulerScrubber() {
+  const ruler = document.getElementById('scroll-ruler');
+  const progressEl = document.getElementById('scroll-progress');
+  if (!ruler) return;
+
+  let ticking = false;
+  function update() {
+    ticking = false;
+    const scrollTop = window.scrollY || 0;
+    const docH = Math.max(
+      document.documentElement.scrollHeight,
+      document.body.scrollHeight
+    ) - window.innerHeight;
+    const pct = docH > 0 ? Math.min(Math.max(scrollTop / docH, 0), 1) * 100 : 0;
+    ruler.style.setProperty('--ruler-p', `${pct.toFixed(2)}%`);
+    if (progressEl) progressEl.setAttribute('aria-valuenow', String(Math.round(pct)));
+  }
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(update);
+    }
+  }, { passive: true });
+  update();
+}
+
+// ---------------------------------------------------------------------------
+// PHASE 2: Scroll-triggered Tagline Word Reveal & Letterbox Intro Bars
+// ---------------------------------------------------------------------------
+function initTaglineReveal() {
+  const words = Array.from(document.querySelectorAll('#tagline-manifesto .tagline-word'));
+  const strip = document.getElementById('tagline-manifesto');
+  if (!words.length || !strip) return;
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduced) {
+    words.forEach(w => w.classList.add('word-visible'));
+    return;
+  }
+
+  let ticking = false;
+  const syncWords = () => {
+    ticking = false;
+    const rect = strip.getBoundingClientRect();
+    const vh = window.innerHeight || 800;
+    // Map scroll position across viewport from 88% down to 35% into [0..1]
+    const raw = (vh * 0.88 - rect.top) / (vh * 0.53);
+    const progress = Math.min(1, Math.max(0, raw));
+    const activeCount = Math.round(progress * words.length);
+    words.forEach((word, i) => {
+      word.classList.toggle('word-visible', i < activeCount);
+    });
+  };
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(syncWords);
+    }
+  }, { passive: true });
+  syncWords();
+}
+
+function initLetterboxIntro() {
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduced) return;
+  let ticking = false;
+  function checkScroll() {
+    ticking = false;
+    document.body.classList.toggle('scrolled-past-intro', (window.scrollY || 0) > 80);
+  }
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(checkScroll);
+    }
+  }, { passive: true });
+  checkScroll();
+}
+
+// ---------------------------------------------------------------------------
+// PHASE 3: Cmd+K Command Palette, Ecosystem Beams & Magnetic Cursor Ring
+// ---------------------------------------------------------------------------
+function initCommandPalette() {
+  const dialog = document.getElementById('cmd-palette');
+  const input = document.getElementById('cmd-input');
+  const resultsEl = document.getElementById('cmd-results');
+  const triggerBtn = document.getElementById('cmd-k-btn');
+  if (!dialog || !input || !resultsEl) return;
+
+  const commands = [
+    ...PROJECTS.map(p => ({
+      title: p.name,
+      sub: `${p.domainLabel} · ${p.tech.slice(0, 3).join(', ')}`,
+      kind: 'Project',
+      run: () => openDetailsModal(p)
+    })),
+    { title: 'Flagship Builds', sub: 'MetShield-AI & Black Browser', kind: 'Section', run: () => scrollToSection('#flagships') },
+    { title: 'Software Ecosystem', sub: 'ECE pipeline & 8 repositories', kind: 'Section', run: () => scrollToSection('#ecosystem') },
+    { title: 'Systems & Silicon Stack', sub: 'Three.js, ML-KEM-768, C#, Rust, Kotlin', kind: 'Section', run: () => scrollToSection('#stack') },
+    { title: 'Distribution Matrix', sub: 'Signed installers & runtime specs', kind: 'Section', run: () => scrollToSection('#distribution') },
+    { title: 'Engineering Timeline', sub: 'BEU Bihar coursework to production', kind: 'Section', run: () => scrollToSection('#timeline') },
+    { title: 'Toggle Color Theme', sub: 'Switch between dark & light mode', kind: 'Action', run: () => document.getElementById('theme-toggle')?.click() },
+    { title: 'Copy AI Agent Context', sub: 'Copy structured Markdown portfolio summary', kind: 'Action', run: () => document.getElementById('agent-copy-btn')?.click() },
+    { title: 'Open GitHub Profile', sub: `github.com/${GITHUB_USER}`, kind: 'Link', run: () => window.open(`https://github.com/${GITHUB_USER}`, '_blank', 'noopener,noreferrer') },
+    { title: 'Open LinkedIn Profile', sub: 'linkedin.com/in/shivam-kumar-mehta', kind: 'Link', run: () => window.open('https://www.linkedin.com/in/shivam-kumar-mehta', '_blank', 'noopener,noreferrer') }
+  ];
+
+  let activeIndex = 0;
+  let filtered = commands;
+
+  function scrollToSection(hash) {
+    const el = document.querySelector(hash);
+    if (!el) return;
+    if (lenisInstance) lenisInstance.scrollTo(el);
+    else el.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function renderList() {
+    resultsEl.innerHTML = '';
+    if (!filtered.length) {
+      const empty = document.createElement('div');
+      empty.className = 'cmd-item-sub';
+      empty.style.padding = '1rem';
+      empty.textContent = 'No matching projects or commands.';
+      resultsEl.appendChild(empty);
+      return;
+    }
+    filtered.forEach((cmd, idx) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'cmd-item';
+      btn.setAttribute('role', 'option');
+      btn.setAttribute('aria-selected', idx === activeIndex ? 'true' : 'false');
+      btn.innerHTML = `
+        <span class="cmd-item-main">
+          <span class="cmd-item-title"></span>
+          <span class="cmd-item-sub"></span>
+        </span>
+        <span class="cmd-item-kind mono"></span>
+      `;
+      btn.querySelector('.cmd-item-title').textContent = cmd.title;
+      btn.querySelector('.cmd-item-sub').textContent = cmd.sub;
+      btn.querySelector('.cmd-item-kind').textContent = cmd.kind;
+      btn.addEventListener('click', () => execute(cmd));
+      resultsEl.appendChild(btn);
+    });
+  }
+
+  function execute(cmd) {
+    dialog.close();
+    cmd.run();
+  }
+
+  function openPalette() {
+    input.value = '';
+    filtered = commands;
+    activeIndex = 0;
+    renderList();
+    if (!dialog.open) {
+      try {
+        dialog.showModal();
+      } catch {
+        dialog.setAttribute('open', '');
+      }
+    }
+    input.focus();
+  }
+
+  triggerBtn?.addEventListener('click', openPalette);
+
+  document.addEventListener('keydown', e => {
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+      e.preventDefault();
+      if (dialog.open) dialog.close();
+      else openPalette();
+    }
+  });
+
+  dialog.addEventListener('click', e => {
+    if (e.target === dialog) dialog.close();
+  });
+
+  input.addEventListener('input', () => {
+    const q = input.value.trim().toLowerCase();
+    filtered = q
+      ? commands.filter(c => `${c.title} ${c.sub} ${c.kind}`.toLowerCase().includes(q))
+      : commands;
+    activeIndex = 0;
+    renderList();
+  });
+
+  input.addEventListener('keydown', e => {
+    if (!filtered.length) return;
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      activeIndex = (activeIndex + 1) % filtered.length;
+      renderList();
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      activeIndex = (activeIndex - 1 + filtered.length) % filtered.length;
+      renderList();
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      execute(filtered[activeIndex]);
+    }
+  });
+}
+
+function initEcosystemBeams() {
+  const canvas = document.getElementById('ecosystem-beams-canvas');
+  const section = document.getElementById('ecosystem');
+  if (!canvas || !section) return;
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+
+  let width = 0;
+  let height = 0;
+  let rafId = 0;
+  let visible = false;
+  let t = 0;
+
+  const resize = () => {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    width = section.clientWidth;
+    height = section.clientHeight;
+    canvas.width = Math.floor(width * dpr);
+    canvas.height = Math.floor(height * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  };
+
+  const renderFrame = () => {
+    ctx.clearRect(0, 0, width, height);
+    const lines = 7;
+    for (let i = 0; i < lines; i++) {
+      const yBase = (height / (lines + 1)) * (i + 1);
+      ctx.beginPath();
+      for (let x = 0; x <= width; x += 28) {
+        const wave = Math.sin(x * 0.0045 + t * (1 + i * 0.14) + i) * (18 + i * 3);
+        const y = yBase + wave;
+        if (x === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.strokeStyle = i % 2 === 0 ? 'rgba(41, 151, 255, 0.14)' : 'rgba(47, 179, 109, 0.1)';
+      ctx.lineWidth = 1.25;
+      ctx.stroke();
+    }
+  };
+
+  const draw = () => {
+    if (!visible || document.hidden || reduced) {
+      rafId = 0;
+      return;
+    }
+    t += 0.008;
+    renderFrame();
+    rafId = requestAnimationFrame(draw);
+  };
+
+  const obs = new IntersectionObserver(entries => {
+    visible = entries.some(e => e.isIntersecting);
+    if (visible) {
+      resize();
+      renderFrame();
+      if (!reduced && !rafId) rafId = requestAnimationFrame(draw);
+    }
+  }, { threshold: 0.05 });
+
+  resize();
+  renderFrame();
+  window.addEventListener('resize', () => {
+    resize();
+    renderFrame();
+  }, { passive: true });
+  obs.observe(section);
+}
+
+function initCursorRing() {
+  const ring = document.getElementById('cursor-ring');
+  if (!ring) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (window.matchMedia('(pointer: coarse)').matches) return;
+
+  let tx = -100;
+  let ty = -100;
+  let cx = -100;
+  let cy = -100;
+  let raf = 0;
+
+  const interactiveSel = 'a, button, .project-card, .stack-tile, .orbit-chip, .ece-node';
+
+  const tick = () => {
+    cx += (tx - cx) * 0.22;
+    cy += (ty - cy) * 0.22;
+    ring.style.transform = `translate3d(${cx.toFixed(1)}px, ${cy.toFixed(1)}px, 0)`;
+    if (Math.abs(tx - cx) > 0.2 || Math.abs(ty - cy) > 0.2) {
+      raf = requestAnimationFrame(tick);
+    } else {
+      raf = 0;
+    }
+  };
+
+  document.addEventListener('pointermove', e => {
+    tx = e.clientX;
+    ty = e.clientY;
+    ring.classList.add('visible');
+    const overInteractive = e.target instanceof Element && Boolean(e.target.closest(interactiveSel));
+    ring.classList.toggle('active', overInteractive);
+    if (!raf) raf = requestAnimationFrame(tick);
+  }, { passive: true });
+
+  document.addEventListener('pointerleave', () => {
+    ring.classList.remove('visible', 'active');
+  });
+}
+
+// ---------------------------------------------------------------------------
+// PHASE 4: MunixDelta-Inspired Cursor Smoke Trail, Stack Telemetry Rain & Flip Pass
+// ---------------------------------------------------------------------------
+function initCursorSmoke() {
+  const canvas = document.getElementById('cursor-smoke-canvas');
+  if (!canvas) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (window.matchMedia('(pointer: coarse)').matches) return;
+
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+
+  let width = 0;
+  let height = 0;
+  let rafId = 0;
+  let lastX = null;
+  let lastY = null;
+  const puffs = [];
+
+  const resize = () => {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    width = window.innerWidth;
+    height = window.innerHeight;
+    canvas.width = Math.floor(width * dpr);
+    canvas.height = Math.floor(height * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  };
+
+  const spawnPuff = (x, y) => {
+    if (puffs.length >= 90) puffs.shift();
+    puffs.push({
+      x,
+      y,
+      r: 16 + Math.random() * 14,
+      vx: (Math.random() - 0.5) * 14,
+      vy: -26 - Math.random() * 14,
+      born: performance.now(),
+      life: 750 + Math.random() * 250,
+      emerald: Math.random() > 0.65
+    });
+  };
+
+  const tick = now => {
+    if (document.hidden) {
+      rafId = 0;
+      return;
+    }
+    ctx.clearRect(0, 0, width, height);
+    for (let i = puffs.length - 1; i >= 0; i--) {
+      const p = puffs[i];
+      const age = (now - p.born) / p.life;
+      if (age >= 1) {
+        puffs.splice(i, 1);
+        continue;
+      }
+      const alpha = (1 - age) * (1 - age) * 0.22;
+      const px = p.x + p.vx * age;
+      const py = p.y + p.vy * age;
+      const radius = p.r * (1 + age * 1.15);
+      const grad = ctx.createRadialGradient(px, py, 0, px, py, radius);
+      const rgb = p.emerald ? '47, 179, 109' : '41, 151, 255';
+      grad.addColorStop(0, `rgba(${rgb}, ${alpha.toFixed(3)})`);
+      grad.addColorStop(1, `rgba(${rgb}, 0)`);
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.arc(px, py, radius, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    if (puffs.length) rafId = requestAnimationFrame(tick);
+    else rafId = 0;
+  };
+
+  window.addEventListener('pointermove', e => {
+    if (e.pointerType && e.pointerType !== 'mouse') return;
+    const x = e.clientX;
+    const y = e.clientY;
+    if (lastX === null) {
+      spawnPuff(x, y);
+    } else {
+      const dist = Math.hypot(x - lastX, y - lastY);
+      const steps = Math.min(6, Math.max(1, Math.floor(dist / 16)));
+      for (let s = 1; s <= steps; s++) {
+        spawnPuff(lastX + ((x - lastX) * s) / steps, lastY + ((y - lastY) * s) / steps);
+      }
+    }
+    lastX = x;
+    lastY = y;
+    if (!rafId) rafId = requestAnimationFrame(tick);
+  }, { passive: true });
+
+  resize();
+  window.addEventListener('resize', resize, { passive: true });
+}
+
+function initStackField() {
+  const canvas = document.getElementById('stack-field-canvas');
+  const section = document.getElementById('stack');
+  if (!canvas || !section) return;
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+
+  let width = 0;
+  let height = 0;
+  let rafId = 0;
+  let visible = false;
+  const particles = Array.from({ length: 180 }, () => ({
+    x: Math.random(),
+    y: Math.random(),
+    speed: 0.0005 + Math.random() * 0.0014,
+    size: 1.5 + Math.random() * 2,
+    emerald: Math.random() > 0.6
+  }));
+
+  const resize = () => {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    width = section.clientWidth;
+    height = section.clientHeight;
+    canvas.width = Math.floor(width * dpr);
+    canvas.height = Math.floor(height * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  };
+
+  const renderFrame = () => {
+    const rect = section.getBoundingClientRect();
+    const progress = Math.min(1, Math.max(0, (window.innerHeight - rect.top) / (window.innerHeight + rect.height)));
+    ctx.clearRect(0, 0, width, height);
+    for (const p of particles) {
+      if (!reduced) p.y = (p.y + p.speed) % 1;
+      const px = p.x * width;
+      const py = p.y * height;
+      const h = p.size * (1.8 + progress * 2.4);
+      ctx.fillStyle = p.emerald ? 'rgba(47, 179, 109, 0.24)' : 'rgba(41, 151, 255, 0.22)';
+      ctx.fillRect(px, py, p.size, h);
+    }
+  };
+
+  const loop = () => {
+    if (!visible || document.hidden || reduced) {
+      rafId = 0;
+      return;
+    }
+    renderFrame();
+    rafId = requestAnimationFrame(loop);
+  };
+
+  const obs = new IntersectionObserver(entries => {
+    visible = entries.some(e => e.isIntersecting);
+    if (visible) {
+      resize();
+      renderFrame();
+      if (!reduced && !rafId) rafId = requestAnimationFrame(loop);
+    }
+  }, { threshold: 0.05 });
+
+  resize();
+  renderFrame();
+  window.addEventListener('resize', () => {
+    resize();
+    renderFrame();
+  }, { passive: true });
+  obs.observe(section);
+}
+
+function initPassCardFlip() {
+  const card = document.getElementById('pass-card');
+  const front = document.getElementById('pass-front');
+  const back = document.getElementById('pass-back');
+  const flipBtn = document.getElementById('pass-flip-btn');
+  const unflipBtn = document.getElementById('pass-unflip-btn');
+  if (!card || !front || !back || !flipBtn || !unflipBtn) return;
+
+  const setFlipped = flipped => {
+    card.classList.toggle('flipped', flipped);
+    front.inert = flipped;
+    back.inert = !flipped;
+    if (flipped) unflipBtn.focus();
+    else flipBtn.focus();
+  };
+
+  flipBtn.addEventListener('click', () => setFlipped(true));
+  unflipBtn.addEventListener('click', () => setFlipped(false));
+  card.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && card.classList.contains('flipped')) {
+      setFlipped(false);
+    }
+  });
+}
+
+// ---------------------------------------------------------------------------
+// PATTERN 4: Vercel "View as AI agent" + "Onboard your agent" footer
+// ---------------------------------------------------------------------------
+function initAgentFooter() {
+  const copyBtn = document.getElementById('agent-copy-btn');
+  if (!copyBtn) return;
+
+  const agentContext = `# Shivam Kumar Mehta — Portfolio Agent Context
+Version: all-websites-3d v1.0.0
+Data: https://shivamkumarmehta64-sketch.github.io/all-websites-3d/data/releases.json
+
+## Projects
+- MetShield-AI: WMO-No. 8 3-tier weather QC, 223/223 Vitest, Next.js/Edge, Vercel. Live: https://aws2026-nu.vercel.app
+- Black Browser: C#/.NET 4.8 WebView2 Windows browser ~460KB/<60MB RAM. Releases: https://github.com/shivamkumarmehta64-sketch/BlackBrowser/releases
+- Quantum Drone GCS: ML-KEM-768+AES-256-GCM air-gapped UAV C2. Live: https://quantum-drone-gcs.pages.dev
+- aerotech: Ed25519 APK forensics, STIX 2.1, Bihar PS-02.
+- Blue Browser (Tauri): Rust cross-platform browser.
+- Electronics Calculator: Kotlin offline mXparser Android ECE tool.
+
+## Contact
+- Email: shivamkumarmehta64@gmail.com
+- GitHub: https://github.com/shivamkumarmehta64-sketch
+- LinkedIn: https://linkedin.com/in/shivam-kumar-mehta`;
+
+  copyBtn.addEventListener('click', () => {
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(agentContext).then(() => {
+        copyBtn.innerHTML = '<i class="fa-solid fa-check" aria-hidden="true"></i> Paste to your agent ✓';
+        copyBtn.classList.add('copied');
+        setTimeout(() => {
+          copyBtn.innerHTML = '<i class="fa-solid fa-clipboard" aria-hidden="true"></i> Onboard your agent';
+          copyBtn.classList.remove('copied');
+        }, 2800);
+      }).catch(() => {
+        copyBtn.innerHTML = '<i class="fa-solid fa-clipboard" aria-hidden="true"></i> Onboard your agent';
+      });
+    }
+  });
+}
 
 async function updateGitHubStrip() {
   const staticJson = await loadStaticReleases();
