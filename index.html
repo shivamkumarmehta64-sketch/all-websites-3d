@@ -2,314 +2,105 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#0a0a0c" />
-  <meta name="referrer" content="strict-origin-when-cross-origin" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https://avatars.githubusercontent.com; connect-src 'self' https://api.github.com https://cdn.jsdelivr.net; frame-src https:; object-src 'none'; base-uri 'self';" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Shivam Kumar Mehta — Native Software, AI & Systems Engineering</title>
-  <meta name="description" content="Official software distribution & engineering showcase by Shivam Kumar Mehta. Featuring MetShield-AI (MoES WMO-No. 8 QC), Black Browser (460 KB native Windows browser), BlackTube, Quantum Drone GCS, Cinematic Birthday & aerotech Forensics." />
-  <meta property="og:title" content="Shivam Kumar Mehta — Native Software, AI & Systems Engineering" />
-  <meta property="og:description" content="6 flagship engineering builds: MetShield-AI (MoES), Black Browser v9.1.0, BlackTube v1.0.0, Quantum Drone GCS, Cinematic Birthday & aerotech Forensics." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://shivamkumarmehta64-sketch.github.io/all-websites-3d/" />
-  <link rel="canonical" href="https://shivamkumarmehta64-sketch.github.io/all-websites-3d/" />
-  <meta property="og:image" content="https://shivamkumarmehta64-sketch.github.io/all-websites-3d/assets/metshield-architecture.png" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "ProfilePage",
-      "mainEntity": {
-        "@type": "Person",
-        "name": "Shivam Kumar Mehta",
-        "jobTitle": "Student Developer & Systems Engineer",
-        "url": "https://shivamkumarmehta64-sketch.github.io/all-websites-3d/",
-        "sameAs": [
-          "https://github.com/shivamkumarmehta64-sketch",
-          "https://www.linkedin.com/in/shivam-kumar-mehta"
-        ]
-      }
-    }
-  </script>
+  <meta name="description" content="Software distribution & engineering showcase by Shivam Kumar Mehta. Featuring MetShield-AI (MoES WMO-No. 8 QC), Black Browser (460 KB native Windows browser), BlackTube (99 KB), mTube, Blue Browser & aerotech Forensics." />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <script>
-    (function () {
-      try {
-        var saved = localStorage.getItem('theme');
-        var prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
-        var theme = saved === 'light' || saved === 'dark' ? saved : (prefersLight ? 'light' : 'dark');
-        document.documentElement.setAttribute('data-theme', theme);
-      } catch (e) {}
-    })();
-  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
   <style>
     :root {
-      --bg: #0a0a0c;
-      --bg-elevated: #121215;
-      --bg-surface: #18181c;
-      --bg-hover: #212126;
-      --nav-bg: rgba(10, 10, 12, 0.84);
-      --border: rgba(255, 255, 255, 0.08);
-      --border-strong: rgba(255, 255, 255, 0.16);
-      --shadow-card: 0 1px 0 rgba(255, 255, 255, 0.05) inset, 0 12px 32px rgba(0, 0, 0, 0.28);
+      --bg: #000000;
+      --bg-elevated: #0a0a0c;
+      --glass: rgba(22, 22, 26, 0.72);
+      --border: rgba(255, 255, 255, 0.09);
+      --border-specular: rgba(255, 255, 255, 0.16);
+      --border-hover: rgba(255, 255, 255, 0.25);
 
       --text: #f5f5f7;
-      --text-secondary: #a1a1aa;
-      --text-muted: #71717a;
+      --text-secondary: #a1a1a6;
+      --text-muted: #8e8e93;
 
-      --accent: #2997ff;
-      --accent-hover: #47a6ff;
-      --accent-soft: rgba(41, 151, 255, 0.12);
-      --emerald: #2fb36d;
-      --emerald-soft: rgba(47, 179, 109, 0.12);
-      --apple-green: #2fb36d;
-      --apple-blue: #2997ff;
-      --apple-cyan: #5e9eff;
+      --apple-blue: #0a84ff;
+      --apple-blue-soft: rgba(10, 132, 255, 0.14);
+      --apple-green: #30d158;
+      --apple-green-soft: rgba(48, 209, 88, 0.14);
+      --apple-purple: #bf5af2;
+      --apple-purple-soft: rgba(191, 90, 242, 0.14);
+      --apple-red: #ff453a;
+      --apple-red-soft: rgba(255, 69, 58, 0.14);
+      --apple-cyan: #64d2ff;
 
-      --radius-lg: 16px;
-      --radius-md: 12px;
-      --radius-sm: 8px;
+      --radius-lg: 24px;
+      --radius-md: 16px;
       --radius-pill: 9999px;
-      --max-w: 1140px;
-      --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
-    }
-
-    :root[data-theme="light"] {
-      --bg: #f9f9fb;
-      --bg-elevated: #ffffff;
-      --bg-surface: #f2f2f5;
-      --bg-hover: #e8e8ed;
-      --nav-bg: rgba(249, 249, 251, 0.84);
-      --border: rgba(0, 0, 0, 0.075);
-      --border-strong: rgba(0, 0, 0, 0.15);
-      --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.03), 0 10px 28px rgba(0, 0, 0, 0.045);
-
-      --text: #1d1d1f;
-      --text-secondary: #515154;
-      --text-muted: #6e6e73;
-
-      --accent: #0066cc;
-      --accent-hover: #0055b3;
-      --accent-soft: rgba(0, 102, 204, 0.09);
-      --emerald: #1b7a3d;
-      --emerald-soft: rgba(27, 122, 61, 0.09);
-      color-scheme: light;
+      --max-w: 1120px;
+      --spring: cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     html {
       scroll-behavior: smooth;
       background: var(--bg);
       color-scheme: dark;
-      scrollbar-color: rgba(255, 255, 255, 0.18) var(--bg);
-      scrollbar-width: thin;
     }
-
     body {
       background: var(--bg);
       color: var(--text);
-      font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
-      font-size: 15px;
-      line-height: 1.58;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", system-ui, sans-serif;
+      line-height: 1.5;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       overflow-x: hidden;
     }
-
-    /* Subtle Tonal Highlights (Editorial Bold Emphasis) */
-    .hl {
-      color: var(--text);
-      font-weight: 700;
-      padding: 0 0.2em;
-      border-radius: 4px;
-      background: linear-gradient(180deg, transparent 58%, var(--accent-soft) 58%);
-    }
-    .hl-emerald {
-      color: var(--text);
-      font-weight: 700;
-      padding: 0 0.2em;
-      border-radius: 4px;
-      background: linear-gradient(180deg, transparent 58%, var(--emerald-soft) 58%);
-    }
-
-    /* Subtle film grain to eliminate dark-surface banding (MotionSites Craft) */
-    body::after {
-      content: "";
-      position: fixed;
-      inset: 0;
-      z-index: 90;
-      pointer-events: none;
-      opacity: 0.03;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    }
-
-    @keyframes fadeUpIn {
-      from {
-        opacity: 0;
-        transform: translateY(18px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .hero-eyebrow {
-      display: inline-flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 0.55rem;
-      font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--text);
-      padding: 0.42rem 0.9rem;
-      border-radius: var(--radius-pill);
-      border: 1px solid var(--border-strong);
-      background: var(--bg-elevated);
-      box-shadow: var(--shadow-card);
-      margin-bottom: 1.25rem;
-      animation: fadeUpIn 0.65s var(--ease-out) both;
-    }
-    .hero-eyebrow strong {
-      color: var(--emerald);
-      font-weight: 700;
-    }
-    .hero-eyebrow-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--emerald);
-      flex-shrink: 0;
-    }
-    :root[data-theme="light"] body::after { opacity: 0.014; }
-
-    .hero h1 em {
-      font-family: "Instrument Serif", "Times New Roman", Times, serif;
-      font-style: italic;
-      font-weight: 400;
-      letter-spacing: -0.01em;
-      color: var(--text);
-    }
-    .hero h1 { animation: fadeUpIn 0.7s var(--ease-out) 0.08s both; }
-    .hero .hero-sub { animation: fadeUpIn 0.7s var(--ease-out) 0.16s both; }
-    .hero .hero-ctas { animation: fadeUpIn 0.7s var(--ease-out) 0.24s both; }
-    .hero .hero-stage { animation: fadeUpIn 0.8s var(--ease-out) 0.18s both; }
-
-    /* ECE Signal-to-Cloud Pipeline Strip */
-    .ece-pipeline {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 0.85rem;
-      margin-bottom: 1.5rem;
-    }
-    .ece-node {
-      padding: 0.95rem 1.05rem;
-      background: var(--bg-elevated);
-      border: 1px solid var(--border);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
-      border-radius: var(--radius-md);
-    }
-    .ece-step {
-      font-family: "JetBrains Mono", ui-monospace, monospace;
-      font-size: 0.68rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 0.25rem;
-    }
-    .ece-node strong {
-      display: block;
-      font-size: 0.9rem;
-      font-weight: 600;
-      margin-bottom: 0.2rem;
-    }
-    .ece-node span {
-      display: block;
-      font-size: 0.78rem;
-      color: var(--text-secondary);
-      line-height: 1.4;
-    }
-
-    @media (max-width: 900px) {
-      .ece-pipeline { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    }
-    @media (max-width: 560px) {
-      .ece-pipeline { grid-template-columns: 1fr; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .hero-eyebrow, .hero h1, .hero .hero-sub, .hero .hero-ctas, .hero .hero-stage {
-        animation: none !important;
-      }
-    }
-
-    ::selection {
-      background: rgba(10, 132, 255, 0.3);
-      color: #ffffff;
-    }
-
-    ::-webkit-scrollbar { width: 8px; height: 8px; }
-    ::-webkit-scrollbar-track { background: var(--bg); }
-    ::-webkit-scrollbar-thumb {
-      background: rgba(255, 255, 255, 0.16);
-      border-radius: 9999px;
-    }
-    ::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.28); }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-      text-underline-offset: 3px;
-    }
+    a { color: inherit; text-decoration: none; }
     button { font-family: inherit; cursor: pointer; }
     a:focus-visible, button:focus-visible {
-      outline: 2px solid var(--accent);
+      outline: 2px solid var(--apple-blue);
       outline-offset: 2px;
     }
+    .mono { font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace; }
 
-    .skip-link {
-      position: absolute;
-      left: -9999px;
+    /* Top Scroll Progress Bar */
+    .scroll-progress {
+      position: fixed;
       top: 0;
-      z-index: 100;
-      padding: 0.65rem 1.1rem;
-      background: var(--accent);
-      color: #fff;
-      font-weight: 600;
-      border-radius: 0 0 var(--radius-sm) 0;
-    }
-    .skip-link:focus { left: 0; }
-
-    .mono {
-      font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
-      font-variant-numeric: tabular-nums;
+      left: 0;
+      height: 2px;
+      width: 0%;
+      z-index: 80;
+      background: linear-gradient(90deg, var(--apple-blue), var(--apple-cyan), var(--apple-green));
+      pointer-events: none;
     }
 
-    .tabular { font-variant-numeric: tabular-nums; }
+    /* Ambient Spotlight */
+    .ambient-glow {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background:
+        radial-gradient(ellipse 75% 45% at 50% -10%, rgba(10, 132, 255, 0.16), transparent 70%),
+        radial-gradient(ellipse 50% 35% at 85% 25%, rgba(48, 209, 88, 0.08), transparent 65%);
+      pointer-events: none;
+    }
 
-    /* Navigation */
+    /* Frosted Dock Navbar */
     .navbar {
       position: sticky;
       top: 0;
       z-index: 50;
-      backdrop-filter: blur(20px) saturate(180%);
-      -webkit-backdrop-filter: blur(20px) saturate(180%);
-      background: var(--nav-bg);
+      backdrop-filter: blur(28px) saturate(180%);
+      -webkit-backdrop-filter: blur(28px) saturate(180%);
+      background: rgba(12, 12, 14, 0.74);
       border-bottom: 1px solid var(--border);
     }
     .nav-inner {
       max-width: var(--max-w);
       margin: 0 auto;
-      padding: 0.8rem 1.5rem;
+      padding: 0.75rem 1.5rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -318,854 +109,691 @@
     .brand {
       display: inline-flex;
       align-items: center;
-      gap: 0.65rem;
+      gap: 0.6rem;
       font-weight: 600;
       font-size: 0.95rem;
       letter-spacing: -0.02em;
-      white-space: nowrap;
-      flex-shrink: 0;
     }
     .brand-mark {
       width: 24px;
       height: 24px;
-      border-radius: 6px;
-      background: var(--text);
-      color: var(--bg);
+      border-radius: 7px;
+      background: linear-gradient(135deg, #0a84ff, #30d158);
       display: grid;
       place-items: center;
-      font-size: 0.75rem;
+      font-size: 0.72rem;
+      color: #fff;
       font-weight: 700;
+      box-shadow: 0 2px 10px rgba(10, 132, 255, 0.35);
     }
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 1.75rem;
+      gap: 1.5rem;
       color: var(--text-secondary);
-      font-size: 0.86rem;
+      font-size: 0.82rem;
       font-weight: 500;
     }
-    .nav-links a {
-      position: relative;
-      transition: color 0.18s var(--ease-out);
-    }
-    .nav-links a::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: -6px;
-      height: 2px;
-      border-radius: 2px;
-      background: var(--accent);
-      transform: scaleX(0);
-      transform-origin: center;
-      transition: transform 0.24s var(--ease-out);
-    }
-    .nav-links a:hover,
-    .nav-links a.active { color: var(--text); }
-    .nav-links a.active::after { transform: scaleX(1); }
-
-    /* Scroll Progress Hairline & Back-to-Top Pill */
-    #scroll-progress {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 2px;
-      z-index: 60;
-      pointer-events: none;
-      background: linear-gradient(90deg, var(--accent), var(--apple-cyan));
-      transform-origin: left center;
-      transform: scaleX(0);
-      will-change: transform;
-    }
-
-    #back-to-top {
-      position: fixed;
-      right: max(1.25rem, env(safe-area-inset-right));
-      bottom: max(1.25rem, env(safe-area-inset-bottom));
-      z-index: 45;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.45rem;
-      padding: 0.55rem 0.9rem;
-      border-radius: var(--radius-pill);
-      background: var(--nav-bg);
-      backdrop-filter: blur(16px) saturate(180%);
-      -webkit-backdrop-filter: blur(16px) saturate(180%);
-      border: 1px solid var(--border-strong);
-      box-shadow: var(--shadow-card);
-      color: var(--text);
-      font-size: 0.78rem;
-      font-weight: 500;
-      opacity: 0;
-      pointer-events: none;
-      transform: translateY(10px);
-      transition: opacity 0.24s var(--ease-out), transform 0.24s var(--ease-out), border-color 0.2s ease;
-    }
-    #back-to-top.visible {
-      opacity: 1;
-      pointer-events: auto;
-      transform: translateY(0);
-    }
-    #back-to-top:hover {
-      border-color: var(--accent);
-    }
+    .nav-links a { transition: color 0.2s ease; }
+    .nav-links a:hover { color: var(--text); }
     .nav-actions {
       display: flex;
       align-items: center;
       gap: 0.5rem;
     }
-    .mobile-nav-btn { display: none; }
-    .mobile-nav-drawer {
-      display: none;
-      flex-direction: column;
-      gap: 0.25rem;
-      padding: 0.75rem 1.5rem 1rem;
-      border-top: 1px solid var(--border);
-      background: var(--nav-bg);
-    }
-    .mobile-nav-drawer.open { display: flex; }
-    .mobile-nav-drawer a {
-      padding: 0.65rem 0.75rem;
-      border-radius: var(--radius-sm);
-      font-size: 0.92rem;
+    .nav-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.38rem 0.85rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.78rem;
       font-weight: 500;
-      color: var(--text-secondary);
+      transition: all 0.25s var(--spring);
     }
-    .mobile-nav-drawer a:hover,
-    .mobile-nav-drawer a:focus-visible {
+    .nav-pill-ghost {
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.04);
+    }
+    .nav-pill-ghost:hover {
       color: var(--text);
-      background: var(--bg-surface);
+      border-color: var(--border-hover);
+      background: rgba(255, 255, 255, 0.09);
+    }
+    .nav-pill-primary {
+      background: var(--apple-blue);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+    .nav-pill-primary:hover {
+      background: #2591ff;
+      transform: translateY(-1px);
     }
 
     .container {
       max-width: var(--max-w);
       margin: 0 auto;
-      padding: 0 max(1.5rem, env(safe-area-inset-right)) 0 max(1.5rem, env(safe-area-inset-left));
+      padding: 0 1.5rem;
     }
 
-    /* Buttons */
-    .btn, .nav-pill {
+    /* Buttons (Kokonut UI inspired tactile pills) */
+    .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 0.45rem;
-      padding: 0.58rem 1.05rem;
+      gap: 0.5rem;
+      min-height: 44px;
+      padding: 0.7rem 1.45rem;
       border-radius: var(--radius-pill);
-      font-size: 0.86rem;
-      font-weight: 500;
+      font-size: 0.92rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
       border: 1px solid transparent;
-      transition: background-color 0.18s var(--ease-out), border-color 0.18s var(--ease-out), transform 0.14s var(--ease-out), color 0.18s var(--ease-out);
-      white-space: nowrap;
+      transition: all 0.3s var(--spring);
     }
-    .btn:active, .nav-pill:active { transform: scale(0.98); }
-    .btn-sm, .nav-pill { padding: 0.42rem 0.88rem; font-size: 0.8rem; }
-
-    .btn-primary, .nav-pill-primary {
-      background: var(--accent);
-      color: #ffffff;
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22), 0 1px 3px rgba(0, 0, 0, 0.2);
+    .btn-primary {
+      background: var(--text);
+      color: #000;
     }
-    .btn-primary:hover, .nav-pill-primary:hover { background: var(--accent-hover); }
-
-    .btn-secondary, .btn-glass, .nav-pill-ghost {
-      background: var(--bg-surface);
+    .btn-primary:hover {
+      background: #ffffff;
+      transform: scale(1.02);
+      box-shadow: 0 10px 28px rgba(255, 255, 255, 0.18);
+    }
+    .btn-blue {
+      background: var(--apple-blue);
+      color: #fff;
+    }
+    .btn-blue:hover {
+      background: #2894ff;
+      transform: scale(1.02);
+      box-shadow: 0 10px 28px rgba(10, 132, 255, 0.32);
+    }
+    .btn-glass {
+      background: rgba(255, 255, 255, 0.07);
       color: var(--text);
-      border-color: var(--border);
+      border-color: var(--border-specular);
+      backdrop-filter: blur(12px);
     }
-    .btn-secondary:hover, .btn-glass:hover, .nav-pill-ghost:hover {
-      background: var(--bg-hover);
-      border-color: var(--border-strong);
+    .btn-glass:hover {
+      background: rgba(255, 255, 255, 0.14);
+      border-color: var(--border-hover);
     }
-
-    .btn-emerald {
-      background: var(--emerald-soft);
-      color: var(--emerald);
-      border-color: rgba(48, 209, 88, 0.25);
-    }
-    .btn-emerald:hover {
-      background: rgba(48, 209, 88, 0.2);
-      border-color: rgba(48, 209, 88, 0.4);
-    }
-
     .btn-link {
       background: transparent;
-      color: var(--text-secondary);
-      padding-left: 0.35rem;
-      padding-right: 0.35rem;
+      color: var(--apple-blue);
+      padding: 0.5rem 0.75rem;
+      min-height: auto;
+      font-weight: 500;
     }
-    .btn-link:hover { color: var(--text); text-decoration: underline; }
+    .btn-link:hover { text-decoration: underline; }
+    .btn-sm {
+      min-height: 36px;
+      padding: 0.42rem 1rem;
+      font-size: 0.82rem;
+    }
 
-    /* Hero: Asymmetric Split */
+    /* Hero */
     .hero {
-      padding: 4.5rem 0 4rem;
-      border-bottom: 1px solid var(--border);
+      padding: 5.25rem 0 4rem;
+      text-align: center;
+      position: relative;
     }
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
-      gap: 3rem;
+    .hero-eyebrow {
+      display: inline-flex;
       align-items: center;
+      gap: 0.5rem;
+      padding: 0.38rem 0.95rem;
+      border-radius: var(--radius-pill);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--apple-cyan);
+      margin-bottom: 1.5rem;
     }
     .hero h1 {
-      font-size: clamp(2.5rem, 4.8vw, 3.85rem);
-      font-weight: 800;
-      line-height: 1.04;
-      letter-spacing: -0.036em;
-      color: var(--text);
-      margin-bottom: 1.25rem;
-      text-wrap: balance;
+      font-size: clamp(2.5rem, 6vw, 4.4rem);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+      max-width: 880px;
+      margin: 0 auto 1.3rem;
+      background: linear-gradient(180deg, #ffffff 15%, #a1a1a6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
     .hero-sub {
-      font-size: 1.05rem;
-      line-height: 1.6;
       color: var(--text-secondary);
-      max-width: 52ch;
-      margin-bottom: 2rem;
+      font-size: clamp(1.05rem, 2vw, 1.28rem);
+      line-height: 1.48;
+      max-width: 680px;
+      margin: 0 auto 2.2rem;
+      letter-spacing: -0.015em;
     }
-    .hero-sub strong { color: var(--text); font-weight: 600; }
     .hero-ctas {
       display: flex;
       flex-wrap: wrap;
+      justify-content: center;
       align-items: center;
-      gap: 0.75rem;
+      gap: 0.85rem;
+      margin-bottom: 3.25rem;
     }
+
+    /* 3D Interactive Stage */
     .hero-stage {
       position: relative;
-      height: 390px;
+      height: 370px;
+      max-width: 960px;
+      margin: 0 auto;
       border-radius: var(--radius-lg);
-      background: var(--bg-elevated);
-      border: 1px solid var(--border);
+      background: radial-gradient(circle at 50% 45%, rgba(10, 132, 255, 0.14), rgba(14, 14, 18, 0.92) 72%);
+      border: 1px solid var(--border-specular);
+      box-shadow:
+        0 40px 90px -20px rgba(0, 0, 0, 0.85),
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.14);
       overflow: hidden;
     }
-    #hero-3d-canvas {
-      display: block;
-      width: 100%;
-      height: 100%;
-      cursor: grab;
-    }
-    #hero-3d-canvas:active { cursor: grabbing; }
-    .stage-caption {
+    #hero-3d-canvas { width: 100%; height: 100%; display: block; }
+    .stage-hud {
       position: absolute;
-      bottom: 0.85rem;
-      right: 1rem;
-      font-size: 0.72rem;
-      color: var(--text-muted);
+      left: 20px;
+      right: 20px;
+      bottom: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.65rem 1rem;
+      border-radius: 14px;
+      background: rgba(12, 12, 16, 0.68);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid var(--border);
+      font-size: 0.78rem;
+      color: var(--text-secondary);
       pointer-events: none;
     }
-    .orbit-hud {
+    .stage-hud strong { color: var(--text); font-weight: 600; }
+
+    /* Sections */
+    section { padding: 5rem 0; }
+    .chapter-header {
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto 3rem;
+    }
+    .chapter-kicker {
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.55rem;
+      display: block;
+    }
+    .chapter-title {
+      font-size: clamp(1.95rem, 4vw, 3rem);
+      font-weight: 700;
+      line-height: 1.08;
+      letter-spacing: -0.035em;
+      margin-bottom: 0.9rem;
+    }
+    .chapter-desc {
+      color: var(--text-secondary);
+      font-size: 1.06rem;
+      line-height: 1.5;
+    }
+
+    /* Cursor Spotlight Card Base (Motion Primitives style) */
+    .spotlight-surface {
+      position: relative;
+      --mx: 50%;
+      --my: 50%;
+    }
+    .spotlight-surface::before {
+      content: "";
       position: absolute;
-      top: 0.85rem;
-      left: 0.85rem;
-      z-index: 4;
+      inset: 0;
+      border-radius: inherit;
+      background: radial-gradient(480px circle at var(--mx) var(--my), rgba(255, 255, 255, 0.07), transparent 45%);
+      opacity: 0;
+      transition: opacity 0.35s ease;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .spotlight-surface:hover::before { opacity: 1; }
+
+    /* ScrollX Horizontal Sticky Showcase */
+    .scrollx-section {
+      padding: 4rem 0;
+      position: relative;
+    }
+    .scrollx-wrapper {
+      position: relative;
+      height: 220vh;
+    }
+    .scrollx-sticky {
+      position: sticky;
+      top: 84px;
+      overflow: hidden;
+      padding: 1rem 0 2rem;
+    }
+    .scrollx-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1.75rem;
+    }
+    .scrollx-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .scrollx-dot-btn {
+      padding: 0.35rem 0.75rem;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-secondary);
+      font-size: 0.76rem;
+      font-weight: 500;
+      transition: all 0.25s var(--spring);
+    }
+    .scrollx-dot-btn.active {
+      background: var(--text);
+      color: #000;
+      border-color: var(--text);
+    }
+    .scrollx-track {
+      display: flex;
+      gap: 1.5rem;
+      will-change: transform;
+      transition: transform 0.1s linear;
+    }
+    .scrollx-card {
+      flex: 0 0 min(84vw, 520px);
+      background: var(--glass);
+      backdrop-filter: blur(28px) saturate(180%);
+      -webkit-backdrop-filter: blur(28px) saturate(180%);
+      border: 1px solid var(--border-specular);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      box-shadow:
+        0 24px 60px -15px rgba(0, 0, 0, 0.75),
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.14);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .scrollx-card-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    .scrollx-step {
+      font-size: 0.74rem;
+      font-weight: 600;
+      padding: 0.28rem 0.7rem;
+      border-radius: var(--radius-pill);
+    }
+    .scrollx-card h3 {
+      font-size: 1.45rem;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      margin-bottom: 0.6rem;
+    }
+    .scrollx-card p {
+      color: var(--text-secondary);
+      font-size: 0.94rem;
+      line-height: 1.55;
+      margin-bottom: 1.25rem;
+    }
+    .scrollx-diagram {
+      background: rgba(0, 0, 0, 0.42);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1rem;
+    }
+
+    /* Flagship Spotlight Cards */
+    .spotlight-card {
+      background: var(--glass);
+      backdrop-filter: blur(28px) saturate(180%);
+      -webkit-backdrop-filter: blur(28px) saturate(180%);
+      border: 1px solid var(--border-specular);
+      border-radius: var(--radius-lg);
+      box-shadow:
+        0 30px 70px -15px rgba(0, 0, 0, 0.75),
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.14);
+      overflow: hidden;
+      margin-bottom: 2.25rem;
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      align-items: stretch;
+      transition: border-color 0.35s ease, transform 0.4s var(--spring);
+    }
+    .spotlight-card:hover { border-color: var(--border-hover); }
+    .spotlight-card.reversed { grid-template-columns: 0.95fr 1.05fr; }
+    .spotlight-copy {
+      padding: 2.85rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      z-index: 2;
+    }
+    .spotlight-badge {
       display: inline-flex;
       align-items: center;
       gap: 0.45rem;
-      padding: 0.32rem 0.7rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.3rem 0.75rem;
       border-radius: var(--radius-pill);
-      background: var(--nav-bg);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid var(--border-strong);
-      font-size: 0.7rem;
-      color: var(--text);
-      pointer-events: none;
-      max-width: calc(100% - 1.7rem);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      width: fit-content;
+      margin-bottom: 1.15rem;
     }
-    .orbit-hud-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--emerald);
-      flex-shrink: 0;
-    }
-    .orbit-dock {
-      position: absolute;
-      bottom: 0.75rem;
-      left: 0.85rem;
-      z-index: 4;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.35rem;
-      max-width: calc(100% - 6.5rem);
-    }
-    .orbit-chip {
-      padding: 0.24rem 0.58rem;
-      border-radius: var(--radius-pill);
-      border: 1px solid var(--border-strong);
-      background: var(--nav-bg);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      color: var(--text-secondary);
-      font-size: 0.68rem;
-      font-weight: 500;
-      transition: color 0.18s ease, border-color 0.18s ease, background-color 0.18s ease, transform 0.18s ease;
-    }
-    .orbit-chip:hover,
-    .orbit-chip.active {
-      color: var(--text);
-      border-color: var(--accent);
-      background: var(--accent-soft);
-      transform: translateY(-1px);
-    }
-
-    /* Section Rhythm */
-    section { padding: 4.5rem 0; }
-    section + section { border-top: 1px solid var(--border); }
-
-    .section-header {
-      max-width: 62ch;
-      margin-bottom: 2.5rem;
-    }
-    .section-title {
-      font-size: clamp(1.75rem, 3.2vw, 2.35rem);
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      line-height: 1.12;
-      margin-bottom: 0.65rem;
-      text-wrap: balance;
-    }
-    .section-desc {
-      color: var(--text-secondary);
-      font-size: 0.98rem;
-    }
-
-    /* Flagships: Clean Alternating Editorial Rows */
-    .flagship-list {
-      display: flex;
-      flex-direction: column;
-      gap: 3.5rem;
-    }
-    .flagship-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2.75rem;
-      align-items: center;
-    }
-    .flagship-row.reversed .flagship-media { order: -1; }
-    .flagship-meta {
-      display: inline-block;
-      font-size: 0.76rem;
-      font-weight: 500;
-      color: var(--text-secondary);
-      margin-bottom: 0.6rem;
-    }
-    .flagship-copy h3 {
-      font-size: clamp(1.45rem, 2.4vw, 1.9rem);
+    .spotlight-copy h3 {
+      font-size: clamp(1.7rem, 3vw, 2.3rem);
       font-weight: 700;
-      letter-spacing: -0.024em;
-      line-height: 1.18;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
       margin-bottom: 0.85rem;
     }
-    .flagship-copy p {
+    .spotlight-copy p {
       color: var(--text-secondary);
-      max-width: 54ch;
-      margin-bottom: 1.5rem;
+      font-size: 0.98rem;
+      line-height: 1.55;
+      margin-bottom: 1.6rem;
     }
     .stat-trio {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(3, 1fr);
       gap: 1rem;
-      padding: 1rem 0;
+      padding: 1.1rem 0;
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.65rem;
     }
     .stat-val {
-      font-size: 1.15rem;
-      font-weight: 600;
+      font-size: 1.32rem;
+      font-weight: 700;
       letter-spacing: -0.02em;
-      font-variant-numeric: tabular-nums;
       color: var(--text);
     }
     .stat-lbl {
-      font-size: 0.76rem;
+      font-size: 0.75rem;
       color: var(--text-muted);
       margin-top: 0.15rem;
     }
-    .flagship-actions {
+    .spotlight-actions {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
-      gap: 0.65rem;
+      gap: 0.75rem;
     }
-    .flagship-media {
-      border-radius: var(--radius-lg);
-      background: var(--bg-elevated);
-      border: 1px solid var(--border);
+    .spotlight-visual {
+      position: relative;
+      padding: 2.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       overflow: hidden;
-      aspect-ratio: 16 / 10;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      min-height: 350px;
+      z-index: 2;
     }
-    .flagship-media img {
+    .visual-metshield {
+      background: radial-gradient(circle at 75% 25%, rgba(48, 209, 88, 0.18), transparent 60%), #07100d;
+      border-left: 1px solid var(--border);
+    }
+    .visual-browser {
+      background: radial-gradient(circle at 25% 25%, rgba(10, 132, 255, 0.2), transparent 60%), #080d18;
+      border-right: 1px solid var(--border);
+    }
+
+    .apple-window {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
+      border-radius: 16px;
+      background: rgba(18, 18, 22, 0.88);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      box-shadow: 0 28px 60px rgba(0, 0, 0, 0.65);
+      overflow: hidden;
     }
-    .flagship-media-browser {
-      padding: 2rem;
-      flex-direction: column;
-      align-items: stretch;
-      justify-content: center;
-      gap: 1.25rem;
-    }
-    .browser-head {
+    .window-bar {
+      padding: 0.75rem 1rem;
+      background: rgba(255, 255, 255, 0.03);
+      border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
-      gap: 0.9rem;
+      gap: 0.75rem;
     }
-    .browser-head img {
-      width: 44px;
-      height: 44px;
-      border-radius: 10px;
-      object-fit: contain;
-      background: var(--bg-surface);
-      padding: 6px;
+    .traffic-lights { display: flex; gap: 7px; }
+    .traffic-lights span { width: 11px; height: 11px; border-radius: 50%; }
+    .tl-red { background: #ff5f57; }
+    .tl-yellow { background: #febc2e; }
+    .tl-green { background: #28c840; }
+    .window-title {
+      flex: 1;
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+    .window-content { padding: 1.3rem; }
+
+    /* Interactive Bklit-Style Benchmark Chart */
+    .chart-panel {
+      background: var(--glass);
+      backdrop-filter: blur(28px) saturate(180%);
+      -webkit-backdrop-filter: blur(28px) saturate(180%);
+      border: 1px solid var(--border-specular);
+      border-radius: var(--radius-lg);
+      padding: 2.25rem;
+      box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.12);
+    }
+    .chart-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+    }
+    .chart-tab {
+      padding: 0.45rem 1rem;
+      border-radius: var(--radius-pill);
       border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text-secondary);
+      font-size: 0.84rem;
+      font-weight: 500;
+      transition: all 0.25s var(--spring);
     }
-    .bench-row { display: flex; flex-direction: column; gap: 0.4rem; }
-    .bench-meta {
+    .chart-tab.active {
+      background: var(--apple-blue);
+      color: #fff;
+      border-color: var(--apple-blue);
+    }
+    .chart-bars {
+      display: grid;
+      gap: 1.15rem;
+    }
+    .chart-row-meta {
       display: flex;
       justify-content: space-between;
-      font-size: 0.82rem;
-      color: var(--text-secondary);
+      align-items: baseline;
+      font-size: 0.88rem;
+      margin-bottom: 0.45rem;
     }
-    .bench-meta strong { color: var(--text); font-weight: 600; }
-    .bench-track {
-      height: 7px;
+    .chart-track {
+      height: 14px;
       border-radius: var(--radius-pill);
-      background: rgba(255, 255, 255, 0.06);
+      background: rgba(255, 255, 255, 0.07);
       overflow: hidden;
     }
-    .bench-fill { height: 100%; border-radius: var(--radius-pill); }
+    .chart-fill {
+      height: 100%;
+      width: 0%;
+      border-radius: var(--radius-pill);
+    }
 
-    /* Ecosystem Summary & Filter */
-    .gh-strip {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      background: var(--bg-elevated);
-      margin-bottom: 1.75rem;
-    }
-    .gh-metric {
-      padding: 1rem 1.25rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.15rem;
-    }
-    .gh-metric + .gh-metric { border-left: 1px solid var(--border); }
-    .gh-metric-val {
-      font-size: 1.35rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      font-variant-numeric: tabular-nums;
-    }
-    .gh-metric-lbl { font-size: 0.78rem; color: var(--text-muted); }
-
+    /* Filter Bar & Bento Grid */
     .filter-bar {
       display: flex;
+      justify-content: center;
       flex-wrap: wrap;
-      gap: 0.45rem;
-      margin-bottom: 1.75rem;
+      gap: 0.5rem;
+      margin-bottom: 2.25rem;
     }
     .filter-btn {
-      padding: 0.44rem 0.95rem;
+      padding: 0.5rem 1.15rem;
       border-radius: var(--radius-pill);
       border: 1px solid var(--border);
-      background: transparent;
+      background: rgba(255, 255, 255, 0.03);
       color: var(--text-secondary);
-      font-size: 0.82rem;
+      font-size: 0.85rem;
       font-weight: 500;
-      transition: all 0.18s var(--ease-out);
+      transition: all 0.25s var(--spring);
     }
-    .filter-btn:hover { color: var(--text); border-color: var(--border-strong); }
+    .filter-btn:hover { color: var(--text); border-color: var(--border-hover); }
     .filter-btn.active {
       background: var(--text);
-      color: var(--bg);
+      color: #000;
       border-color: var(--text);
     }
 
-    /* Clean Project Grid */
     .bento-grid {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 1.25rem;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+      gap: 1.35rem;
     }
-    .project-card {
+    .bento-card {
+      background: var(--glass);
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
+      border: 1px solid var(--border-specular);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
       display: flex;
       flex-direction: column;
-      background: var(--bg-elevated);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      overflow: hidden;
-      transition: border-color 0.2s var(--ease-out), transform 0.2s var(--ease-out);
+      box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.12);
+      transition: transform 0.35s var(--spring), border-color 0.3s ease, box-shadow 0.35s ease;
     }
-    .project-card:hover {
-      border-color: var(--border-strong);
-      transform: translateY(-2px);
+    .bento-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--border-hover);
+      box-shadow:
+        0 28px 60px -15px rgba(0, 0, 0, 0.7),
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.22);
     }
-    .card-stage {
-      position: relative;
-      aspect-ratio: 16 / 10;
-      background: var(--bg-surface);
-      border-bottom: 1px solid var(--border);
-      overflow: hidden;
-    }
-    .card-stage-inner {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-    .stage-centered {
+    .bento-card > * { position: relative; z-index: 2; }
+    .bento-top {
       display: flex;
-      flex-direction: column;
       align-items: center;
-      justify-content: center;
-      width: 100%;
-      height: 100%;
-      gap: 0.85rem;
-      padding: 1.25rem;
-      text-align: center;
-      background: radial-gradient(circle at 50% 42%, var(--stage-glow, rgba(56, 189, 248, 0.14)), var(--bg-surface) 72%);
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1.15rem;
     }
-    .stage-centered img,
-    .stage-centered .stage-fa-badge {
-      width: 88px;
-      height: 88px;
-      border-radius: 20px;
+    .bento-app-id { display: flex; align-items: center; gap: 0.85rem; }
+    .bento-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
       object-fit: contain;
-      padding: 12px;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.08);
-      transition: transform 0.25s var(--ease-out);
-    }
-    .stage-centered .stage-fa-badge {
+      padding: 4px;
+      border: 1px solid var(--border-specular);
+      background: rgba(255, 255, 255, 0.05);
       display: grid;
       place-items: center;
-      font-size: 2.15rem;
+      flex-shrink: 0;
     }
-    .project-card:hover .stage-centered img,
-    .project-card:hover .stage-centered .stage-fa-badge {
-      transform: scale(1.06);
+    .bento-kicker {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
-    .stage-centered-meta {
-      font-size: 0.74rem;
-      color: var(--text-secondary);
+    .bento-title { font-size: 1.4rem; font-weight: 700; letter-spacing: -0.025em; }
+    .bento-hook { font-size: 1.08rem; font-weight: 600; color: var(--text); margin-bottom: 0.45rem; }
+    .bento-desc { color: var(--text-secondary); font-size: 0.93rem; line-height: 1.55; margin-bottom: 1.25rem; }
+    .bento-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.4rem; }
+    .bento-tag {
       padding: 0.25rem 0.65rem;
       border-radius: var(--radius-pill);
-      background: var(--bg-elevated);
+      background: rgba(255, 255, 255, 0.05);
       border: 1px solid var(--border);
-    }
-
-    /* MetShield Dark Telemetry Display (OLED Instrument Bezel) */
-    .stage-metshield {
-      width: 100%;
-      height: 100%;
-      padding: 1rem 1.1rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      color: #f4f4f5;
-      background: radial-gradient(circle at 80% 15%, rgba(48, 209, 88, 0.14), #0c0d10 68%);
-    }
-    .stage-ms-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 0.5rem;
-    }
-    .stage-ms-id {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.78rem;
-      font-weight: 600;
-      color: #f4f4f5;
-    }
-    .stage-ms-id img {
-      width: 24px;
-      height: 24px;
-      border-radius: 6px;
-      object-fit: cover;
-      border: 1px solid rgba(255, 255, 255, 0.18);
-    }
-    .stage-ms-pill {
-      font-size: 0.66rem;
-      color: #30d158;
-      background: rgba(48, 209, 88, 0.14);
-      border: 1px solid rgba(48, 209, 88, 0.3);
-      padding: 0.18rem 0.5rem;
-      border-radius: var(--radius-pill);
-    }
-    .stage-ms-wave {
-      width: 100%;
-      height: 74px;
-      display: block;
-    }
-    .stage-ms-metrics {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0.45rem;
-    }
-    .stage-ms-cell {
-      padding: 0.4rem 0.5rem;
-      border-radius: 8px;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    .stage-ms-cell span {
-      display: block;
-      font-size: 0.62rem;
-      color: #a1a1aa;
-    }
-    .stage-ms-cell strong {
-      font-size: 0.76rem;
-      color: #f4f4f5;
-    }
-    .flagship-media, .project-card, .ece-node, .gh-strip, .matrix-box, .creator-band, .hero-stage {
-      box-shadow: var(--shadow-card);
-    }
-
-    .card-body {
-      padding: 1.25rem;
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-      gap: 0.75rem;
-    }
-    .card-top {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 0.75rem;
-    }
-    .card-title {
-      font-size: 1.05rem;
-      font-weight: 600;
-      letter-spacing: -0.015em;
-    }
-    .card-status {
-      font-size: 0.72rem;
-      font-weight: 500;
-      white-space: nowrap;
-    }
-    .card-desc {
-      font-size: 0.87rem;
+      font-size: 0.74rem;
       color: var(--text-secondary);
-      line-height: 1.5;
-      flex: 1;
     }
-    .card-meta-line {
-      font-size: 0.76rem;
-      color: var(--text-muted);
-      padding-top: 0.65rem;
+    .bento-footer {
+      margin-top: auto;
+      padding-top: 1.1rem;
       border-top: 1px solid var(--border);
-    }
-    .card-footer {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
-      gap: 0.45rem;
-      padding-top: 0.25rem;
+      gap: 0.6rem;
     }
-    .card-footer .spacer { margin-left: auto; }
+    .bento-footer .spacer { margin-left: auto; }
 
     /* Distribution Matrix */
     .matrix-box {
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      background: var(--bg-elevated);
+      border: 1px solid var(--border-specular);
+      border-radius: var(--radius-lg);
+      background: var(--glass);
+      backdrop-filter: blur(24px);
       overflow-x: auto;
     }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.86rem;
-    }
+    table { width: 100%; border-collapse: collapse; font-size: 0.9rem; min-width: 700px; }
     th {
       text-align: left;
-      padding: 0.8rem 0.95rem;
-      font-size: 0.76rem;
+      padding: 1rem 1.35rem;
+      font-size: 0.74rem;
       font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
       color: var(--text-muted);
       border-bottom: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.02);
     }
     td {
-      padding: 0.85rem 0.95rem;
+      padding: 1.05rem 1.35rem;
       border-bottom: 1px solid var(--border);
+      color: var(--text-secondary);
       vertical-align: middle;
     }
-    .matrix-box .btn {
-      white-space: normal;
-      text-align: left;
-    }
     tr:last-child td { border-bottom: none; }
-    .card-title-group {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.65rem;
-    }
-    .card-mini-icon {
-      width: 24px;
-      height: 24px;
-      border-radius: 6px;
-      object-fit: cover;
-      flex-shrink: 0;
-    }
-
-    /* Apple Spec Bento Grid */
-    .apple-bento {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 1.15rem;
-    }
-    .bento-tile {
-      background: var(--bg-elevated);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 1.65rem 1.75rem;
-      box-shadow: var(--shadow-card);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 0.75rem;
-      transition: border-color 0.22s var(--ease-out);
-    }
-    .bento-tile:hover { border-color: var(--border-strong); }
-    .bento-tile.bento-wide {
-      grid-column: span 2;
-      background: radial-gradient(circle at 92% 12%, var(--accent-soft), var(--bg-elevated) 58%);
-    }
-    .bento-kicker {
-      font-size: 0.72rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--accent);
-    }
-    .bento-stat {
-      font-size: clamp(1.85rem, 3vw, 2.45rem);
-      font-weight: 700;
-      letter-spacing: -0.035em;
-      line-height: 1.08;
-      color: var(--text);
-      font-variant-numeric: tabular-nums;
-    }
-    .bento-tile p {
-      font-size: 0.9rem;
-      color: var(--text-secondary);
-      max-width: 52ch;
-      line-height: 1.5;
-    }
-    @media (max-width: 900px) {
-      .apple-bento { grid-template-columns: 1fr; }
-      .bento-tile.bento-wide { grid-column: span 1; }
-    }
-
-    /* Engineering Timeline */
-    .timeline-list {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      gap: 1.35rem;
-      padding-left: 1.75rem;
-      border-left: 1px solid var(--border-strong);
-      margin-left: 0.5rem;
-    }
-    .timeline-item {
-      position: relative;
-      padding: 1.15rem 1.35rem;
-      border-radius: var(--radius-md);
-      background: var(--bg-elevated);
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow-card);
-    }
-    .timeline-item::before {
-      content: "";
-      position: absolute;
-      left: -2.14rem;
-      top: 1.45rem;
-      width: 11px;
-      height: 11px;
-      border-radius: 50%;
-      background: var(--accent);
-      border: 2px solid var(--bg);
-      box-shadow: 0 0 0 3px var(--accent-soft);
-    }
-    .timeline-date {
-      font-size: 0.72rem;
-      color: var(--accent);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      margin-bottom: 0.25rem;
-    }
-    .timeline-item h3 {
-      font-size: 1.02rem;
-      font-weight: 700;
-      margin-bottom: 0.3rem;
-      letter-spacing: -0.015em;
-    }
-    .timeline-item p {
-      font-size: 0.88rem;
-      color: var(--text-secondary);
-      max-width: 64ch;
-    }
-
-    @media print {
-      .navbar, #scroll-progress, #back-to-top, #toast, .hero-stage, .modal-header button, .modal-header a { display: none !important; }
-      body { background: #ffffff !important; color: #111111 !important; }
-      .modal-backdrop { position: static; background: none; opacity: 1; padding: 0; }
-      .modal-panel { box-shadow: none; border: none; max-height: none; width: 100%; transform: none; }
-    }
+    td strong { color: var(--text); font-weight: 600; }
 
     /* Creator Band */
     .creator-band {
+      padding: 3rem;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-specular);
+      background: linear-gradient(135deg, rgba(10, 132, 255, 0.12), rgba(48, 209, 88, 0.06) 50%, rgba(20, 20, 24, 0.95));
       display: flex;
+      flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
       gap: 2rem;
-      padding: 2rem;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      background: var(--bg-elevated);
     }
-    .creator-info {
-      display: flex;
-      align-items: center;
-      gap: 1.25rem;
-    }
+    .creator-info { display: flex; align-items: center; gap: 1.35rem; }
     .creator-avatar {
-      width: 64px;
-      height: 64px;
+      width: 68px;
+      height: 68px;
       border-radius: 50%;
       object-fit: cover;
-      border: 1px solid var(--border-strong);
-      flex-shrink: 0;
+      border: 2px solid rgba(255, 255, 255, 0.25);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     }
-    .creator-info h2 {
-      font-size: 1.2rem;
-      font-weight: 600;
-      letter-spacing: -0.02em;
-      margin-bottom: 0.25rem;
-    }
-    .creator-info p {
-      font-size: 0.9rem;
-      color: var(--text-secondary);
-      max-width: 54ch;
-    }
+    .creator-band h2 { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.025em; margin-bottom: 0.35rem; }
+    .creator-band p { color: var(--text-secondary); max-width: 520px; font-size: 0.95rem; }
 
     footer {
       border-top: 1px solid var(--border);
-      padding: 2rem 1.5rem;
+      padding: 2.5rem 1.5rem;
       text-align: center;
       color: var(--text-muted);
       font-size: 0.82rem;
@@ -1175,398 +803,105 @@
     .modal-backdrop {
       position: fixed;
       inset: 0;
-      z-index: 80;
-      background: rgba(0, 0, 0, 0.56);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      display: flex;
+      z-index: 60;
+      background: rgba(0, 0, 0, 0.78);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      display: none;
       align-items: center;
       justify-content: center;
       padding: 1.25rem;
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-      transition: opacity 0.24s var(--ease-out), visibility 0.24s var(--ease-out);
     }
-    .modal-backdrop.open {
-      opacity: 1;
-      visibility: visible;
-      pointer-events: auto;
-    }
+    .modal-backdrop.open { display: flex; }
     .modal-panel {
-      width: min(860px, 100%);
-      max-height: 88vh;
-      background: var(--bg-elevated);
-      border: 1px solid var(--border-strong);
-      border-radius: var(--radius-lg);
-      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+      width: min(980px, 100%);
+      max-height: 90vh;
+      background: #141418;
+      border: 1px solid var(--border-specular);
+      border-radius: 22px;
+      overflow: hidden;
       display: flex;
       flex-direction: column;
-      overflow: hidden;
-      transform: translateY(14px) scale(0.97);
-      transition: transform 0.28s var(--ease-out);
-    }
-    .modal-backdrop.open .modal-panel {
-      transform: translateY(0) scale(1);
+      box-shadow: 0 40px 100px rgba(0, 0, 0, 0.85);
     }
     .modal-header {
-      padding: 1rem 1.25rem;
+      padding: 1rem 1.4rem;
       border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 1rem;
     }
-    .modal-title {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
-      font-weight: 600;
-      font-size: 0.98rem;
-    }
+    .modal-title { font-weight: 600; font-size: 1.05rem; display: flex; align-items: center; gap: 0.6rem; }
     .modal-close {
-      width: 32px;
-      height: 32px;
+      width: 34px;
+      height: 34px;
       border-radius: 50%;
       border: 1px solid var(--border);
-      background: var(--bg-surface);
+      background: rgba(255, 255, 255, 0.06);
       color: var(--text);
       display: grid;
       place-items: center;
     }
-    .modal-close:hover { background: var(--bg-hover); }
-    .modal-body {
-      padding: 1.35rem;
-      overflow-y: auto;
-    }
-    .preview-frame {
-      width: 100%;
-      height: 62vh;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      background: #000;
-    }
-    .card-highlights {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-      font-size: 0.9rem;
-      color: var(--text-secondary);
-    }
-    .card-highlights li {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.55rem;
-    }
-    .card-highlights i {
-      color: var(--emerald);
-      margin-top: 0.28rem;
-      font-size: 0.78rem;
-    }
+    .modal-close:hover { background: rgba(255, 255, 255, 0.14); }
+    .modal-body { padding: 1.5rem; overflow-y: auto; }
 
     /* Toast */
     .toast {
       position: fixed;
-      bottom: 1.5rem;
-      left: 50%;
-      transform: translate(-50%, 16px);
-      opacity: 0;
-      pointer-events: none;
-      z-index: 90;
-      display: inline-flex;
+      bottom: 24px;
+      right: 24px;
+      z-index: 70;
+      padding: 0.75rem 1.2rem;
+      border-radius: var(--radius-pill);
+      background: rgba(28, 28, 34, 0.92);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border-specular);
+      color: var(--text);
+      font-size: 0.85rem;
+      display: none;
       align-items: center;
-      gap: 0.5rem;
-      padding: 0.6rem 1rem;
-      border-radius: var(--radius-pill);
-      background: var(--bg-surface);
-      border: 1px solid var(--border-strong);
-      font-size: 0.84rem;
-      transition: opacity 0.2s var(--ease-out), transform 0.2s var(--ease-out);
+      gap: 0.55rem;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.65);
     }
-    .toast.show {
-      opacity: 1;
-      transform: translate(-50%, 0);
-    }
+    .toast.show { display: flex; }
 
-    @media (max-width: 960px) {
-      .hero-grid, .flagship-row, .bento-grid {
-        grid-template-columns: 1fr;
-      }
-      .flagship-row.reversed .flagship-media { order: 0; }
-      .bento-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .gh-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .gh-metric:nth-child(3) { border-left: none; border-top: 1px solid var(--border); }
-      .gh-metric:nth-child(4) { border-top: 1px solid var(--border); }
-    }
-
-    @media (max-width: 680px) {
-      .nav-inner { padding: 0.75rem 1rem; gap: 0.5rem; }
-      .brand { font-size: 0.88rem; }
-      .nav-links, .nav-actions .nav-pill-primary { display: none; }
-      .mobile-nav-btn { display: inline-flex; min-width: 44px; min-height: 44px; justify-content: center; }
-      .nav-pill-ghost {
-        min-height: 44px;
-        min-width: 44px;
-        justify-content: center;
-        background: rgba(255, 255, 255, 0.04);
-        border: 1px solid var(--border-strong);
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
-      }
-      .nav-pill-ghost span { display: none; }
-      .hero-eyebrow {
-        flex-direction: column;
-        align-items: flex-start;
-        border-radius: 14px;
-        padding: 0.6rem 0.9rem;
-        gap: 0.25rem;
-        font-size: 0.72rem;
-        line-height: 1.4;
-        width: 100%;
-      }
-      .hero-eyebrow-head {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-      }
-      .eyebrow-sep { display: none; }
-      .hero-eyebrow-org {
-        color: var(--text-secondary);
-        font-weight: 500;
-        letter-spacing: 0.04em;
-      }
-      .btn, .filter-btn { min-height: 44px; }
-      .bento-grid, .specs-grid { grid-template-columns: 1fr; }
-      .creator-band { flex-direction: column; align-items: flex-start; }
-      .hero { padding: 2.25rem 0 2.75rem; }
-      .hero-stage { height: 280px; }
-      .orbit-dock { flex-wrap: wrap; gap: 0.35rem; max-width: calc(100% - 1.5rem); }
-      .orbit-chip { min-height: 38px; padding: 0.35rem 0.65rem; font-size: 0.72rem; }
-      .stage-caption { display: none; }
-      .modal-backdrop { padding: 0.75rem; }
-      .modal-panel { max-height: 92dvh; }
-      footer { padding-bottom: max(2rem, env(safe-area-inset-bottom)); }
-    }
-
-    /* Scroll-Reveal & Micro-Interaction Choreography */
-    .reveal {
-      opacity: 0;
-      transform: translateY(22px);
-      transition:
-        opacity 0.65s var(--ease-out),
-        transform 0.65s var(--ease-out);
-      transition-delay: var(--reveal-delay, 0ms);
-      will-change: opacity, transform;
-    }
-    .reveal.reveal-left { transform: translateX(-24px); }
-    .reveal.reveal-right { transform: translateX(24px); }
-    .reveal.in-view {
-      opacity: 1;
-      transform: translate3d(0, 0, 0);
-    }
-
-    .ece-node {
-      position: relative;
-      overflow: hidden;
-      transition: transform 0.28s var(--ease-out), border-color 0.28s ease;
-    }
-    .ece-node::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 60%;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--accent), transparent);
-      transition: left 0.6s var(--ease-out);
-    }
-    .ece-node:hover {
-      transform: translateY(-3px);
-      border-color: rgba(10, 132, 255, 0.4);
-    }
-    .ece-node:hover::after { left: 120%; }
-
-    .bench-fill {
-      transform-origin: left center;
-      transform: scaleX(0);
-      transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.15s;
-    }
-    .flagship-row.in-view .bench-fill { transform: scaleX(1); }
-
-    .project-card.card-enter {
-      opacity: 0;
-      transform: translateY(16px) scale(0.985);
-    }
-    .project-card.card-enter.in-view {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-      transition:
-        opacity 0.45s var(--ease-out),
-        transform 0.45s var(--ease-out),
-        border-color 0.25s ease,
-        background 0.25s ease;
-      transition-delay: var(--card-delay, 0ms);
-    }
-
-    .hero-eyebrow-dot {
-      box-shadow: 0 0 0 0 rgba(48, 209, 88, 0.55);
-      animation: pulseDot 2.4s infinite;
-    }
-    @keyframes pulseDot {
-      0% { box-shadow: 0 0 0 0 rgba(48, 209, 88, 0.55); }
-      70% { box-shadow: 0 0 0 7px rgba(48, 209, 88, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(48, 209, 88, 0); }
-    }
-
-    /* =======================================================================
-       Awwwards + ScrollX-UI Craft Layer (Spotlight, Shiny CTA, Animated Tabs, Lustre)
-       ======================================================================= */
-    .project-card,
-    .flagship-media,
-    .bento-tile {
-      position: relative;
-      overflow: hidden;
-    }
-
-    .project-card::before,
-    .ece-node::before,
-    .flagship-media::before,
-    .bento-tile::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      border-radius: inherit;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.35s var(--ease-out);
-      background: radial-gradient(
-        420px circle at var(--mx, 50%) var(--my, 50%),
-        rgba(41, 151, 255, 0.14),
-        transparent 60%
-      );
-      z-index: 1;
-    }
-    :root[data-theme="light"] .project-card::before,
-    :root[data-theme="light"] .ece-node::before,
-    :root[data-theme="light"] .flagship-media::before,
-    :root[data-theme="light"] .bento-tile::before {
-      background: radial-gradient(
-        420px circle at var(--mx, 50%) var(--my, 50%),
-        rgba(0, 102, 204, 0.08),
-        transparent 60%
-      );
-    }
-    .project-card:hover::before,
-    .ece-node:hover::before,
-    .flagship-media:hover::before,
-    .bento-tile:hover::before {
-      opacity: 1;
-    }
-
-    /* Shiny CTA sweep (ScrollX-UI shiny-button) */
-    .btn-primary,
-    .nav-pill-primary {
-      position: relative;
-      overflow: hidden;
-      transition: transform 0.3s var(--ease-out), background 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
-    }
-    .btn-primary::after,
-    .nav-pill-primary::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: -120%;
-      width: 75%;
-      height: 100%;
-      pointer-events: none;
-      background: linear-gradient(110deg, transparent 20%, rgba(255, 255, 255, 0.28) 50%, transparent 80%);
-      transform: skewX(-18deg);
-      transition: left 0.55s var(--ease-out);
-    }
-    .btn-primary:hover::after,
-    .nav-pill-primary:hover::after {
-      left: 140%;
-    }
-    .btn-primary:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 8px 24px rgba(41, 151, 255, 0.28);
-    }
-
-    /* Animated Tabs indicator (ScrollX-UI animated-tabs) */
-    .filter-bar {
-      position: relative;
-    }
-    .filter-pill-indicator {
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 100%;
-      border-radius: var(--radius-pill);
-      background: var(--text);
-      pointer-events: none;
-      z-index: 0;
-      transition: transform 0.35s var(--ease-out), width 0.35s var(--ease-out);
-    }
-    .filter-bar.has-indicator .filter-btn {
-      position: relative;
-      z-index: 1;
-      transition: color 0.25s var(--ease-out), border-color 0.25s var(--ease-out);
-    }
-    .filter-bar.has-indicator .filter-btn.active {
-      background: transparent;
-      border-color: transparent;
-    }
-
-    /* Lustre editorial italic accent (ScrollX-UI lustretext) */
-    @keyframes lustreSweep {
-      0%, 100% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-    }
-    .hero h1 em {
-      background: linear-gradient(110deg, var(--text) 35%, var(--accent) 50%, var(--text) 65%);
-      background-size: 220% 100%;
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: lustreSweep 7s ease-in-out infinite;
-    }
-
-    /* Accessible keyboard focus ring */
-    :is(a, button, [tabindex]):focus-visible {
-      outline: 2px solid var(--accent);
-      outline-offset: 2px;
+    @media (pointer: coarse) {
+      .btn-sm, .filter-btn, .chart-tab, .scrollx-dot-btn { min-height: 44px; }
+      .modal-close { width: 44px; height: 44px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
-      .btn, .nav-pill, .project-card, .toast, .filter-pill-indicator { transition: none; }
-      .project-card:hover, .btn-primary:hover { transform: none; box-shadow: none; }
-      .project-card::before, .ece-node::before, .flagship-media::before, .bento-tile::before,
-      .btn-primary::after, .nav-pill-primary::after { display: none; }
-      .hero h1 em {
-        animation: none !important;
-        -webkit-text-fill-color: currentColor;
-        background: none;
-      }
-      .reveal, .reveal.reveal-left, .reveal.reveal-right, .project-card.card-enter {
-        opacity: 1 !important;
-        transform: none !important;
-        transition: none !important;
-      }
-      .bench-fill {
-        transform: scaleX(1) !important;
-        transition: none !important;
-      }
-      .hero-eyebrow-dot, .ece-node::after {
-        animation: none !important;
-        transition: none !important;
-      }
+      .scrollx-wrapper { height: auto; }
+      .scrollx-sticky { position: static; overflow-x: auto; }
+      .scrollx-track { transform: none !important; }
+    }
+
+    @media (max-width: 920px) {
+      .spotlight-card,
+      .spotlight-card.reversed { grid-template-columns: 1fr; }
+      .visual-metshield { border-left: none; border-top: 1px solid var(--border); }
+      .visual-browser { border-right: none; border-bottom: 1px solid var(--border); }
+      .nav-links { display: none; }
+      .scrollx-wrapper { height: auto; }
+      .scrollx-sticky { position: static; overflow-x: auto; padding-bottom: 1rem; }
+      .scrollx-track { transform: none !important; }
+    }
+    @media (max-width: 560px) {
+      .hero { padding: 3.5rem 0 3rem; }
+      section { padding: 3.5rem 0; }
+      .spotlight-copy { padding: 1.75rem; }
+      .stat-trio { grid-template-columns: 1fr; gap: 0.75rem; }
+      .creator-band { padding: 1.75rem; }
+      .hero-stage { height: 280px; }
+      .nav-pill-ghost span { display: none; }
+      .nav-inner { padding: 0.7rem 1rem; }
     }
   </style>
 </head>
 <body>
-  <div id="scroll-progress" aria-hidden="true"></div>
-  <a href="#main-content" class="skip-link">Skip to content</a>
+  <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
+  <div class="ambient-glow" aria-hidden="true"></div>
 
   <header class="navbar">
     <div class="nav-inner">
@@ -1575,268 +910,331 @@
         <span>Shivam Kumar Mehta</span>
       </a>
       <nav class="nav-links" aria-label="Primary">
+        <a href="#scrollx-showcase">ScrollX Tour</a>
         <a href="#flagships">Flagships</a>
+        <a href="#benchmarks">Benchmarks</a>
         <a href="#ecosystem">Ecosystem</a>
         <a href="#distribution">Downloads</a>
-        <a href="#architecture">Engineering</a>
       </nav>
       <div class="nav-actions">
-        <button id="theme-toggle" type="button" class="nav-pill nav-pill-ghost" aria-label="Switch color theme" aria-pressed="false">
-          <i class="fa-solid fa-sun" aria-hidden="true"></i>
-        </button>
-        <a href="https://github.com/shivamkumarmehta64-sketch" target="_blank" rel="noopener noreferrer" class="nav-pill nav-pill-ghost" aria-label="GitHub profile">
-          <i class="fa-brands fa-github" aria-hidden="true"></i><span>GitHub</span>
+        <a href="https://github.com/shivamkumarmehta64-sketch" target="_blank" rel="noopener noreferrer" class="nav-pill nav-pill-ghost">
+          <i class="fa-brands fa-github"></i><span>GitHub</span>
         </a>
-        <a href="#distribution" class="nav-pill nav-pill-primary">Downloads</a>
-        <button id="mobile-nav-btn" type="button" class="nav-pill nav-pill-ghost mobile-nav-btn" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-nav-drawer">
-          <i class="fa-solid fa-bars" aria-hidden="true"></i>
-        </button>
+        <a href="#distribution" class="nav-pill nav-pill-primary">Get Software</a>
       </div>
     </div>
-    <nav id="mobile-nav-drawer" class="mobile-nav-drawer" aria-label="Mobile navigation">
-      <a href="#flagships">Flagships</a>
-      <a href="#ecosystem">Ecosystem</a>
-      <a href="#distribution">Downloads</a>
-      <a href="#architecture">Engineering</a>
-      <a href="#timeline">Timeline</a>
-      <a href="#connect">Connect</a>
-    </nav>
   </header>
 
-  <main id="main-content">
+  <main>
+    <!-- Hero -->
     <section class="hero">
       <div class="container">
-        <div class="hero-grid">
-          <div>
-            <div class="hero-eyebrow">
-              <span class="hero-eyebrow-head">
-                <span class="hero-eyebrow-dot" aria-hidden="true"></span>
-                <strong>B.Tech ECE</strong>
-              </span>
-              <span class="eyebrow-sep" aria-hidden="true">·</span>
-              <span class="hero-eyebrow-org">Purnea College of Engineering (BEU, Bihar)</span>
-            </div>
-            <h1>Systems built <em>from the metal up.</em></h1>
-            <p class="hero-sub">
-              I'm <strong class="hl">Shivam Kumar Mehta</strong> — an ECE undergrad obsessed with low-overhead software. From <strong class="hl-emerald">WMO-No. 8 weather station QC</strong> for MoES to <strong class="hl">sub-60 MB C# &amp; Rust browsers</strong>, I ship verifiable tools instead of bloated wrappers.
-            </p>
-            <div class="hero-ctas">
-              <a href="#flagships" class="btn btn-primary">Explore Releases</a>
-              <a href="https://aws2026-nu.vercel.app" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
-                Launch MetShield-AI
-              </a>
-              <a href="https://www.linkedin.com/in/shivam-kumar-mehta" target="_blank" rel="noopener noreferrer" class="btn btn-link">
-                LinkedIn ›
-              </a>
-            </div>
-          </div>
+        <div class="hero-eyebrow hero-anim">
+          <i class="fa-solid fa-wand-magic-sparkles"></i>
+          <span>Native Systems · Edge AI · Cryptographic Forensics</span>
+        </div>
+        <h1 class="hero-anim">Built native.<br />Engineered for the extremes.</h1>
+        <p class="hero-sub hero-anim">
+          Weather station quality-control AI, a 460 KB Windows browser, a 99 KB ad-free media player, and forensic triage tools by <strong>Shivam Kumar Mehta</strong>.
+        </p>
+        <div class="hero-ctas hero-anim">
+          <a href="#scrollx-showcase" class="btn btn-primary">Start ScrollX Tour</a>
+          <a href="https://aws2026-nu.vercel.app" target="_blank" rel="noopener noreferrer" class="btn btn-glass">
+            <i class="fa-solid fa-wave-square"></i> Launch MetShield-AI
+          </a>
+          <a href="https://blackbrowser.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn btn-link">
+            Apps Storefront ›
+          </a>
+        </div>
 
-          <div class="hero-stage" aria-label="Interactive 3D Systems Core">
-            <div id="orbit-hud" class="orbit-hud mono" aria-live="polite">
-              <span id="orbit-hud-dot" class="orbit-hud-dot" aria-hidden="true"></span>
-              <span id="orbit-hud-text">CORE · 13 GITHUB REPOS</span>
-            </div>
-            <canvas id="hero-3d-canvas"></canvas>
-            <div id="hero-3d-fallback" style="display: none; position: absolute; inset: 0; place-items: center; text-align: center; padding: 2rem;" aria-hidden="true">
-              <div style="color: var(--text-secondary); font-size: 0.9rem;">3D Systems Core (WebGL unavailable)</div>
-            </div>
-            <div class="orbit-dock" role="group" aria-label="Orbital ecosystem nodes">
-              <button type="button" class="orbit-chip mono" data-orbit-id="metshield-ai">MetShield</button>
-              <button type="button" class="orbit-chip mono" data-orbit-id="black-browser">Black Browser</button>
-              <button type="button" class="orbit-chip mono" data-orbit-id="quantum-drone-gcs">PQC Drone</button>
-              <button type="button" class="orbit-chip mono" data-orbit-id="timeline">2023–26 Timeline</button>
-            </div>
-            <span class="stage-caption">Drag · Click nodes</span>
+        <div class="hero-stage" aria-label="Interactive 3D Systems Core">
+          <canvas id="hero-3d-canvas"></canvas>
+          <div class="stage-hud">
+            <span><strong>Systems Core</strong> · Three.js + Anime.js Choreography</span>
+            <span class="mono" style="color: var(--apple-cyan);">MOVE POINTER TO ORBIT</span>
           </div>
         </div>
       </div>
     </section>
 
+    <!-- ScrollX Sticky Horizontal Architecture Tour -->
+    <section id="scrollx-showcase" class="scrollx-section">
+      <div class="container">
+        <div class="scrollx-wrapper" id="scrollx-wrapper">
+          <div class="scrollx-sticky">
+            <div class="scrollx-header">
+              <div>
+                <span class="chapter-kicker" style="color: var(--apple-cyan);">ScrollX Architecture Tour</span>
+                <h2 class="chapter-title" style="margin-bottom: 0.25rem;">Scroll through the engineering.</h2>
+              </div>
+              <div class="scrollx-controls" aria-label="Jump to ScrollX slide">
+                <button class="scrollx-dot-btn active" data-slide="0">01 · MetShield</button>
+                <button class="scrollx-dot-btn" data-slide="1">02 · Black Browser</button>
+                <button class="scrollx-dot-btn" data-slide="2">03 · BlackTube</button>
+                <button class="scrollx-dot-btn" data-slide="3">04 · aerotech</button>
+              </div>
+            </div>
+
+            <div class="scrollx-track" id="scrollx-track">
+              <!-- Slide 1 -->
+              <article class="scrollx-card spotlight-surface">
+                <div>
+                  <div class="scrollx-card-head">
+                    <span class="scrollx-step" style="background: var(--apple-green-soft); color: var(--apple-green);">01 / METSHIELD-AI</span>
+                    <span class="mono" style="font-size: 0.74rem; color: var(--text-muted);">WMO-No. 8 · 98.7% F1</span>
+                  </div>
+                  <h3>Separating storms from broken sensors.</h3>
+                  <p>A drifting barometer triggers false alarms in static checks. MetShield-AI couples pressure drops (ΔP ≤ -2.5 hPa) with rising humidity (ΔRH ≥ +15%) and cooling temperature (ΔT ≤ -1.5°C) in 0.005 ms.</p>
+                </div>
+                <div class="scrollx-diagram">
+                  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; text-align: center; font-size: 0.72rem;">
+                    <div style="padding: 0.55rem; border-radius: 10px; background: rgba(48,209,88,0.1); border: 1px solid rgba(48,209,88,0.28);">
+                      <strong style="color: var(--apple-green); display: block;">Tier 1</strong>Plausibility
+                    </div>
+                    <div style="padding: 0.55rem; border-radius: 10px; background: rgba(10,132,255,0.1); border: 1px solid rgba(10,132,255,0.28);">
+                      <strong style="color: var(--apple-blue); display: block;">Tier 2</strong>Drift &amp; Freeze
+                    </div>
+                    <div style="padding: 0.55rem; border-radius: 10px; background: rgba(191,90,242,0.12); border: 1px solid rgba(191,90,242,0.3);">
+                      <strong style="color: var(--apple-purple); display: block;">Tier 3</strong>Thermodynamic
+                    </div>
+                  </div>
+                </div>
+              </article>
+
+              <!-- Slide 2 -->
+              <article class="scrollx-card spotlight-surface">
+                <div>
+                  <div class="scrollx-card-head">
+                    <span class="scrollx-step" style="background: var(--apple-blue-soft); color: var(--apple-blue);">02 / BLACK BROWSER</span>
+                    <span class="mono" style="font-size: 0.74rem; color: var(--text-muted);">C# .NET 4.8 · ~460 KB</span>
+                  </div>
+                  <h3>WebView2 speed without Electron bloat.</h3>
+                  <p>Ships in a ~460 KB native executable using Windows' evergreen WebView2 engine. Passwords stay encrypted locally via Windows DPAPI, with zero cloud sync or telemetry.</p>
+                </div>
+                <div class="scrollx-diagram mono" style="font-size: 0.76rem; color: var(--text-secondary); display: grid; gap: 0.4rem;">
+                  <div><span style="color: var(--apple-blue);">Layer 1:</span> Network Ad-Domain Interceptor</div>
+                  <div><span style="color: var(--apple-cyan);">Layer 2:</span> YouTube API Payload Stripper</div>
+                  <div><span style="color: var(--apple-green);">Layer 3:</span> Auto-Skip DOM Observer + DPAPI Vault</div>
+                </div>
+              </article>
+
+              <!-- Slide 3 -->
+              <article class="scrollx-card spotlight-surface">
+                <div>
+                  <div class="scrollx-card-head">
+                    <span class="scrollx-step" style="background: var(--apple-red-soft); color: var(--apple-red);">03 / BLACKTUBE</span>
+                    <span class="mono" style="font-size: 0.74rem; color: var(--text-muted);">~99 KB · &lt;50 MB RAM</span>
+                  </div>
+                  <h3>Dedicated video playback in 99 KB.</h3>
+                  <p>Built for Windows 11 DWM dark chrome with F11 edge-to-edge fullscreen, SponsorBlock segment skipping, frameless Picture-in-Picture (Ctrl+Shift+P), and a Sleep Timer.</p>
+                </div>
+                <div class="scrollx-diagram mono" style="font-size: 0.76rem; color: var(--text-secondary); display: grid; gap: 0.4rem;">
+                  <div><span style="color: var(--apple-red);">5-Tier AdShield:</span> Network + /youtubei/v1/ + 16x Skip</div>
+                  <div><span style="color: var(--text);">Shortcuts:</span> Ctrl+Shift+P (PiP) · Ctrl+Shift+S (Sleep)</div>
+                </div>
+              </article>
+
+              <!-- Slide 4 -->
+              <article class="scrollx-card spotlight-surface">
+                <div>
+                  <div class="scrollx-card-head">
+                    <span class="scrollx-step" style="background: var(--apple-purple-soft); color: var(--apple-purple);">04 / AEROTECH</span>
+                    <span class="mono" style="font-size: 0.74rem; color: var(--text-muted);">BSA-2023 · STIX 2.1</span>
+                  </div>
+                  <h3>Court-ready Android APK triage.</h3>
+                  <p>Decompiles suspicious APKs, scores dangerous permissions and DEX indicators, seals forensic hash manifests with Ed25519 signatures, and exports STIX 2.1 threat bundles.</p>
+                </div>
+                <div class="scrollx-diagram mono" style="font-size: 0.76rem; color: var(--text-secondary); display: grid; gap: 0.4rem;">
+                  <div><span style="color: var(--apple-purple);">Custody:</span> Ed25519 Signed Evidence Manifest</div>
+                  <div><span style="color: var(--apple-green);">Export:</span> STIX 2.1 Threat Intelligence IOCs</div>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Flagship Spotlights -->
     <section id="flagships">
       <div class="container">
-        <div class="section-header">
-          <h2 class="section-title">Flagship builds</h2>
-          <p class="section-desc">Focused tools designed for operational reliability without cloud bloat or telemetry.</p>
+        <div class="chapter-header">
+          <span class="chapter-kicker" style="color: var(--apple-green);">Flagship Releases</span>
+          <h2 class="chapter-title">Measured performance, zero bloat.</h2>
+          <p class="chapter-desc">Every metric below comes from recorded repository benchmarks and live production builds.</p>
         </div>
 
-        <div class="flagship-list">
-          <article class="flagship-row">
-            <div class="flagship-copy">
-              <span class="flagship-meta" style="color: var(--emerald);">MoES / IMD · SIH 2026</span>
-              <h3>MetShield-AI — telling real storms apart from broken sensors.</h3>
-              <p>
-                Remote weather stations throw false alerts when a thermistor drifts or freezes. Built for <strong class="hl-emerald">Smart India Hackathon 2026</strong>, MetShield-AI cross-checks pressure drops against relative humidity spikes under <strong class="hl-emerald">WMO-No. 8</strong> rules so operators see real convective fronts, not noisy hardware.
-              </p>
-              <div class="stat-trio">
-                <div>
-                  <div class="stat-val">3-Tier</div>
-                  <div class="stat-lbl">WMO-No. 8 QC</div>
-                </div>
-                <div>
-                  <div class="stat-val">20 Nodes</div>
-                  <div class="stat-lbl">Live Stream Buffer</div>
-                </div>
-                <div>
-                  <div class="stat-val">223</div>
-                  <div class="stat-lbl">Vitest Tests Passing</div>
-                </div>
+        <!-- MetShield-AI -->
+        <article class="spotlight-card spotlight-surface">
+          <div class="spotlight-copy">
+            <span class="spotlight-badge" style="background: var(--apple-green-soft); color: var(--apple-green);">
+              <i class="fa-solid fa-shield-halved"></i> MoES / IMD · SIH 2026
+            </span>
+            <h3>MetShield-AI</h3>
+            <p>
+              Real-time 3-tier quality control and Explainable AI for Automatic Weather Stations. Separates genuine convective squalls from faulty thermistors under WMO-No. 8 rules.
+            </p>
+            <div class="stat-trio">
+              <div>
+                <div class="stat-val" data-count="98.7" data-suffix="%">98.7%</div>
+                <div class="stat-lbl">Macro F1 (20k Frames)</div>
               </div>
-              <div class="flagship-actions">
-                <a href="https://aws2026-nu.vercel.app" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">Launch Portal</a>
-                <button class="btn btn-secondary btn-sm" data-open-details="metshield-ai">Architecture &amp; Specs</button>
-                <a href="https://github.com/shivamkumarmehta64-sketch/MetShield-AI" target="_blank" rel="noopener noreferrer" class="btn btn-link btn-sm">Source ›</a>
+              <div>
+                <div class="stat-val">0.005 ms</div>
+                <div class="stat-lbl">p95 QC Latency</div>
+              </div>
+              <div>
+                <div class="stat-val" data-count="212" data-suffix="">212</div>
+                <div class="stat-lbl">Automated Tests</div>
               </div>
             </div>
-            <div class="flagship-media flagship-media-browser">
-              <div class="browser-head">
-                <img src="assets/jatayu-seal.jpg" alt="Project JATAYU MetShield-AI" style="object-fit: cover; padding: 0;" />
-                <div>
-                  <div style="font-weight: 600;">NAWS-QMS v4.2 · 3-Tier QC Engine</div>
-                  <div style="font-size: 0.8rem; color: var(--emerald);">WMO-No. 8 Limits · Convective Front Discrimination</div>
-                </div>
+            <div class="spotlight-actions">
+              <a href="https://aws2026-nu.vercel.app" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">Launch Live Portal</a>
+              <button class="btn btn-glass btn-sm" data-open-details="metshield-ai">Architecture &amp; Specs</button>
+              <a href="https://github.com/shivamkumarmehta64-sketch/MetShield-AI" target="_blank" rel="noopener noreferrer" class="btn btn-link btn-sm">Source ›</a>
+            </div>
+          </div>
+          <div class="spotlight-visual visual-metshield">
+            <div class="apple-window">
+              <div class="window-bar">
+                <div class="traffic-lights"><span class="tl-red"></span><span class="tl-yellow"></span><span class="tl-green"></span></div>
+                <div class="window-title">Project JATAYU — NAWS-QMS v4.2</div>
               </div>
-              <svg viewBox="0 0 420 96" class="stage-ms-wave" aria-hidden="true" style="height: 92px;">
-                <defs>
-                  <linearGradient id="msGradFlag" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stop-color="#30d158" stop-opacity="0.32" />
-                    <stop offset="100%" stop-color="#30d158" stop-opacity="0" />
-                  </linearGradient>
-                </defs>
-                <path d="M0,68 C45,66 75,64 115,58 C155,52 185,22 225,26 C265,30 295,62 340,56 C375,52 398,42 420,40 L420,96 L0,96 Z" fill="url(#msGradFlag)" />
-                <path d="M0,68 C45,66 75,64 115,58 C155,52 185,22 225,26 C265,30 295,62 340,56 C375,52 398,42 420,40" fill="none" stroke="#30d158" stroke-width="2.2" />
-                <path d="M0,34 C50,36 90,40 135,48 C180,58 205,78 245,74 C285,70 330,44 420,38" fill="none" stroke="#0a84ff" stroke-width="1.8" stroke-dasharray="4 3" />
-              </svg>
-              <div class="stage-ms-metrics">
-                <div class="stage-ms-cell">
-                  <span>Tier 1 Range</span>
-                  <strong class="mono">-10..55°C</strong>
+              <div class="window-content">
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.15rem;">
+                  <img src="assets/jatayu-seal.jpg" alt="Project JATAYU Seal" style="width: 56px; height: 56px; border-radius: 50%; object-fit: cover; border: 2px solid var(--apple-green);" />
+                  <div>
+                    <div style="font-weight: 600; font-size: 0.95rem;">Convective Front Classifier</div>
+                    <div class="mono" style="font-size: 0.74rem; color: var(--apple-green);">● ΔP ≤ -2.5 hPa + ΔRH ≥ +15% · VERIFIED</div>
+                  </div>
                 </div>
-                <div class="stage-ms-cell">
-                  <span>Storm Rule</span>
-                  <strong class="mono" style="color: var(--accent);">ΔP≤-2.5 · ΔRH≥+15%</strong>
-                </div>
-                <div class="stage-ms-cell">
-                  <span>Test Suite</span>
-                  <strong class="mono" style="color: var(--emerald);">223 / 223 PASS</strong>
+                <div style="background: rgba(0,0,0,0.35); border: 1px solid var(--border); border-radius: 12px; padding: 0.9rem;">
+                  <div class="mono" style="display: flex; justify-content: space-between; font-size: 0.76rem; color: var(--text-secondary); margin-bottom: 0.5rem;">
+                    <span>TEMP: 28.4°C</span>
+                    <span>PRES: 998.4 hPa</span>
+                    <span>RH: 74%</span>
+                  </div>
+                  <svg viewBox="0 0 280 54" width="100%" height="54" aria-hidden="true">
+                    <path class="anime-svg-line" d="M0 38 C 40 34, 65 14, 105 20 C 145 26, 170 8, 210 16 C 240 22, 260 10, 280 12" fill="none" stroke="#30d158" stroke-width="2.5" stroke-linecap="round"/>
+                    <path d="M0 44 C 50 42, 85 32, 130 35 C 175 38, 215 24, 280 28" fill="none" stroke="#0a84ff" stroke-width="2" stroke-dasharray="4 4"/>
+                  </svg>
                 </div>
               </div>
             </div>
-          </article>
+          </div>
+        </article>
 
-          <article class="flagship-row reversed">
-            <div class="flagship-copy">
-              <span class="flagship-meta" style="color: var(--accent);">v9.1.0 · Windows 10 / 11</span>
-              <h3>Black Browser — a ~460 KB Windows browser without the Chromium tax.</h3>
-              <p>
-                I got tired of browsers eating 700 MB of RAM just to open docs on a student laptop. Built in <strong class="hl">C# (.NET 4.8) over WebView2</strong>, it pairs a 3-layer ad/YouTube filter and Windows DPAPI vault with an <strong class="hl">Authenticode-verified installer</strong>, fail-closed SHA-256 updates, and 22 security regression tests.
-              </p>
-              <div class="stat-trio">
-                <div>
-                  <div class="stat-val">~460 KB</div>
-                  <div class="stat-lbl">Executable Size</div>
-                </div>
-                <div>
-                  <div class="stat-val">&lt;60 MB</div>
-                  <div class="stat-lbl">RAM Footprint</div>
-                </div>
-                <div>
-                  <div class="stat-val">3-Layer</div>
-                  <div class="stat-lbl">AdShield Engine</div>
-                </div>
+        <!-- Black Browser -->
+        <article class="spotlight-card reversed spotlight-surface">
+          <div class="spotlight-visual visual-browser">
+            <div class="apple-window">
+              <div class="window-bar">
+                <div class="traffic-lights"><span class="tl-red"></span><span class="tl-yellow"></span><span class="tl-green"></span></div>
+                <div class="window-title">black://home — Speed Dial</div>
               </div>
-              <div class="flagship-actions">
-                <a id="black-browser-hero-dl" href="https://github.com/shivamkumarmehta64-sketch/BlackBrowser/releases" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">Download for Windows</a>
-                <button class="btn btn-secondary btn-sm" data-open-details="black-browser">Inspect Security</button>
-                <a href="https://blackbrowser.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn btn-link btn-sm">Storefront ›</a>
+              <div class="window-content">
+                <div style="display: flex; align-items: center; gap: 0.95rem; margin-bottom: 1.15rem;">
+                  <img src="assets/black-firefox-icon.png" alt="Black Browser" style="width: 48px; height: 48px; border-radius: 12px; object-fit: contain; background: rgba(255,255,255,0.05); padding: 4px; border: 1px solid var(--border);" />
+                  <div>
+                    <div style="font-weight: 600; font-size: 0.95rem;">Active Tab Memory Usage</div>
+                    <div style="font-size: 0.78rem; color: var(--text-secondary);">With 3-Layer AdShield enabled</div>
+                  </div>
+                </div>
+                <div style="display: grid; gap: 0.85rem;">
+                  <div>
+                    <div style="display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 0.3rem;">
+                      <strong>Black Browser (C# / WebView2)</strong><span class="mono" style="color: var(--apple-blue);">54 MB</span>
+                    </div>
+                    <div class="chart-track" style="height: 10px;"><div style="width: 11%; height: 100%; background: var(--apple-blue); border-radius: 999px;"></div></div>
+                  </div>
+                  <div>
+                    <div style="display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 0.3rem;">
+                      <span>Standard Chromium Browser</span><span class="mono" style="color: var(--text-muted);">680+ MB</span>
+                    </div>
+                    <div class="chart-track" style="height: 10px;"><div style="width: 88%; height: 100%; background: rgba(255,255,255,0.2); border-radius: 999px;"></div></div>
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="flagship-media flagship-media-browser">
-              <div class="browser-head">
-                <img src="assets/black-firefox-icon.png" alt="Black Browser" />
-                <div>
-                  <div style="font-weight: 600;">Memory Footprint Benchmark</div>
-                  <div style="font-size: 0.8rem; color: var(--text-secondary);">Single-tab idle + 3-Layer AdShield</div>
-                </div>
+          </div>
+          <div class="spotlight-copy">
+            <span class="spotlight-badge" style="background: var(--apple-blue-soft); color: var(--apple-blue);">
+              <i class="fa-solid fa-bolt"></i> v9.1.0 · Windows 10 / 11
+            </span>
+            <h3>Black Browser</h3>
+            <p>
+              A ~460 KB native Windows browser built in C# (.NET 4.8) and Microsoft WebView2. Keeps active RAM under 60 MB while running a 3-layer AdShield and DPAPI local password vault.
+            </p>
+            <div class="stat-trio">
+              <div>
+                <div class="stat-val">~460 KB</div>
+                <div class="stat-lbl">Executable Size</div>
               </div>
-              <div class="bench-row">
-                <div class="bench-meta"><strong>Black Browser (C# / WebView2)</strong><span class="mono" style="color: var(--accent);">54 MB</span></div>
-                <div class="bench-track"><div class="bench-fill" style="width: 11%; background: var(--accent);"></div></div>
+              <div>
+                <div class="stat-val">&lt;60 MB</div>
+                <div class="stat-lbl">RAM Footprint</div>
               </div>
-              <div class="bench-row">
-                <div class="bench-meta"><span>Standard Chromium Browser</span><span class="mono">680+ MB</span></div>
-                <div class="bench-track"><div class="bench-fill" style="width: 88%; background: rgba(255,255,255,0.22);"></div></div>
+              <div>
+                <div class="stat-val">3-Layer</div>
+                <div class="stat-lbl">AdShield Engine</div>
               </div>
             </div>
-          </article>
+            <div class="spotlight-actions">
+              <a id="black-browser-hero-dl" href="https://github.com/shivamkumarmehta64-sketch/Black-Firefox/releases" target="_blank" rel="noopener noreferrer" class="btn btn-blue btn-sm">Download for Windows</a>
+              <button class="btn btn-glass btn-sm" data-open-details="black-browser">Inspect Security</button>
+              <a href="https://blackbrowser.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn btn-link btn-sm">Apps Storefront ›</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Bklit-Style Interactive Benchmarks Chart -->
+    <section id="benchmarks" style="padding-top: 1.5rem;">
+      <div class="container">
+        <div class="chapter-header" style="margin-bottom: 2.25rem;">
+          <span class="chapter-kicker" style="color: var(--apple-purple);">Interactive Telemetry</span>
+          <h2 class="chapter-title">Compare footprints in real time.</h2>
+          <p class="chapter-desc">Switch datasets below to inspect measured RAM consumption, standalone binary sizes, and QC accuracy.</p>
+        </div>
+
+        <div class="chart-panel spotlight-surface">
+          <div class="chart-tabs" role="tablist" aria-label="Benchmark datasets">
+            <button class="chart-tab active" data-metric="ram">RAM Footprint (MB)</button>
+            <button class="chart-tab" data-metric="size">Binary Size (KB)</button>
+            <button class="chart-tab" data-metric="qc">MetShield-AI QC Accuracy (%)</button>
+          </div>
+          <div class="chart-bars" id="chart-bars"></div>
         </div>
       </div>
     </section>
 
-    <section id="ecosystem">
+    <!-- Complete Software Ecosystem -->
+    <section id="ecosystem" style="padding-top: 1.5rem;">
       <div class="container">
-        <div class="section-header">
-          <h2 class="section-title">Software ecosystem</h2>
-          <p class="section-desc">Eight engineering builds spanning ECE hardware tools, native desktop runtimes, meteorological AI, and cryptographic triage.</p>
-        </div>
-
-        <div class="ece-pipeline" aria-label="ECE Hardware-to-Cloud Signal Path">
-          <div class="ece-node">
-            <div class="ece-step">01 / Sensors &amp; ECE</div>
-            <strong>Physical Acquisition</strong>
-            <span>Barometers, 6-DoF UAVs, &amp; offline Kotlin lab math</span>
-          </div>
-          <div class="ece-node">
-            <div class="ece-step">02 / Cryptographic Edge</div>
-            <strong>Zero-Trust Sealing</strong>
-            <span>ML-KEM-768, AES-256-GCM, Ed25519 &amp; DPAPI vaults</span>
-          </div>
-          <div class="ece-node">
-            <div class="ece-step">03 / Native Desktop</div>
-            <strong>Sub-60 MB Runtimes</strong>
-            <span>C# (.NET 4.8), Rust (Tauri) &amp; Authenticode checks</span>
-          </div>
-          <div class="ece-node">
-            <div class="ece-step">04 / Cloud Telemetry</div>
-            <strong>Verified Pipelines</strong>
-            <span>Next.js Edge, WMO-No. 8 QC &amp; 223/223 Vitest suite</span>
-          </div>
-        </div>
-
-        <div id="gh-telemetry-strip" class="gh-strip" aria-label="GitHub Portfolio Summary" aria-busy="true">
-          <div class="gh-metric">
-            <span class="gh-metric-val" id="gh-total-repos">13</span>
-            <span class="gh-metric-lbl">Public Repositories</span>
-          </div>
-          <div class="gh-metric">
-            <span class="gh-metric-val" id="gh-live-apps">4</span>
-            <span class="gh-metric-lbl">Live Web Portals</span>
-          </div>
-          <div class="gh-metric">
-            <span class="gh-metric-val" id="gh-active-releases">3</span>
-            <span class="gh-metric-lbl">Desktop Releases</span>
-          </div>
-          <div class="gh-metric">
-            <span class="gh-metric-val">245</span>
-            <span class="gh-metric-lbl">Passing Security &amp; QC Tests</span>
-          </div>
+        <div class="chapter-header" style="margin-bottom: 2rem;">
+          <span class="chapter-kicker" style="color: var(--apple-blue);">Software Ecosystem</span>
+          <h2 class="chapter-title">Six production tools.</h2>
         </div>
 
         <div class="filter-bar" role="tablist" aria-label="Filter software">
-          <button class="filter-btn active" role="tab" aria-selected="true" data-filter="all">All (8)</button>
-          <button class="filter-btn" role="tab" aria-selected="false" data-filter="desktop">Native &amp; Rust (3)</button>
-          <button class="filter-btn" role="tab" aria-selected="false" data-filter="web">AI &amp; Web (2)</button>
-          <button class="filter-btn" role="tab" aria-selected="false" data-filter="security">Security &amp; ECE (3)</button>
+          <button class="filter-btn active" data-filter="all">All Releases (6)</button>
+          <button class="filter-btn" data-filter="desktop">Native Desktop</button>
+          <button class="filter-btn" data-filter="web">AI &amp; Web</button>
+          <button class="filter-btn" data-filter="security">Security &amp; Forensics</button>
         </div>
 
         <div id="projects-grid" class="bento-grid"></div>
       </div>
     </section>
 
-    <section id="distribution">
+    <!-- Official Distribution Matrix -->
+    <section id="distribution" style="padding-top: 1.5rem;">
       <div class="container">
-        <div class="section-header">
-          <h2 class="section-title">Distribution &amp; runtime matrix</h2>
-          <p class="section-desc">Release metadata synced with GitHub Releases. Signed installers and portable archives.</p>
+        <div class="chapter-header" style="margin-bottom: 2.25rem;">
+          <span class="chapter-kicker" style="color: var(--apple-purple);">Verified Builds</span>
+          <h2 class="chapter-title">Distribution &amp; Runtime Matrix</h2>
+          <p class="chapter-desc">Live release metadata synced from GitHub Releases. Signed installers and portable archives ready for download.</p>
         </div>
 
         <div class="matrix-box">
@@ -1856,93 +1254,24 @@
       </div>
     </section>
 
-    <section id="architecture">
-      <div class="container">
-        <div class="section-header">
-          <h2 class="section-title">Engineering standards</h2>
-          <p class="section-desc">Core architectural constraints applied across every repository.</p>
-        </div>
-
-        <div class="apple-bento">
-          <div class="bento-tile bento-wide">
-            <span class="bento-kicker mono">IoT &amp; Sensor Physics</span>
-            <div class="bento-stat">3-Tier WMO-No. 8 QC</div>
-            <p>Real-time barometric and thermistor anomaly detection separating genuine convective fronts from sensor drift across 20 live AWS nodes, backed by 223/223 Vitest checks.</p>
-          </div>
-          <div class="bento-tile">
-            <span class="bento-kicker mono">Native Efficiency</span>
-            <div class="bento-stat">&lt; 60 MB RAM</div>
-            <p>C# (.NET 4.8) WebView2 &amp; Rust/Tauri binaries (~460 KB footprint) verified with 22 security regression tests.</p>
-          </div>
-          <div class="bento-tile">
-            <span class="bento-kicker mono">Cryptographic Trust</span>
-            <div class="bento-stat">ML-KEM-768</div>
-            <p>Post-quantum UAV C2 links (AES-256-GCM), Windows DPAPI vaults, and Ed25519 custody bundles.</p>
-          </div>
-          <div class="bento-tile bento-wide">
-            <span class="bento-kicker mono">Mobile &amp; Web Stack</span>
-            <div class="bento-stat">Hardware to Browser</div>
-            <p>Kotlin Android offline mXparser math, Next.js Edge portals, Three.js WebGL2 geometry, and zero-build GitHub Pages delivery.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="timeline">
-      <div class="container">
-        <div class="section-header">
-          <h2 class="section-title">Engineering timeline</h2>
-          <p class="section-desc">Key milestones from B.Tech ECE coursework in Bihar to production releases.</p>
-        </div>
-
-        <div class="timeline-list">
-          <article class="timeline-item">
-            <div class="timeline-date mono">2026 · SIH 2026 &amp; Bihar Cybercrime PS-02</div>
-            <h3>MetShield-AI (MoES / IMD) &amp; aerotech Forensics</h3>
-            <p>Engineered WMO-No. 8 3-tier weather QC with 223/223 Vitest checks, bounded API rate limits, and Ed25519-signed APK forensic triage.</p>
-          </article>
-          <article class="timeline-item">
-            <div class="timeline-date mono">2026 · Desktop Systems</div>
-            <h3>Black Browser v9.1.0, BlackTube v1.0.0 &amp; Blue Browser (Tauri)</h3>
-            <p>Shipped sub-60 MB C# (.NET 4.8) WebView2 &amp; Rust/Tauri browsers with Authenticode verification, fail-closed SHA-256 updates, and 22/22 security tests.</p>
-          </article>
-          <article class="timeline-item">
-            <div class="timeline-date mono">2025 · ECE Field Tooling</div>
-            <h3>Electronics Calculator (Android / Kotlin) &amp; Quantum Drone GCS</h3>
-            <p>Built an offline mXparser scientific calculator for ECE labs and an air-gapped ML-KEM-768 + AES-256-GCM UAV Ground Control Station.</p>
-          </article>
-          <article class="timeline-item">
-            <div class="timeline-date mono">2023 – Present · Purnea College of Engineering</div>
-            <h3>B.Tech Electronics &amp; Communication Engineering (BEU, Bihar)</h3>
-            <p>Core focus on embedded sensors, signal processing, low-level Windows/Rust runtimes, and applied cryptography.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="connect">
+    <!-- Creator Band -->
+    <section id="connect" style="padding-top: 1.5rem;">
       <div class="container">
         <div class="creator-band">
           <div class="creator-info">
-            <img src="https://avatars.githubusercontent.com/u/251188287?v=4" alt="Shivam Kumar Mehta" class="creator-avatar" width="64" height="64" loading="lazy" decoding="async" />
+            <img src="https://avatars.githubusercontent.com/u/251188287?v=4" alt="Shivam Kumar Mehta" class="creator-avatar" />
             <div>
               <h2>Shivam Kumar Mehta</h2>
-              <p><strong class="hl">B.Tech ECE @ Purnea College of Engineering (BEU, Bihar)</strong>. Mostly found debugging sensor math, tightening Windows binaries, or hardening APIs. Always up for systems &amp; embedded collaborations.</p>
+              <p>Systems, IoT &amp; Native Software Engineer (ECE @ PCE). Building deterministic weather QC, low-overhead Windows tools, and digital forensics.</p>
             </div>
           </div>
-          <div style="display: flex; flex-wrap: wrap; gap: 0.65rem;">
+          <div style="display: flex; flex-wrap: wrap; gap: 0.75rem;">
             <a href="https://www.linkedin.com/in/shivam-kumar-mehta" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">
-              <i class="fa-brands fa-linkedin" aria-hidden="true"></i> LinkedIn
+              <i class="fa-brands fa-linkedin"></i> LinkedIn
             </a>
-            <a href="mailto:shivamkumarmehta64@gmail.com" class="btn btn-secondary btn-sm">
-              <i class="fa-solid fa-envelope" aria-hidden="true"></i> Email
+            <a href="mailto:shivamkumarmehta64@gmail.com" class="btn btn-glass btn-sm">
+              <i class="fa-solid fa-envelope"></i> Email
             </a>
-            <button id="copy-email-btn" type="button" class="btn btn-secondary btn-sm" aria-label="Copy email address">
-              <i class="fa-regular fa-copy" aria-hidden="true"></i> Copy Email
-            </button>
-            <button id="open-resume-btn" type="button" class="btn btn-secondary btn-sm">
-              <i class="fa-solid fa-file-lines" aria-hidden="true"></i> Resume / PDF
-            </button>
           </div>
         </div>
       </div>
@@ -1950,19 +1279,20 @@
   </main>
 
   <footer>
-    <p>© 2026 Shivam Kumar Mehta · Native Software &amp; Systems Engineering</p>
+    <p>© 2026 Shivam Kumar Mehta · Native Software &amp; Systems Engineering Hub</p>
   </footer>
 
+  <!-- Modal -->
   <div id="app-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-title-text">
     <div class="modal-panel">
       <div class="modal-header">
-        <div class="modal-title" id="modal-title-text">Preview</div>
+        <div class="modal-title" id="modal-title-text">Specs</div>
         <div style="display: flex; align-items: center; gap: 0.5rem;">
-          <a id="modal-external-link" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" style="display: none;">
-            <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> Open Tab
+          <a id="modal-external-link" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-glass btn-sm" style="display: none;">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i> Open Tab
           </a>
           <button id="modal-close-btn" class="modal-close" aria-label="Close modal">
-            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+            <i class="fa-solid fa-xmark"></i>
           </button>
         </div>
       </div>
@@ -1970,20 +1300,16 @@
     </div>
   </div>
 
-  <button id="back-to-top" type="button" aria-label="Scroll back to top">
-    <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
-    <span class="mono">Top</span>
-  </button>
-
   <div id="toast" class="toast" role="status" aria-live="polite">
-    <i class="fa-solid fa-circle-check" style="color: var(--emerald);" aria-hidden="true"></i>
+    <i class="fa-solid fa-circle-check" style="color: var(--apple-green);"></i>
     <span id="toast-text">Copied link</span>
   </div>
 
   <script type="importmap">
   {
     "imports": {
-      "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"
+      "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+      "animejs": "https://cdn.jsdelivr.net/npm/animejs@3.2.2/lib/anime.es.js"
     }
   }
   </script>
