@@ -869,64 +869,90 @@ function initHero3D() {
   const rootGroup = new THREE.Group();
   scene.add(rootGroup);
 
+  const isLightTheme = () => document.documentElement.getAttribute('data-theme') === 'light';
+
   // Outer architectural wireframe icosahedron
-  const outerGeo = new THREE.IcosahedronGeometry(1.48, 1);
+  const outerGeo = new THREE.IcosahedronGeometry(1.36, 1);
   const outerWire = new THREE.WireframeGeometry(outerGeo);
-  const outerMat = new THREE.LineBasicMaterial({ color: 0x38bdf8, transparent: true, opacity: 0.45 });
+  const outerMat = new THREE.LineBasicMaterial({
+    color: isLightTheme() ? 0x0071e3 : 0x38bdf8,
+    transparent: true,
+    opacity: isLightTheme() ? 0.32 : 0.42
+  });
   const outerMesh = new THREE.LineSegments(outerWire, outerMat);
   rootGroup.add(outerMesh);
 
   // Inner high-mass faceted core
-  const coreGeo = new THREE.OctahedronGeometry(0.84, 0);
+  const coreGeo = new THREE.OctahedronGeometry(0.74, 0);
   const coreMat = new THREE.MeshStandardMaterial({
     color: 0x10b981,
     emissive: 0x064e3b,
     emissiveIntensity: 0.65,
-    metalness: 0.82,
-    roughness: 0.22,
+    metalness: 0.85,
+    roughness: 0.2,
     flatShading: true
   });
   const coreMesh = new THREE.Mesh(coreGeo, coreMat);
   rootGroup.add(coreMesh);
 
-  // Primary & secondary counter-rotating gimbal halos
-  const ringGeo = new THREE.TorusGeometry(2.05, 0.014, 8, 96);
-  const ringMat = new THREE.MeshBasicMaterial({ color: 0xa78bfa, transparent: true, opacity: 0.38 });
-  const ringMesh = new THREE.Mesh(ringGeo, ringMat);
-  ringMesh.rotation.x = Math.PI * 0.36;
-  ringMesh.rotation.y = Math.PI * 0.12;
-  rootGroup.add(ringMesh);
-
-  const gimbalGeo = new THREE.TorusGeometry(1.78, 0.01, 8, 84);
-  const gimbalMat = new THREE.MeshBasicMaterial({ color: 0x0a84ff, transparent: true, opacity: 0.28 });
+  // Inner counter-rotating precision gyroscope
+  const gimbalGeo = new THREE.TorusGeometry(1.56, 0.009, 10, 96);
+  const gimbalMat = new THREE.MeshBasicMaterial({
+    color: isLightTheme() ? 0x1d1d1f : 0x64d2ff,
+    transparent: true,
+    opacity: isLightTheme() ? 0.22 : 0.28
+  });
   const gimbalMesh = new THREE.Mesh(gimbalGeo, gimbalMat);
-  gimbalMesh.rotation.x = -Math.PI * 0.28;
-  gimbalMesh.rotation.z = Math.PI * 0.22;
+  gimbalMesh.rotation.x = -Math.PI * 0.32;
+  gimbalMesh.rotation.z = Math.PI * 0.18;
   rootGroup.add(gimbalMesh);
 
-  // 4 Interactive Ecosystem & Timeline Satellites orbiting the GitHub/ECE Core
-  const satGroup = new THREE.Group();
+  // 4 Multi-Plane Keplerian Orbital Tracks & Satellites
   const satSpecs = [
-    { id: 'metshield-ai', label: 'METSHIELD-AI · SIH 2026 (223 VITEST)', color: 0x2fb36d, hex: '#2fb36d', angle: 0, radius: 2.05 },
-    { id: 'black-browser', label: 'BLACK BROWSER · v9.1.0 (~460 KB)', color: 0x3b9eff, hex: '#3b9eff', angle: Math.PI * 0.5, radius: 2.05 },
-    { id: 'quantum-drone-gcs', label: 'QUANTUM DRONE · ML-KEM-768 PQC', color: 0x5e9eff, hex: '#5e9eff', angle: Math.PI, radius: 2.05 },
-    { id: 'timeline', label: 'TIMELINE · 2023–26 BEU ECE → RELEASES', color: 0xd49a2a, hex: '#d49a2a', angle: Math.PI * 1.5, radius: 2.05 }
+    { id: 'metshield-ai', label: 'METSHIELD-AI · SIH 2026 (223 VITEST)', color: 0x2fb36d, hex: '#2fb36d', angle: 0.3, radius: 1.88, speed: 0.34, tiltX: 0.58, tiltZ: 0.22 },
+    { id: 'black-browser', label: 'BLACK BROWSER · v9.1.0 (~460 KB)', color: 0x3b9eff, hex: '#3b9eff', angle: 1.85, radius: 2.08, speed: -0.27, tiltX: -0.46, tiltZ: 0.62 },
+    { id: 'quantum-drone-gcs', label: 'QUANTUM DRONE · ML-KEM-768 PQC', color: 0x8b5cf6, hex: '#8b5cf6', angle: 3.5, radius: 2.24, speed: 0.23, tiltX: 0.28, tiltZ: -0.68 },
+    { id: 'timeline', label: 'TIMELINE · 2023–26 BEU ECE → RELEASES', color: 0xd49a2a, hex: '#d49a2a', angle: 5.1, radius: 1.98, speed: -0.31, tiltX: -0.64, tiltZ: -0.25 }
   ];
-  const satGeo = new THREE.SphereGeometry(0.085, 18, 18);
+
+  const satGeo = new THREE.SphereGeometry(0.082, 20, 20);
+  const haloGeo = new THREE.SphereGeometry(0.145, 18, 18);
   const satMeshes = [];
+  const orbitSystems = [];
+
   satSpecs.forEach(spec => {
+    const plane = new THREE.Group();
+    plane.rotation.x = spec.tiltX;
+    plane.rotation.z = spec.tiltZ;
+
+    const trackGeo = new THREE.TorusGeometry(spec.radius, 0.0075, 8, 112);
+    const trackMat = new THREE.MeshBasicMaterial({
+      color: spec.color,
+      transparent: true,
+      opacity: isLightTheme() ? 0.22 : 0.24
+    });
+    const trackMesh = new THREE.Mesh(trackGeo, trackMat);
+    trackMesh.rotation.x = Math.PI * 0.5;
+    plane.add(trackMesh);
+
     const sat = new THREE.Mesh(satGeo, new THREE.MeshBasicMaterial({ color: spec.color }));
+    const haloMat = new THREE.MeshBasicMaterial({ color: spec.color, transparent: true, opacity: 0.24 });
+    const halo = new THREE.Mesh(haloGeo, haloMat);
+    sat.add(halo);
+
     sat.position.set(Math.cos(spec.angle) * spec.radius, 0, Math.sin(spec.angle) * spec.radius);
     sat.userData = spec;
-    satGroup.add(sat);
-    satMeshes.push(sat);
-  });
-  satGroup.rotation.x = Math.PI * 0.36;
-  satGroup.rotation.y = Math.PI * 0.12;
-  rootGroup.add(satGroup);
+    plane.add(sat);
 
-  // Dynamic connection beam from ECE/GitHub Core to active satellite
-  const beamGeo = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 0, 0)]);
+    rootGroup.add(plane);
+    satMeshes.push(sat);
+    orbitSystems.push({ spec, plane, trackMat, sat, haloMat, angle: spec.angle });
+  });
+
+  // Dynamic connection beam from Core to active satellite
+  const beamPositions = new Float32Array(6);
+  const beamGeo = new THREE.BufferGeometry();
+  beamGeo.setAttribute('position', new THREE.BufferAttribute(beamPositions, 3));
   const beamMat = new THREE.LineBasicMaterial({ color: 0x3b9eff, transparent: true, opacity: 0 });
   const beamLine = new THREE.Line(beamGeo, beamMat);
   scene.add(beamLine);
@@ -974,14 +1000,31 @@ function initHero3D() {
   const count = isMobile ? 55 : 95;
   const positions = new Float32Array(count * 3);
   for (let i = 0; i < count; i++) {
-    positions[i * 3] = (Math.random() - 0.5) * 9;
-    positions[i * 3 + 1] = (Math.random() - 0.5) * 6;
+    positions[i * 3] = (Math.random() - 0.5) * 9.5;
+    positions[i * 3 + 1] = (Math.random() - 0.5) * 6.5;
     positions[i * 3 + 2] = (Math.random() - 0.5) * 4 - 1;
   }
   const starGeo = new THREE.BufferGeometry();
   starGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-  const starMat = new THREE.PointsMaterial({ color: 0xe4e4e7, size: 0.035, transparent: true, opacity: 0.55 });
+  const starMat = new THREE.PointsMaterial({
+    color: isLightTheme() ? 0x6e6e73 : 0xe4e4e7,
+    size: 0.034,
+    transparent: true,
+    opacity: isLightTheme() ? 0.38 : 0.55
+  });
   scene.add(new THREE.Points(starGeo, starMat));
+
+  // Sync 3D materials on Apple Light/Dark theme switch
+  const themeObserver = new MutationObserver(() => {
+    const light = isLightTheme();
+    outerMat.color.setHex(light ? 0x0071e3 : 0x38bdf8);
+    outerMat.opacity = light ? 0.32 : 0.42;
+    gimbalMat.color.setHex(light ? 0x1d1d1f : 0x64d2ff);
+    gimbalMat.opacity = light ? 0.22 : 0.28;
+    starMat.color.setHex(light ? 0x6e6e73 : 0xe4e4e7);
+    starMat.opacity = light ? 0.38 : 0.55;
+  });
+  themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 
   const keyLight = new THREE.DirectionalLight(0x38bdf8, 2.3);
   keyLight.position.set(3, 4, 5);
@@ -994,15 +1037,58 @@ function initHero3D() {
 
   const raycaster = new THREE.Raycaster();
   const pointerNdc = new THREE.Vector2(99, 99);
-  let targetX = 0;
-  let targetY = 0;
+  let hoverX = 0;
+  let hoverY = 0;
+  let dragRotX = 0;
+  let dragRotY = 0;
+  let velX = 0;
+  let velY = 0;
+  let isDragging = false;
+  let dragMoved = false;
+  let lastPointerX = 0;
+  let lastPointerY = 0;
   let pulseVelocity = 0;
   let hoveredMesh = null;
 
+  canvas.style.cursor = 'grab';
+  canvas.style.touchAction = 'pan-y';
+
+  container.addEventListener('pointerdown', e => {
+    if (e.target !== canvas) return;
+    isDragging = true;
+    dragMoved = false;
+    lastPointerX = e.clientX;
+    lastPointerY = e.clientY;
+    pulseVelocity = 0.06;
+    canvas.style.cursor = 'grabbing';
+  });
+
+  window.addEventListener('pointerup', () => {
+    if (!isDragging) return;
+    isDragging = false;
+    canvas.style.cursor = hoveredMesh ? 'pointer' : 'grab';
+    if (!dragMoved && hoveredMesh) {
+      triggerOrbitAction(hoveredMesh.userData.id);
+    }
+  });
+
   container.addEventListener('pointermove', e => {
     const rect = container.getBoundingClientRect();
-    targetX = ((e.clientX - rect.left) / rect.width - 0.5) * 0.75;
-    targetY = ((e.clientY - rect.top) / rect.height - 0.5) * 0.75;
+    if (isDragging) {
+      const dx = e.clientX - lastPointerX;
+      const dy = e.clientY - lastPointerY;
+      if (Math.abs(dx) > 2 || Math.abs(dy) > 2) dragMoved = true;
+      velY = dx * 0.008;
+      velX = dy * 0.008;
+      dragRotY += velY;
+      dragRotX = Math.max(-0.9, Math.min(0.9, dragRotX + velX));
+      lastPointerX = e.clientX;
+      lastPointerY = e.clientY;
+      return;
+    }
+
+    hoverX = ((e.clientX - rect.left) / rect.width - 0.5) * 0.48;
+    hoverY = ((e.clientY - rect.top) / rect.height - 0.5) * 0.48;
     pointerNdc.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
     pointerNdc.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
     raycaster.setFromCamera(pointerNdc, camera);
@@ -1012,18 +1098,13 @@ function initHero3D() {
     if (hoveredMesh) setActiveOrbit(hoveredMesh.userData.id);
     else if (!e.target.closest('.orbit-chip')) setActiveOrbit(null);
   });
+
   container.addEventListener('pointerleave', () => {
-    targetX = 0;
-    targetY = 0;
+    hoverX = 0;
+    hoverY = 0;
     hoveredMesh = null;
-    canvas.style.cursor = 'grab';
+    if (!isDragging) canvas.style.cursor = 'grab';
     setActiveOrbit(null);
-  });
-  container.addEventListener('pointerdown', e => {
-    pulseVelocity = 0.08;
-    if (hoveredMesh && e.target === canvas) {
-      triggerOrbitAction(hoveredMesh.userData.id);
-    }
   });
 
   const ro = new ResizeObserver(() => {
@@ -1035,7 +1116,10 @@ function initHero3D() {
     renderer.setSize(w, h, false);
   });
   ro.observe(container);
-  window.addEventListener('pagehide', () => renderer.dispose(), { once: true });
+  window.addEventListener('pagehide', () => {
+    themeObserver.disconnect();
+    renderer.dispose();
+  }, { once: true });
 
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   let isVisible = true;
@@ -1049,7 +1133,12 @@ function initHero3D() {
     return;
   }
 
+  const _corePos = new THREE.Vector3();
+  const _satPos = new THREE.Vector3();
+  const _targetScaleVec = new THREE.Vector3();
+  let elapsed = 0;
   let last = performance.now();
+
   function animate(now) {
     if (contextLost) return;
     requestAnimationFrame(animate);
@@ -1059,44 +1148,72 @@ function initHero3D() {
     }
     const dt = Math.min((now - last) / 1000, 0.05);
     last = now;
+    elapsed += dt;
 
     // Scroll-driven depth & pitch (never blocks page scroll)
     const scrollNorm = Math.min(window.scrollY / 650, 1);
     camera.position.z = 5.4 + scrollNorm * 0.9;
     camera.position.y = -scrollNorm * 0.35;
 
-    // Weighted inertia + click impulse
+    // Weighted inertia + drag momentum
     pulseVelocity *= 0.92;
-    const speedBoost = 1 + pulseVelocity * 18;
-    outerMesh.rotation.y += dt * 0.22 * speedBoost;
-    outerMesh.rotation.x += dt * 0.11 * speedBoost;
-    coreMesh.rotation.y -= dt * 0.35 * speedBoost;
-    ringMesh.rotation.z += dt * 0.16 * speedBoost;
-    gimbalMesh.rotation.z -= dt * 0.21 * speedBoost;
-    satGroup.rotation.y += dt * 0.28 * speedBoost;
-
-    const coreScale = 1 + pulseVelocity * 1.1;
-    coreMesh.scale.setScalar(coreScale);
-
-    rootGroup.rotation.y += (targetX - rootGroup.rotation.y) * 0.055;
-    rootGroup.rotation.x += (targetY + scrollNorm * 0.22 - rootGroup.rotation.x) * 0.055;
-
-    // Satellite scale & dynamic radial beam from Core to active node
-    let activeSat = null;
-    for (const sat of satMeshes) {
-      const isActive = sat.userData.id === activeOrbitId;
-      const targetScale = isActive ? 1.65 : 1;
-      sat.scale.lerp(new THREE.Vector3(targetScale, targetScale, targetScale), 0.16);
-      if (isActive) activeSat = sat;
+    if (!isDragging) {
+      dragRotY += velY;
+      dragRotX = Math.max(-0.9, Math.min(0.9, dragRotX + velX));
+      velX *= 0.92;
+      velY *= 0.92;
     }
-    if (activeSat) {
-      const corePos = new THREE.Vector3();
-      const satPos = new THREE.Vector3();
-      coreMesh.getWorldPosition(corePos);
-      activeSat.getWorldPosition(satPos);
-      beamGeo.setFromPoints([corePos, satPos]);
-      beamMat.color.setHex(activeSat.userData.color);
-      beamMat.opacity += (0.75 - beamMat.opacity) * 0.2;
+
+    const speedBoost = 1 + pulseVelocity * 14;
+    outerMesh.rotation.y += dt * 0.2 * speedBoost;
+    outerMesh.rotation.x += dt * 0.1 * speedBoost;
+    coreMesh.rotation.y -= dt * 0.34 * speedBoost;
+    gimbalMesh.rotation.z -= dt * 0.24 * speedBoost;
+    gimbalMesh.rotation.y += dt * 0.12 * speedBoost;
+
+    // Subtle breathing core pulse
+    const breath = 1 + Math.sin(elapsed * 2.1) * 0.035 + pulseVelocity * 1.1;
+    coreMesh.scale.setScalar(breath);
+
+    const targetRootY = dragRotY + hoverX;
+    const targetRootX = dragRotX + hoverY + scrollNorm * 0.22;
+    rootGroup.rotation.y += (targetRootY - rootGroup.rotation.y) * 0.08;
+    rootGroup.rotation.x += (targetRootX - rootGroup.rotation.x) * 0.08;
+
+    // Multi-plane Keplerian orbital motion & active node highlight
+    let activeSys = null;
+    for (let i = 0; i < orbitSystems.length; i++) {
+      const sys = orbitSystems[i];
+      const isActive = sys.spec.id === activeOrbitId;
+      const orbitRate = isActive ? sys.spec.speed * 0.32 : sys.spec.speed;
+      sys.angle += dt * orbitRate * speedBoost;
+
+      sys.sat.position.set(
+        Math.cos(sys.angle) * sys.spec.radius,
+        0,
+        Math.sin(sys.angle) * sys.spec.radius
+      );
+
+      const targetScale = isActive ? 1.7 : 1 + Math.sin(elapsed * 2.6 + i) * 0.08;
+      _targetScaleVec.setScalar(targetScale);
+      sys.sat.scale.lerp(_targetScaleVec, 0.16);
+
+      const targetTrackOpacity = isActive ? 0.82 : (isLightTheme() ? 0.2 : 0.24);
+      sys.trackMat.opacity += (targetTrackOpacity - sys.trackMat.opacity) * 0.14;
+      sys.haloMat.opacity += ((isActive ? 0.45 : 0.2) - sys.haloMat.opacity) * 0.14;
+
+      if (isActive) activeSys = sys;
+    }
+
+    if (activeSys) {
+      coreMesh.getWorldPosition(_corePos);
+      activeSys.sat.getWorldPosition(_satPos);
+      const posAttr = beamGeo.getAttribute('position');
+      posAttr.setXYZ(0, _corePos.x, _corePos.y, _corePos.z);
+      posAttr.setXYZ(1, _satPos.x, _satPos.y, _satPos.z);
+      posAttr.needsUpdate = true;
+      beamMat.color.setHex(activeSys.spec.color);
+      beamMat.opacity += (0.85 - beamMat.opacity) * 0.22;
     } else {
       beamMat.opacity += (0 - beamMat.opacity) * 0.2;
     }
