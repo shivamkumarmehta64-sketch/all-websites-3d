@@ -22,7 +22,7 @@ jobs:
       - name: Run 0security scan
         uses: 0sec-labs/0security@v0.46.0
         env:
-          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY || secrets.GEMINI_API_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY || secrets.OPENROUTER || secrets.GEMINI_API_KEY }}
         with:
           version: "0.46.0"
           target: "."
